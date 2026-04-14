@@ -1,4 +1,4 @@
-package com.example.smartcart.models;
+package com.example.domain.models;
 
 public class Product {
     private int id;

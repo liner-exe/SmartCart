@@ -1,32 +1,47 @@
 package com.example.smartcart.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcart.R;
+import com.example.domain.models.Product;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-    private String[] localDataSet;
+    private Product[] localDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView textName;
+        private final TextView textAmount;
+        private final CheckBox checkBox;
 
         public ViewHolder(View view) {
             super(view);
 
-            textView = (TextView) view.findViewById(R.id.text_product_name);
+            textName = (TextView) view.findViewById(R.id.text_product_name);
+            textAmount = (TextView) view.findViewById(R.id.text_quantity);
+            checkBox = (CheckBox) view.findViewById(R.id.checkbox_item);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getTextName() {
+            return textName;
+        }
+
+        public TextView getTextAmount() {
+            return textAmount;
+        }
+
+        public CheckBox getCheckBox() {
+            return checkBox;
         }
     }
 
-    public ProductAdapter(String[] dataSet) {
-        localDataSet = dataSet;
+    public ProductAdapter(Product[] products) {
+        localDataSet = products;
     }
 
     @Override
@@ -37,9 +52,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.getTextView().setText(localDataSet[position]);
+        viewHolder.getTextName().setText(localDataSet[position].getName());
+        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
+        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
     }
 
     @Override

@@ -7,28 +7,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcart.adapters.ProductAdapter;
+import com.example.domain.models.Product;
+import com.example.smartcart.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        ProductAdapter adapter = new ProductAdapter(new String[]{"Say", "Wallahi", "Bro",
-            "Say", "Wallahi"});
+        Product[] products = {
+                new Product(0, "Say", true, 67),
+                new Product(0, "Wallahi", true, 15),
+                new Product(0, "Bro", false, 10),
+                new Product(0, "Say", false, 88),
+                new Product(0, "Wallahi", true, 1),
+        };
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        ProductAdapter adapter = new ProductAdapter(products);
+
+        RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-
-
 
         EdgeToEdge.enable(this);
 
