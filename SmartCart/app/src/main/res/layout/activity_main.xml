@@ -22,14 +22,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            android:id="@+id/recycler_view"
-            android:layout_below="@id/appTopBar">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_below="@id/appTopBar"
+            />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

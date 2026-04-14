@@ -8,12 +8,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.smartcart.adapters.ProductAdapter;
-import com.example.domain.models.Product;
 import com.example.smartcart.databinding.ActivityMainBinding;
+import com.example.smartcart.fragments.FragmentHome;
+import com.example.smartcart.fragments.FragmentMonitoring;
+import com.example.smartcart.fragments.FragmentSettings;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -25,19 +26,31 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Product[] products = {
-                new Product(0, "Say", true, 67),
-                new Product(0, "Wallahi", true, 15),
-                new Product(0, "Bro", false, 10),
-                new Product(0, "Say", false, 88),
-                new Product(0, "Wallahi", true, 1),
-        };
+        FragmentHome fragmentHome = new FragmentHome();
+        setActiveFragment(fragmentHome);
 
-        ProductAdapter adapter = new ProductAdapter(products);
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-        RecyclerView recyclerView = binding.recyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+            if (itemId == R.id.navigation_home) {
+                setActiveFragment(fragmentHome);
+                return true;
+            }
+
+            if (itemId == R.id.navigation_monitoring) {
+                FragmentMonitoring fragmentMonitoring = new FragmentMonitoring();
+                setActiveFragment(fragmentMonitoring);
+                return true;
+            }
+
+            if (itemId == R.id.navigation_settings) {
+                FragmentSettings fragmentSettings = new FragmentSettings();
+                setActiveFragment(fragmentSettings);
+                return true;
+            }
+
+            return false;
+        });
 
         EdgeToEdge.enable(this);
 
@@ -46,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
-
+    private void setActiveFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(binding.frameLayout.getId(), fragment);
+        fragmentTransaction.commit();
     }
 }
