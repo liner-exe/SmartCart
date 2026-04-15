@@ -12,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.domain.models.Product;
+import com.example.domain.models.ShoppingList;
 import com.example.smartcart.R;
 import com.example.smartcart.adapters.ProductAdapter;
+import com.example.smartcart.adapters.ShoppingListsAdapter;
 import com.example.smartcart.databinding.FragmentHomeBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragmentHome extends Fragment {
     private FragmentHomeBinding binding;
-    private ProductAdapter adapter;
+    private ShoppingListsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -44,7 +49,13 @@ public class FragmentHome extends Fragment {
                 new Product(0, "Wallahi", true, 1),
         };
 
-        adapter = new ProductAdapter(products);
+        List<ShoppingList> shoppingLists = new ArrayList<>();
+        shoppingLists.add(new ShoppingList(0, "Первый список", List.of(products)));
+        shoppingLists.add(new ShoppingList(0, "Второй список", List.of(products)));
+        shoppingLists.add(new ShoppingList(0, "Третий список", List.of(products)));
+        shoppingLists.add(new ShoppingList(0, "Четвертый список", List.of(products)));
+
+        adapter = new ShoppingListsAdapter(shoppingLists);
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

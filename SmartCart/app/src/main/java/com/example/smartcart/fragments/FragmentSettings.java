@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.smartcart.R;
 import com.example.smartcart.databinding.FragmentSettingsBinding;
 
 public class FragmentSettings extends Fragment {
