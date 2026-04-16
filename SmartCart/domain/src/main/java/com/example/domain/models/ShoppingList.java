@@ -3,7 +3,7 @@ package com.example.domain.models;
 import java.util.List;
 
 public class ShoppingList {
-    private int id;
+    private final int id;
     private String name;
     private List<Product> products;
 
@@ -32,5 +32,17 @@ public class ShoppingList {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getChecked() {
+        return this.products.stream().filter(Product::isChecked).count();
+    }
+
+    public int getProgress() {
+        if (this.products.isEmpty()) {
+            return 0;
+        }
+
+        return (int) (this.getChecked() * 100 / this.products.size());
     }
 }

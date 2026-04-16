@@ -27,16 +27,20 @@
         android:orientation="horizontal">
 
         <ProgressBar
+            android:id="@+id/shopping_list_progress_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:progress="35"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:min="0"
+            android:max="100"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:background="@drawable/rounded_layout">
         </ProgressBar>
 
         <TextView
+            android:id="@+id/shopping_list_progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
