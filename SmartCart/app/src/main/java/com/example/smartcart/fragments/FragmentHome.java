@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,7 +89,16 @@ public class FragmentHome extends Fragment {
         shoppingLists.add(new ShoppingList(0, "Третий список", List.of(products3)));
         shoppingLists.add(new ShoppingList(0, "Четвертый список", List.of(products)));
 
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.main_nav_host);
+
         adapter = new ShoppingListsAdapter(shoppingLists);
+
+        adapter.setOnItemClickListener((shoppingList, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("listName", shoppingList.getName());
+            navController.navigate(R.id.fragmentList);
+        });
+
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

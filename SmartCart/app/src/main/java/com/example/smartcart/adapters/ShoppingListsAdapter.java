@@ -1,8 +1,10 @@
 package com.example.smartcart.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,6 +18,15 @@ import java.util.List;
 
 public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ViewHolder> {
     private List<ShoppingList> shoppingLists;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(ShoppingList shoppingList, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView listName;
@@ -57,11 +68,17 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.getListName().setText(shoppingLists.get(position).getName());
-        viewHolder.getProgressBar().setProgress(shoppingLists.get(position).getProgress());
+        ShoppingList shoppingList = shoppingLists.get(position);
+
+        viewHolder.getListName().setText(shoppingList.getName());
+        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
         viewHolder.getProgressText().setText(String.format("%d/%d",
-                shoppingLists.get(position).getChecked(),
-                shoppingLists.get(position).getProducts().size()));
+                shoppingList.getChecked(),
+                shoppingList.getProducts().size()));
+
+        viewHolder.itemView.setOnClickListener(v ->{
+            onItemClickListener.onItemClick(shoppingList, position);
+        });
     }
 
     @Override
