@@ -96,7 +96,7 @@ public class FragmentHome extends Fragment {
         adapter.setOnItemClickListener((shoppingList, position) -> {
             Bundle bundle = new Bundle();
             bundle.putString("listName", shoppingList.getName());
-            navController.navigate(R.id.fragmentList);
+            navController.navigate(R.id.action_mainFragment_to_fragmentList);
         });
 
         RecyclerView recyclerView = binding.recyclerView;
