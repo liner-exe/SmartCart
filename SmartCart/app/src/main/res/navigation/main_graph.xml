@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.smartcart.fragments.MainFragment"
+        android:name="com.liner_exe.smartcart.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentList"
-        android:name="com.example.smartcart.fragments.FragmentList"
+        android:name="com.liner_exe.smartcart.fragments.FragmentList"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action

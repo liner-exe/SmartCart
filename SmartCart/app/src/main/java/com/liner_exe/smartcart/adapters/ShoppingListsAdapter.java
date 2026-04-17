@@ -1,18 +1,16 @@
-package com.example.smartcart.adapters;
+package com.liner_exe.smartcart.adapters;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smartcart.R;
-import com.example.domain.models.ShoppingList;
+import com.liner_exe.smartcart.R;
+import com.liner_exe.domain.models.ShoppingList;
 
 import java.util.List;
 

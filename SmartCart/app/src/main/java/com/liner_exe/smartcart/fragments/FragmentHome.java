@@ -1,4 +1,4 @@
-package com.example.smartcart.fragments;
+package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
 
@@ -13,12 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.domain.models.Product;
-import com.example.domain.models.ShoppingList;
-import com.example.smartcart.R;
-import com.example.smartcart.adapters.ProductAdapter;
-import com.example.smartcart.adapters.ShoppingListsAdapter;
-import com.example.smartcart.databinding.FragmentHomeBinding;
+import com.liner_exe.domain.models.Product;
+import com.liner_exe.domain.models.ShoppingList;
+import com.liner_exe.smartcart.R;
+import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
+import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;

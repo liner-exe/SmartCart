@@ -1,4 +1,4 @@
-package com.example.data;
+package com.liner_exe.smartcart;
 
 import org.junit.Test;
 

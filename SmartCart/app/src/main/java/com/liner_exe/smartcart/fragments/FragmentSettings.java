@@ -1,4 +1,4 @@
-package com.example.smartcart.fragments;
+package com.liner_exe.smartcart.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.smartcart.databinding.FragmentSettingsBinding;
+import com.liner_exe.smartcart.databinding.FragmentSettingsBinding;
 
 public class FragmentSettings extends Fragment {
     FragmentSettingsBinding binding;

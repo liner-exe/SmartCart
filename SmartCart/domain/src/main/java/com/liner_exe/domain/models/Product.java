@@ -1,4 +1,4 @@
-package com.example.domain.models;
+package com.liner_exe.domain.models;
 
 public class Product {
     private int id;

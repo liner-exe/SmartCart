@@ -1,4 +1,4 @@
-package com.example.smartcart.fragments;
+package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.smartcart.R;
+import com.liner_exe.smartcart.R;
 
 public class FragmentMonitoring extends Fragment {
     @Override

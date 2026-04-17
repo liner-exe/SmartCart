@@ -1,4 +1,4 @@
-package com.example.smartcart;
+package com.liner_exe.smartcart;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 
-import com.example.smartcart.databinding.ActivityMainBinding;
+import com.liner_exe.smartcart.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;

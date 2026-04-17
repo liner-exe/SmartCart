@@ -1,4 +1,4 @@
-package com.example.smartcart;
+package com.liner_exe.smartcart;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.smartcart.adapters;
+package com.liner_exe.smartcart.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.smartcart.R;
-import com.example.domain.models.Product;
+import com.liner_exe.smartcart.R;
+import com.liner_exe.domain.models.Product;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {

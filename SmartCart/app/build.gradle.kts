@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.smartcart"
+    namespace = "com.liner_exe.smartcart"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.smartcart"
+        applicationId = "com.liner_exe.smartcart"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
