@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
+    android:background="@drawable/rounded_layout"
+    android:backgroundTint="#75B4C7"
     android:padding="16dp">
 
     <TextView
@@ -18,13 +20,12 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />S
+        android:layout_weight="1" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/more"
-        app:tint="@color/black">
-    </ImageView>
+        app:tint="@color/black" />
 </LinearLayout>

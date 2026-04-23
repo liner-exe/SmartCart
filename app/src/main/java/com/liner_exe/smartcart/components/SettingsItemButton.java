@@ -20,7 +20,7 @@ public class SettingsItemButton extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        inflate(context, R.layout.settings_item_button, this);
+        inflate(context, R.layout.component_settings_item_button, this);
 
         title = findViewById(R.id.settings_item_title);
         icon = findViewById(R.id.settings_item_icon);

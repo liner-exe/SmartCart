@@ -60,7 +60,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.shopping_list_card, viewGroup, false);
+                .inflate(R.layout.card_shopping_list, viewGroup, false);
         return new ViewHolder(view);
     }
 

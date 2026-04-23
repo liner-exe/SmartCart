@@ -30,6 +30,18 @@ android {
         }
     }
 
+    sourceSets {
+        getByName("main") {
+            res.setSrcDirs(
+                listOf(
+                    "src/main/res/layouts/fragments",
+                    "src/main/res/layouts/components",
+                    "src/main/res"
+                )
+            )
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
