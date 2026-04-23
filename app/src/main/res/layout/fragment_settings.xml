@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".fragments.FragmentSettings">
-        <include
-            android:id="@+id/aboutButton"
-            layout="@layout/item_drawer_button"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </include>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.liner_exe.smartcart.components.SettingsItemButton
+                android:id="@+id/products_management_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIcon="@drawable/product_edit"
+                app:itemText="@string/products_management"
+                app:itemColor="@color/white"
+                android:layout_marginBottom="4dp">
+            </com.liner_exe.smartcart.components.SettingsItemButton>
+
+            <com.liner_exe.smartcart.components.SettingsItemButton
+                android:id="@+id/about_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIcon="@drawable/info"
+                app:itemText="@string/about_app">
+            </com.liner_exe.smartcart.components.SettingsItemButton>
+
+            <include layout="@layout/product_item"></include>
+        </LinearLayout>
     </FrameLayout>
 </layout>
