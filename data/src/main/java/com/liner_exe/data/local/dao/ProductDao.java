@@ -16,6 +16,12 @@ public interface ProductDao {
     @Insert
     void insert(ProductEntity product);
 
+    @Query("SELECT * from products")
+    List<ProductEntity> getAll();
+
+    @Query("SELECT * from products WHERE id = :id")
+    ProductEntity findById(int id);
+
     @Query("SELECT * from products WHERE name = :name")
     List<ProductEntity> findByName(String name);
 }

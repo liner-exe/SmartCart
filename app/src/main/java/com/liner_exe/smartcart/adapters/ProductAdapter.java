@@ -56,8 +56,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.getTextName().setText(localDataSet[position].getName());
-        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
-        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
+//        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
+//        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
     }
 
     @Override

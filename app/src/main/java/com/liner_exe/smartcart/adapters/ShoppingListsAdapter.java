@@ -68,15 +68,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         ShoppingList shoppingList = shoppingLists.get(position);
 
-        viewHolder.getListName().setText(shoppingList.getName());
-        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
-        viewHolder.getProgressText().setText(String.format("%d/%d",
-                shoppingList.getChecked(),
-                shoppingList.getProducts().size()));
-
-        viewHolder.itemView.setOnClickListener(v ->{
-            onItemClickListener.onItemClick(shoppingList, position);
-        });
+//        viewHolder.getListName().setText(shoppingList.getName());
+//        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
+//        viewHolder.getProgressText().setText(String.format("%d/%d",
+//                shoppingList.getChecked(),
+//                shoppingList.getProducts().size()));
+//
+//        viewHolder.itemView.setOnClickListener(v ->{
+//            onItemClickListener.onItemClick(shoppingList, position);
+//        });
     }
 
     @Override

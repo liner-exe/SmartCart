@@ -34,15 +34,15 @@ public class ShoppingList {
         this.name = name;
     }
 
-    public long getChecked() {
-        return this.products.stream().filter(Product::isChecked).count();
-    }
+//    public long getChecked() {
+//        return this.products.stream().filter(Product::isChecked).count();
+//    }
 
-    public int getProgress() {
-        if (this.products.isEmpty()) {
-            return 0;
-        }
-
-        return (int) (this.getChecked() * 100 / this.products.size());
-    }
+//    public int getProgress() {
+//        if (this.products.isEmpty()) {
+//            return 0;
+//        }
+//
+//        return (int) (this.getChecked() * 100 / this.products.size());
+//    }
 }
