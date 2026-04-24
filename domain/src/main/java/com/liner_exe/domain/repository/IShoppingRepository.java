@@ -4,10 +4,11 @@ import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 
 import java.util.List;
-import java.util.concurrent.Flow;
+
+import io.reactivex.rxjava3.core.Flowable;
 
 public interface IShoppingRepository {
-    List<Product> getAllProducts();
+    Flowable<List<Product>> getAllProducts();
     Product getProductById(int id);
 
     List<ListItem> getAllListItems();

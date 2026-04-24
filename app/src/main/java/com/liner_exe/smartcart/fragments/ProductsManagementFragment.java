@@ -59,7 +59,5 @@ public class ProductsManagementFragment extends Fragment {
                 adapter.setProducts(newProducts);
             }
         });
-
-        viewModel.loadProducts();
     }
 }

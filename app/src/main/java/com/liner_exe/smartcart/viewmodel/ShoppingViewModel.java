@@ -14,10 +14,15 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class ShoppingViewModel extends ViewModel {
     private final IShoppingRepository repository;
+    private final CompositeDisposable disposable = new CompositeDisposable();
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -27,13 +32,19 @@ public class ShoppingViewModel extends ViewModel {
     @Inject
     public ShoppingViewModel(IShoppingRepository repository) {
         this.repository = repository;
+        subscribeToProducts();
     }
 
-    public void loadProducts() {
-        executorService.execute(() -> {
-            List<Product> result = repository.getAllProducts();
+    private void subscribeToProducts() {
+        disposable.add(repository.getAllProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(_products::setValue));
+    }
 
-            _products.postValue(result);
-        });
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposable.clear();
     }
 }

@@ -7,7 +7,8 @@
     android:layout_gravity="center_vertical"
     android:background="@drawable/rounded_layout"
     android:backgroundTint="#75B4C7"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_margin="4dp">
 
     <TextView
         android:id="@+id/product_item_title"

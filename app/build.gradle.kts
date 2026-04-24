@@ -52,6 +52,10 @@ dependencies {
     implementation(libs.hilt.android)
     annotationProcessor(libs.hilt.compiler)
 
+    implementation(libs.rxjava3)
+    implementation(libs.rxandroid)
+    implementation(libs.room.rxjava3)
+
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 

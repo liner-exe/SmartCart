@@ -9,6 +9,8 @@ import com.liner_exe.data.local.entities.ProductEntity;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface ProductDao {
     @Insert
@@ -18,7 +20,7 @@ public interface ProductDao {
     void insert(ProductEntity product);
 
     @Query("SELECT * from products")
-    List<ProductEntity> getAll();
+    Flowable<List<ProductEntity>> getAll();
 
     @Query("SELECT * from products WHERE id = :id")
     ProductEntity findById(int id);

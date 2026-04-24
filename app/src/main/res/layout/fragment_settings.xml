@@ -27,8 +27,6 @@
                 app:itemIcon="@drawable/info"
                 app:itemText="@string/about_app">
             </com.liner_exe.smartcart.components.SettingsItemButton>
-
-            <include layout="@layout/item_product"></include>
         </LinearLayout>
     </FrameLayout>
 </layout>

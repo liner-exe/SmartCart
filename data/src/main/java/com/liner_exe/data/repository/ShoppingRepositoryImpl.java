@@ -13,6 +13,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Singleton
 public class ShoppingRepositoryImpl implements IShoppingRepository {
     private final ProductDao productDao;
@@ -23,9 +25,8 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        List<ProductEntity> products = productDao.getAll();
-        return ProductMapper.toModelList(products);
+    public Flowable<List<Product>> getAllProducts() {
+        return productDao.getAll().map(ProductMapper::toModelList);
     }
 
     @Override
