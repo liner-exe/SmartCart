@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentSettingsBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FragmentSettings extends Fragment {
     FragmentSettingsBinding binding;
 

@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainFragment extends Fragment {
     FragmentMainBinding binding;
 

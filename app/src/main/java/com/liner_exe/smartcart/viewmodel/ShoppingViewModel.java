@@ -11,6 +11,11 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class ShoppingViewModel extends ViewModel {
     private final IShoppingRepository repository;
 
@@ -19,11 +24,16 @@ public class ShoppingViewModel extends ViewModel {
     private final MutableLiveData<List<Product>> _products = new MutableLiveData<>();
     public LiveData<List<Product>> products = _products;
 
+    @Inject
     public ShoppingViewModel(IShoppingRepository repository) {
         this.repository = repository;
     }
 
     public void loadProducts() {
+        executorService.execute(() -> {
+            List<Product> result = repository.getAllProducts();
 
+            _products.postValue(result);
+        });
     }
 }

@@ -22,7 +22,9 @@ import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class FragmentHome extends Fragment {
     private FragmentHomeBinding binding;
     private ShoppingListsAdapter adapter;

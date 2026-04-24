@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -47,6 +48,9 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)

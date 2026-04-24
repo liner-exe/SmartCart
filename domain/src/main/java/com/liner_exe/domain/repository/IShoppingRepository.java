@@ -4,6 +4,7 @@ import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 
 import java.util.List;
+import java.util.concurrent.Flow;
 
 public interface IShoppingRepository {
     List<Product> getAllProducts();

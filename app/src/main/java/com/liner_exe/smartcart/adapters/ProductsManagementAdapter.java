@@ -13,13 +13,41 @@ import com.liner_exe.smartcart.R;
 
 import java.util.List;
 
-public class ProductsManagementAdapter extends RecyclerView.Adapter<ProductsManagementAdapter.ViewHolder> {
+public class ProductsManagementAdapter
+        extends RecyclerView.Adapter<ProductsManagementAdapter.ProductsManagementViewHolder> {
     private List<Product> products;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public ProductsManagementAdapter(List<Product> products) {
+        this.products = products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public ProductsManagementViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_product, viewGroup, false);
+        return new ProductsManagementAdapter.ProductsManagementViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProductsManagementViewHolder viewHolder, int position) {
+        viewHolder.getProductName().setText(products.get(position).getName());
+    }
+
+    @Override
+    public int getItemCount() {
+        return products.size();
+    }
+
+    public static class ProductsManagementViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName;
 
-        public ViewHolder(@NonNull View view) {
+        public ProductsManagementViewHolder(@NonNull View view) {
             super(view);
 
             this.productName = view.findViewById(R.id.product_item_title);
@@ -28,27 +56,5 @@ public class ProductsManagementAdapter extends RecyclerView.Adapter<ProductsMana
         public TextView getProductName() {
             return productName;
         }
-    }
-
-    public ProductsManagementAdapter(List<Product> products) {
-        this.products = products;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_product, viewGroup, false);
-        return new ProductsManagementAdapter.ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.getProductName().setText(products.get(position).getName());
-    }
-
-    @Override
-    public int getItemCount() {
-        return products.size();
     }
 }

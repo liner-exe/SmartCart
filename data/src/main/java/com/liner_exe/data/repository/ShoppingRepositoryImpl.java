@@ -10,9 +10,14 @@ import com.liner_exe.domain.repository.IShoppingRepository;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class ShoppingRepositoryImpl implements IShoppingRepository {
     private final ProductDao productDao;
 
+    @Inject
     public ShoppingRepositoryImpl(ProductDao productDao) {
         this.productDao = productDao;
     }
