@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainFragment extends Fragment {
     FragmentMainBinding binding;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentMainBinding.inflate(inflater, container, false);

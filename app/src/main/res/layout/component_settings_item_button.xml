@@ -5,28 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="#b3e5fc"
     android:paddingVertical="32dp"
     android:paddingHorizontal="16dp">
 
     <ImageView
-        android:id="@+id/itemDrawerIcon"
+        android:id="@+id/settings_item_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/info"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="32dp"
+        android:src="@drawable/info"
+        android:contentDescription="@string/app_name"
         app:tint="@color/black" />
 
     <TextView
-        android:id="@+id/itemDrawerTitle"
-        android:text="О приложении"
+        android:id="@+id/settings_item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
         android:textColor="@color/black"
+        android:text="dkdkkdkddk"
         android:textStyle="bold"
         android:textSize="16sp">
     </TextView>

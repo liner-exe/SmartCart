@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.list_item, viewGroup, false);
+                .inflate(R.layout.item_list, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -56,8 +56,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.getTextName().setText(localDataSet[position].getName());
-        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
-        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
+//        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
+//        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
     }
 
     @Override

@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FragmentList extends Fragment {
     private FragmentListBinding binding;
     private String listName;

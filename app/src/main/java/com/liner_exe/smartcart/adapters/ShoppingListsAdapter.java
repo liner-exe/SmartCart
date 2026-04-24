@@ -60,7 +60,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.shopping_list_card, viewGroup, false);
+                .inflate(R.layout.card_shopping_list, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -68,15 +68,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         ShoppingList shoppingList = shoppingLists.get(position);
 
-        viewHolder.getListName().setText(shoppingList.getName());
-        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
-        viewHolder.getProgressText().setText(String.format("%d/%d",
-                shoppingList.getChecked(),
-                shoppingList.getProducts().size()));
-
-        viewHolder.itemView.setOnClickListener(v ->{
-            onItemClickListener.onItemClick(shoppingList, position);
-        });
+//        viewHolder.getListName().setText(shoppingList.getName());
+//        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
+//        viewHolder.getProgressText().setText(String.format("%d/%d",
+//                shoppingList.getChecked(),
+//                shoppingList.getProducts().size()));
+//
+//        viewHolder.itemView.setOnClickListener(v ->{
+//            onItemClickListener.onItemClick(shoppingList, position);
+//        });
     }
 
     @Override

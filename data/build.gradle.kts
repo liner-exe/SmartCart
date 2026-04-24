@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -30,6 +31,12 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
+
+    implementation(libs.rxjava3)
+    implementation(libs.room.rxjava3)
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)

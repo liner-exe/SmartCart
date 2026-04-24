@@ -11,6 +11,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.liner_exe.smartcart.databinding.ActivityMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 

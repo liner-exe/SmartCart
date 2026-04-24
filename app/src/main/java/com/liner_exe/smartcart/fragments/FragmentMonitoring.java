@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.liner_exe.smartcart.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FragmentMonitoring extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

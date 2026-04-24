@@ -1,16 +1,16 @@
 package com.liner_exe.domain.models;
 
 public class Product {
-    private int id;
+    private final int id;
     private String name;
-    private boolean isChecked;
-    private int amount;
 
-    public Product(int id, String name, boolean isChecked, int amount) {
+    public Product(int id, String name) {
         this.id = id;
         this.name = name;
-        this.isChecked = isChecked;
-        this.amount = amount;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -19,25 +19,5 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }

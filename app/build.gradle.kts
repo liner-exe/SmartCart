@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -29,6 +30,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -46,6 +48,13 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
+
+    implementation(libs.rxjava3)
+    implementation(libs.rxandroid)
+    implementation(libs.room.rxjava3)
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)

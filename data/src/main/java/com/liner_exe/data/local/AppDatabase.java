@@ -12,5 +12,7 @@ import com.liner_exe.data.local.entities.ProductEntity;
         version = 1
 )
 public abstract class AppDatabase extends RoomDatabase {
+    public static final String DATABASE_NAME = "smartcart_db";
+
     public abstract ProductDao productDao();
 }
