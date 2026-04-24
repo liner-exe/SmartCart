@@ -36,6 +36,11 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     }
 
     @Override
+    public void deleteProductById(int id) {
+        productDao.deleteById(id);
+    }
+
+    @Override
     public List<ListItem> getAllListItems() {
         return Collections.emptyList();
     }

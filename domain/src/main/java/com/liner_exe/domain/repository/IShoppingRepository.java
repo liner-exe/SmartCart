@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.Flowable;
 public interface IShoppingRepository {
     Flowable<List<Product>> getAllProducts();
     Product getProductById(int id);
+    void deleteProductById(int id);
 
     List<ListItem> getAllListItems();
     ListItem getItemsForList(int listId);

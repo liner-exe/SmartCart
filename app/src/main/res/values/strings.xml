@@ -8,4 +8,6 @@
     <!-- Settings -->
     <string name="products_management">Управление продуктами</string>
     <string name="about_app">О приложении</string>
+    <string name="action_edit">Редактировать</string>
+    <string name="action_delete">Удалить</string>
 </resources>

@@ -2,6 +2,7 @@ package com.liner_exe.data.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -27,4 +28,7 @@ public interface ProductDao {
 
     @Query("SELECT * from products WHERE name = :name")
     List<ProductEntity> findByName(String name);
+
+    @Query("DELETE from products WHERE id = :id")
+    void deleteById(int id);
 }
