@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import com.liner_exe.data.local.AppDatabase;
 import com.liner_exe.data.local.dao.ProductDao;
+import com.liner_exe.data.local.dao.ShoppingListDao;
 
 import javax.inject.Singleton;
 
@@ -27,12 +28,17 @@ public class DatabaseModule {
                 AppDatabase.class,
                 AppDatabase.DATABASE_NAME
         )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(true)
                 .build();
     }
 
     @Provides
     public ProductDao provideProductDao(AppDatabase db) {
         return db.productDao();
+    }
+
+    @Provides
+    public ShoppingListDao provideShoppingListDao(AppDatabase db) {
+        return db.shoppingListDao();
     }
 }

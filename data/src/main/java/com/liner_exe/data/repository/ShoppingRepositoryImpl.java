@@ -1,10 +1,13 @@
 package com.liner_exe.data.repository;
 
 import com.liner_exe.data.local.dao.ProductDao;
+import com.liner_exe.data.local.dao.ShoppingListDao;
 import com.liner_exe.data.local.entities.ProductEntity;
 import com.liner_exe.data.mapper.ProductMapper;
+import com.liner_exe.data.mapper.ShoppingListMapper;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
+import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.domain.repository.IShoppingRepository;
 
 import java.util.Collections;
@@ -18,10 +21,12 @@ import io.reactivex.rxjava3.core.Flowable;
 @Singleton
 public class ShoppingRepositoryImpl implements IShoppingRepository {
     private final ProductDao productDao;
+    private final ShoppingListDao shoppingListDao;
 
     @Inject
-    public ShoppingRepositoryImpl(ProductDao productDao) {
+    public ShoppingRepositoryImpl(ProductDao productDao, ShoppingListDao shoppingListDao) {
         this.productDao = productDao;
+        this.shoppingListDao = shoppingListDao;
     }
 
     @Override
@@ -38,6 +43,11 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     @Override
     public void deleteProductById(int id) {
         productDao.deleteById(id);
+    }
+
+    @Override
+    public Flowable<List<ShoppingList>> getAllLists() {
+        return shoppingListDao.getAllLists().map(ShoppingListMapper::toModelList);
     }
 
     @Override

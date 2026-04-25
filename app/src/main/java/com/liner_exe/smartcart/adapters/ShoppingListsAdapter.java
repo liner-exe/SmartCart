@@ -54,6 +54,12 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     public ShoppingListsAdapter(List<ShoppingList> shoppingLists) {
         this.shoppingLists = shoppingLists;
+        notifyDataSetChanged();
+    }
+
+    public void setShoppingLists(List<ShoppingList> shoppingLists) {
+        this.shoppingLists = shoppingLists;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -67,6 +73,8 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         ShoppingList shoppingList = shoppingLists.get(position);
+
+        viewHolder.getListName().setText(shoppingList.getName());
 
 //        viewHolder.getListName().setText(shoppingList.getName());
 //        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
