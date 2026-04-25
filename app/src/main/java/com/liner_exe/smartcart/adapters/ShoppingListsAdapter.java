@@ -76,6 +76,10 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
         viewHolder.getListName().setText(shoppingList.getName());
 
+        viewHolder.itemView.setOnClickListener(v -> {
+            onItemClickListener.onItemClick(shoppingList, position);
+        });
+
 //        viewHolder.getListName().setText(shoppingList.getName());
 //        viewHolder.getProgressBar().setProgress(shoppingList.getProgress());
 //        viewHolder.getProgressText().setText(String.format("%d/%d",

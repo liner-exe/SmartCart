@@ -55,6 +55,15 @@ public class FragmentHome extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener((shoppingList, position) -> {
+            NavController navController = Navigation.findNavController(requireActivity(),
+                    R.id.main_nav_host);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("listName", shoppingList.getName());
+            navController.navigate(R.id.action_mainFragment_to_fragmentList, bundle);
+        });
+
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {
             if (newLists != null) {
                 adapter.setShoppingLists(newLists);
