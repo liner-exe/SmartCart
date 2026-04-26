@@ -94,7 +94,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void bindDialog() {
-        binding.fab.setOnClickListener(v -> {
+        binding.fabAddList.setOnClickListener(v -> {
             AddListDialogFragment.newInstance(name -> {
                 viewModel.addList(new ShoppingList(name));
             }).show(getChildFragmentManager(), "AddListDialog");
