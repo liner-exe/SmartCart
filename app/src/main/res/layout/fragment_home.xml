@@ -8,9 +8,11 @@
         tools:context=".fragments.FragmentHome">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recycler_view_lists"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -21,6 +23,5 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/add">
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

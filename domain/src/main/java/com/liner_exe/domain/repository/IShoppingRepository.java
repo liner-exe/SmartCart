@@ -16,6 +16,7 @@ public interface IShoppingRepository {
 
     Flowable<List<ShoppingList>> getAllLists();
     Completable addList(ShoppingList shoppingList);
+    Completable deleteListById(int id);
 
     List<ListItem> getAllListItems();
     ListItem getItemsForList(int listId);

@@ -1,6 +1,7 @@
 package com.liner_exe.data.local.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -18,4 +19,7 @@ public interface ShoppingListDao {
 
     @Query("SELECT * from shopping_lists")
     Flowable<List<ShoppingListEntity>> getAllLists();
+
+    @Query("DELETE from shopping_lists WHERE id = :id")
+    Completable deleteById(int id);
 }

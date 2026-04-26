@@ -56,6 +56,13 @@ public class ShoppingViewModel extends ViewModel {
                .subscribe());
     }
 
+    public void deleteListById(int id) {
+        disposable.add(repository.deleteListById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
     public void deleteProductById(int id) {
         disposable.add(repository.deleteProductById(id)
                 .subscribeOn(Schedulers.io())

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,17 +59,17 @@ public class FragmentHome extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
 
-        RecyclerView recyclerView = binding.recyclerView;
+        RecyclerView recyclerView = binding.recyclerViewLists;
         adapter = new ShoppingListsAdapter(Collections.emptyList(),
                 new ShoppingListsAdapter.OnShoppingListActionListener() {
             @Override
             public void onRename(ShoppingList shoppingList) {
-
+                Toast.makeText(getContext(), "Renamed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDelete(ShoppingList shoppingList) {
-
+                viewModel.deleteListById(shoppingList.getId());
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
