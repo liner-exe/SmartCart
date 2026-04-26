@@ -10,12 +10,13 @@
         tools:context=".fragments.ProductsManagementFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/app_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/arrow_back"
                 app:title="@string/products_management">
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -23,7 +24,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_products_management"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </layout>

@@ -8,13 +8,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
@@ -50,7 +53,23 @@ public class ProductsManagementFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewProductsManagement;
-        adapter = new ProductsManagementAdapter(new ArrayList<>());
+        adapter = new ProductsManagementAdapter(new ArrayList<>(),
+                new ProductsManagementAdapter.OnProductActionListener() {
+                @Override
+                public void onEdit(Product product) {
+                    Toast.makeText(getContext(), "Edited!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDelete(Product product) {
+                    viewModel.deleteProductById(product.getId());
+                }
+        });
+
+        binding.appToolbar.setNavigationOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

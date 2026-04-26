@@ -36,6 +36,10 @@ public class FragmentList extends Fragment {
             listName = getArguments().getString("listName");
         }
 
+        binding.listAppBar.setNavigationOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+
         binding.listAppBar.setTitle(listName);
     }
 }

@@ -4,10 +4,13 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import com.liner_exe.data.local.dao.ProductDao;
+import com.liner_exe.data.local.dao.ShoppingListDao;
 import com.liner_exe.data.local.entities.ProductEntity;
+import com.liner_exe.data.local.entities.ShoppingListEntity;
 
 @Database(entities = {
-        ProductEntity.class
+        ProductEntity.class,
+        ShoppingListEntity.class
         },
         version = 1
 )
@@ -15,4 +18,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "smartcart_db";
 
     public abstract ProductDao productDao();
+    public abstract ShoppingListDao shoppingListDao();
 }
