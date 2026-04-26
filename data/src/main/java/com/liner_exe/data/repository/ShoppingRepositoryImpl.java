@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 @Singleton
@@ -41,13 +42,18 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     }
 
     @Override
-    public void deleteProductById(int id) {
-        productDao.deleteById(id);
+    public Completable deleteProductById(int id) {
+        return productDao.deleteById(id);
     }
 
     @Override
     public Flowable<List<ShoppingList>> getAllLists() {
         return shoppingListDao.getAllLists().map(ShoppingListMapper::toModelList);
+    }
+
+    @Override
+    public Completable addList(ShoppingList shoppingList) {
+        return shoppingListDao.insert(ShoppingListMapper.toEntity(shoppingList));
     }
 
     @Override

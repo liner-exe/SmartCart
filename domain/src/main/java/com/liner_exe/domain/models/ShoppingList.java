@@ -11,6 +11,11 @@ public class ShoppingList {
         this.name = name;
     }
 
+    public ShoppingList(String name) {
+        this.id = 0;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
