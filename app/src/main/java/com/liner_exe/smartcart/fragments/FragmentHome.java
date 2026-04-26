@@ -30,6 +30,7 @@ import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
 import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
+import com.liner_exe.smartcart.dialogs.AddListDialogFragment;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.Collections;
@@ -58,7 +59,18 @@ public class FragmentHome extends Fragment {
         viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerView;
-        adapter = new ShoppingListsAdapter(Collections.emptyList());
+        adapter = new ShoppingListsAdapter(Collections.emptyList(),
+                new ShoppingListsAdapter.OnShoppingListActionListener() {
+            @Override
+            public void onRename(ShoppingList shoppingList) {
+
+            }
+
+            @Override
+            public void onDelete(ShoppingList shoppingList) {
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -82,68 +94,9 @@ public class FragmentHome extends Fragment {
 
     private void bindDialog() {
         binding.fab.setOnClickListener(v -> {
-            View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_item, null);
-            TextInputEditText editText = dialogView.findViewById(R.id.edit_list_name);
-            TextInputLayout inputLayout = (TextInputLayout) editText.getParent().getParent();
-
-            editText.requestFocus();
-
-            AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Новый список")
-                    .setMessage("Введите название списка")
-                    .setView(dialogView)
-                    .setPositiveButton("Добавить", null)
-                    .setNegativeButton("Отмена", null)
-                    .create();
-
-            if (dialog.getWindow() != null) {
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            }
-
-            dialog.show();
-
-            editText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    inputLayout.setError(null);
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {}
-
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            });
-
-
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
-                attemptSave(editText, inputLayout, dialog);
-            });
-
-            editText.setOnEditorActionListener((textView, actionId, event) -> {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    attemptSave(editText, inputLayout, dialog);
-                    return true;
-                }
-                return false;
-            });
-        });
-    }
-
-    private void attemptSave(TextInputEditText editText, TextInputLayout inputLayout,
-                             AlertDialog dialog) {
-        if (editText.getText() != null) {
-            String name = editText.getText().toString().trim();
-
-            if (name.isEmpty()) {
-                inputLayout.setError("Название не может быть пустым!");
-                inputLayout.setErrorEnabled(true);
-            } else {
-                inputLayout.setError(null);
-                inputLayout.setErrorEnabled(false);
+            AddListDialogFragment.newInstance(name -> {
                 viewModel.addList(new ShoppingList(name));
-                dialog.dismiss();
-            }
-        }
+            }).show(getChildFragmentManager(), "AddListDialog");
+        });
     }
 }

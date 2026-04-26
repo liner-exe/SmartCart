@@ -25,10 +25,11 @@
 
     <ImageButton
         android:id="@+id/product_item_button_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/more"
+        android:scaleType="fitCenter"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:backgroundTint="#00FFFFFF"
         app:tint="@color/black" />

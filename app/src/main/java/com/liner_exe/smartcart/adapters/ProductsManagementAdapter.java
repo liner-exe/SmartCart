@@ -1,13 +1,11 @@
 package com.liner_exe.smartcart.adapters;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +19,7 @@ public class ProductsManagementAdapter
         extends RecyclerView.Adapter<ProductsManagementAdapter.ProductsManagementViewHolder> {
     public interface OnProductActionListener {
         void onEdit(Product product);
+
         void onDelete(Product product);
     }
 
@@ -39,7 +38,6 @@ public class ProductsManagementAdapter
     }
 
 
-
     @Override
     public int getItemCount() {
         return products.size();
@@ -54,13 +52,13 @@ public class ProductsManagementAdapter
     }
 
     @Override
-        public void onBindViewHolder(@NonNull ProductsManagementViewHolder viewHolder, int position) {
-            Product product = products.get(position);
-            viewHolder.getProductName().setText(product.getName());
+    public void onBindViewHolder(@NonNull ProductsManagementViewHolder viewHolder, int position) {
+        Product product = products.get(position);
+        viewHolder.getProductName().setText(product.getName());
 
-            viewHolder.getButtonMore().setOnClickListener(v -> {
-                showPopupMenu(v, product);
-            });
+        viewHolder.getButtonMore().setOnClickListener(v -> {
+            showPopupMenu(v, product);
+        });
     }
 
     private void showPopupMenu(View view, Product product) {
@@ -72,7 +70,7 @@ public class ProductsManagementAdapter
             if (id == R.id.action_edit) {
                 listener.onEdit(product);
                 return true;
-            } else if (id == R.id.action_delete) {
+            } else if (id == R.id.action_delete_product) {
                 listener.onDelete(product);
                 return true;
             }
