@@ -20,6 +20,8 @@ public class ProductsManagementAdapter
     public interface OnProductActionListener {
         void onEdit(Product product);
 
+        void onRename(Product product);
+
         void onDelete(Product product);
     }
 
@@ -67,8 +69,11 @@ public class ProductsManagementAdapter
 
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             int id = menuItem.getItemId();
-            if (id == R.id.action_edit) {
+            if (id == R.id.action_edit_product) {
                 listener.onEdit(product);
+                return true;
+            } else if (id == R.id.action_rename_product) {
+                listener.onRename(product);
                 return true;
             } else if (id == R.id.action_delete_product) {
                 listener.onDelete(product);

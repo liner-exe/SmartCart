@@ -15,10 +15,18 @@
     <string name="products_management">Управление продуктами</string>
     <string name="about_app">О приложении</string>
 
+    <!-- Products Management -->
+    <string name="product_name">Название продукта</string>
+
     <!-- Dialog add list -->
     <string name="dialog_add_list_title">Новый список</string>
     <string name="dialog_add_list_message">Введите название списка</string>
     <string name="dialog_add_list_error_empty">Название не может быть пустым!</string>
+
+    <!-- Dialog add product -->
+    <string name="dialog_add_product_title">Новый товар</string>
+    <string name="dialog_add_product_message">Введите название товара</string>
+    <string name="dialog_add_product_error_empty">Название не может быть пустым!</string>
 
     <!-- Actions -->
     <string name="action_edit">Редактировать</string>

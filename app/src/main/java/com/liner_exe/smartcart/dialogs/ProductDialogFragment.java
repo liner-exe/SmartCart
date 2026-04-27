@@ -1,6 +1,7 @@
 package com.liner_exe.smartcart.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,19 +18,21 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.smartcart.R;
 
-public class AddListDialogFragment extends DialogFragment {
-    public interface OnListAddedListener {
+public class ProductDialogFragment extends DialogFragment {
+    public interface OnProductAddedListener {
         void onAdd(String name);
     }
 
-    private OnListAddedListener listener;
+    private OnProductAddedListener listener;
+    private String currentName;
 
-    public static AddListDialogFragment newInstance(OnListAddedListener listener) {
-        AddListDialogFragment fragment = new AddListDialogFragment();
+    public static ProductDialogFragment newInstance(String currentName, OnProductAddedListener listener) {
+        ProductDialogFragment fragment = new ProductDialogFragment();
         fragment.listener = listener;
+        fragment.currentName = currentName;
+
         return fragment;
     }
 
@@ -38,28 +41,30 @@ public class AddListDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        View view = getLayoutInflater().inflate(R.layout.dialog_add_item, null);
-        TextInputEditText editText = view.findViewById(R.id.edit_list_name);
-        TextInputLayout inputLayout = view.findViewById(R.id.list_add_input_layout);
+        View view = getLayoutInflater().inflate(R.layout.dialog_add_product, null);
+        TextInputEditText editText = view.findViewById(R.id.edit_product_name);
+        TextInputLayout inputLayout = view.findViewById(R.id.product_add_input_layout);
+
+        if (currentName != null) {
+            editText.setText(currentName);
+            editText.setSelection(currentName.length());
+        }
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.dialog_add_list_title)
-                .setMessage(R.string.dialog_add_list_message)
+                .setTitle(currentName == null ? R.string.dialog_add_product_title : R.string.action_rename)
+                .setMessage(R.string.dialog_add_product_message)
                 .setView(view)
-                .setPositiveButton(R.string.action_add, null)
+                .setPositiveButton(currentName == null ? R.string.action_add : R.string.action_rename, null)
                 .setNegativeButton(R.string.action_cancel, null)
                 .create();
 
-        editText.setOnEditorActionListener((textView, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+        editText.setOnEditorActionListener((textView, actionID, event) -> {
+            if (actionID == EditorInfo.IME_ACTION_DONE) {
                 attemptSave(editText, inputLayout, dialog);
-
                 return true;
             }
-
             return false;
         });
-
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -74,16 +79,15 @@ public class AddListDialogFragment extends DialogFragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
         });
 
         dialog.setOnShowListener(dialogInterface -> {
-            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
             if (button != null) {
                 button.setOnClickListener(v -> {
                     attemptSave(editText, inputLayout, dialog);
@@ -99,7 +103,7 @@ public class AddListDialogFragment extends DialogFragment {
         String name = editText.getText() != null ? editText.getText().toString().trim() : "";
 
         if (name.isEmpty()) {
-            inputLayout.setError(getString(R.string.dialog_add_list_error_empty));
+            inputLayout.setError(getString(R.string.dialog_add_product_error_empty));
             inputLayout.setErrorEnabled(true);
         } else {
             if (listener != null) {

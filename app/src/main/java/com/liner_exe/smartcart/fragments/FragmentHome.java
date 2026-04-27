@@ -1,18 +1,9 @@
 package com.liner_exe.smartcart.fragments;
 
-import androidx.appcompat.app.AlertDialog;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +15,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
 import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
-import com.liner_exe.smartcart.dialogs.AddListDialogFragment;
+import com.liner_exe.smartcart.dialogs.ShoppingListDialogFragment;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.Collections;
@@ -64,7 +52,10 @@ public class FragmentHome extends Fragment {
                 new ShoppingListsAdapter.OnShoppingListActionListener() {
             @Override
             public void onRename(ShoppingList shoppingList) {
-                Toast.makeText(getContext(), "Renamed!", Toast.LENGTH_SHORT).show();
+                ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
+                    shoppingList.setName(newName);
+                    viewModel.updateList(shoppingList);
+                }).show(getChildFragmentManager(), "RenameListDialog");
             }
 
             @Override
@@ -95,7 +86,7 @@ public class FragmentHome extends Fragment {
 
     private void bindDialog() {
         binding.fabAddList.setOnClickListener(v -> {
-            AddListDialogFragment.newInstance(name -> {
+            ShoppingListDialogFragment.newInstance(null, name -> {
                 viewModel.addList(new ShoppingList(name));
             }).show(getChildFragmentManager(), "AddListDialog");
         });
