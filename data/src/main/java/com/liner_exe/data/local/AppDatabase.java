@@ -5,12 +5,14 @@ import androidx.room.RoomDatabase;
 
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
+import com.liner_exe.data.local.entities.ListItemEntity;
 import com.liner_exe.data.local.entities.ProductEntity;
 import com.liner_exe.data.local.entities.ShoppingListEntity;
 
 @Database(entities = {
         ProductEntity.class,
-        ShoppingListEntity.class
+        ShoppingListEntity.class,
+        ListItemEntity.class
         },
         version = 1
 )
