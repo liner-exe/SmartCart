@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
+import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
+import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.ArrayList;
@@ -61,6 +63,14 @@ public class ProductsManagementFragment extends Fragment {
                 }
 
                 @Override
+                public void onRename(Product product) {
+                    ProductDialogFragment.newInstance(product.getName(), newName -> {
+                        product.setName(newName);
+                        viewModel.updateProduct(product);
+                    }).show(getChildFragmentManager(), "RenameProductDialog");
+                }
+
+                @Override
                 public void onDelete(Product product) {
                     viewModel.deleteProductById(product.getId());
                 }
@@ -77,6 +87,16 @@ public class ProductsManagementFragment extends Fragment {
             if (newProducts != null) {
                 adapter.setProducts(newProducts);
             }
+        });
+
+        bindDialog();
+    }
+
+    private void bindDialog() {
+        binding.fabAddProduct.setOnClickListener(v -> {
+            ProductDialogFragment.newInstance(null, name -> {
+                viewModel.addProduct(new Product(name));
+            }).show(getChildFragmentManager(), "AddProductDialog");
         });
     }
 }

@@ -2,7 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -10,6 +10,7 @@
         tools:context=".fragments.ProductsManagementFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout_products_management"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.appbar.MaterialToolbar
@@ -24,7 +25,20 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_products_management"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false">
         </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/add">
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

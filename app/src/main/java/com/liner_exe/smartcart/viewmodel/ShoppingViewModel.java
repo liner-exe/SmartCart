@@ -56,6 +56,34 @@ public class ShoppingViewModel extends ViewModel {
                .subscribe());
     }
 
+    public void updateList(ShoppingList shoppingList) {
+        disposable.add(repository.updateList(shoppingList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
+    public void deleteListById(int id) {
+        disposable.add(repository.deleteListById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
+    public void addProduct(Product product) {
+        disposable.add(repository.addProduct(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
+    public void updateProduct(Product product) {
+        disposable.add(repository.updateProduct(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
     public void deleteProductById(int id) {
         disposable.add(repository.deleteProductById(id)
                 .subscribeOn(Schedulers.io())

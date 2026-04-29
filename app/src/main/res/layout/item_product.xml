@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     android:background="@drawable/rounded_layout"
-    android:backgroundTint="#75B4C7"
+    android:backgroundTint="#1A2A3A"
     android:padding="16dp"
     android:layout_margin="4dp">
 
@@ -14,8 +15,8 @@
         android:id="@+id/product_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         android:text="Product" />
 
     <Space
@@ -25,11 +26,12 @@
 
     <ImageButton
         android:id="@+id/product_item_button_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/more"
+        android:scaleType="fitCenter"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:backgroundTint="#00FFFFFF"
-        app:tint="@color/black" />
+        app:tint="@color/white" />
 </LinearLayout>

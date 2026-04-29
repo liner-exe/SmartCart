@@ -31,6 +31,11 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     }
 
     @Override
+    public Completable addProduct(Product product) {
+        return productDao.insert(ProductMapper.toEntity(product));
+    }
+
+    @Override
     public Flowable<List<Product>> getAllProducts() {
         return productDao.getAll().map(ProductMapper::toModelList);
     }
@@ -39,6 +44,11 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     public Product getProductById(int id) {
         ProductEntity product = productDao.findById(id);
         return ProductMapper.toModel(product);
+    }
+
+    @Override
+    public Completable updateProduct(Product product) {
+        return productDao.update(ProductMapper.toEntity(product));
     }
 
     @Override
@@ -54,6 +64,16 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     @Override
     public Completable addList(ShoppingList shoppingList) {
         return shoppingListDao.insert(ShoppingListMapper.toEntity(shoppingList));
+    }
+
+    @Override
+    public Completable updateList(ShoppingList shoppingList) {
+        return shoppingListDao.update(ShoppingListMapper.toEntity(shoppingList));
+    }
+
+    @Override
+    public Completable deleteListById(int id) {
+        return shoppingListDao.deleteById(id);
     }
 
     @Override

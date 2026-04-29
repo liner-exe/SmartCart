@@ -1,9 +1,12 @@
 <resources>
+    <!-- Global -->
     <string name="app_name" translatable="false">SmartCart</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <!-- Tabs -->
     <string name="navigation_home">Главная</string>
     <string name="navigation_settings">Настройки</string>
     <string name="navigation_monitoring">Учет</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!-- Home -->
     <string name="list_name">Название списка</string>
@@ -11,6 +14,24 @@
     <!-- Settings -->
     <string name="products_management">Управление продуктами</string>
     <string name="about_app">О приложении</string>
+
+    <!-- Products Management -->
+    <string name="product_name">Название продукта</string>
+
+    <!-- Dialog add list -->
+    <string name="dialog_add_list_title">Новый список</string>
+    <string name="dialog_add_list_message">Введите название списка</string>
+    <string name="dialog_add_list_error_empty">Название не может быть пустым!</string>
+
+    <!-- Dialog add product -->
+    <string name="dialog_add_product_title">Новый товар</string>
+    <string name="dialog_add_product_message">Введите название товара</string>
+    <string name="dialog_add_product_error_empty">Название не может быть пустым!</string>
+
+    <!-- Actions -->
     <string name="action_edit">Редактировать</string>
+    <string name="action_rename">Переименовать</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_add">Добавить</string>
 </resources>
