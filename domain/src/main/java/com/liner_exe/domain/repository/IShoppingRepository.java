@@ -28,4 +28,6 @@ public interface IShoppingRepository {
     Completable deleteListById(int id);
 
     Flowable<List<ListItem>> getItemsForList(int listId);
+
+    Completable updateItemStatus(int listId, int productId, boolean isBought);
 }

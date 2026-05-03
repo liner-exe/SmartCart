@@ -88,4 +88,9 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     public Flowable<List<ListItem>> getItemsForList(int listId) {
         return listItemDao.getItemsForList(listId).map(ListItemMapper::toModelList);
     }
+
+    @Override
+    public Completable updateItemStatus(int listId, int productId, boolean isBought) {
+        return listItemDao.updateItemStatus(listId, productId, isBought);
+    }
 }

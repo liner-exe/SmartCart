@@ -7,6 +7,7 @@ import com.liner_exe.data.local.dto.ListItemDto;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
@@ -22,4 +23,9 @@ public interface ListItemDao {
             "WHERE li.listId = :listId"
     )
     Flowable<List<ListItemDto>> getItemsForList(int listId);
+
+    @Query("UPDATE list_items SET isChecked = :isBought " +
+            "WHERE productId = :productId " +
+            "AND listId = :listId")
+    Completable updateItemStatus(int listId, int productId, boolean isBought);
 }

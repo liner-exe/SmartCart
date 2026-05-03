@@ -65,6 +65,10 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
         viewHolder.getListName().setText(shoppingList.getName());
         viewHolder.getButtonMore().setOnClickListener(v -> showPopupMenu(v, shoppingList));
+        viewHolder.getProgressText().setText(shoppingList.getProgressString());
+
+        viewHolder.getProgressBar().setMax(shoppingList.getTotalItems());
+        viewHolder.getProgressBar().setProgress(shoppingList.getBoughtItems());
 
         viewHolder.itemView.setOnClickListener(v -> {
             onItemClickListener.onItemClick(shoppingList, position);

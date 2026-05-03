@@ -2,20 +2,27 @@ package com.liner_exe.smartcart.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.view.View;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.R;
-import com.liner_exe.domain.models.Product;
 
 import java.util.List;
 
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
+    public interface OnListItemActionListener {
+        void onCheckbox(ListItem listItem);
+    }
+
+    private final OnListItemActionListener listener;
+
     private List<ListItem> listItems;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,8 +51,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         }
     }
 
-    public ListItemAdapter(List<ListItem> listItems) {
+    public ListItemAdapter(List<ListItem> listItems, OnListItemActionListener listener) {
         this.listItems = listItems;
+        this.listener = listener;
         notifyDataSetChanged();
     }
 
@@ -70,6 +78,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         viewHolder.getTextName().setText(listItem.getProduct().getName());
         viewHolder.getTextAmount().setText(listItem.getQuantity() + " шт.");
         viewHolder.getCheckBox().setChecked(listItem.isBought());
+
+        viewHolder.getCheckBox().setOnClickListener(v -> {
+            listener.onCheckbox(listItem);
+        });
     }
 
     @Override

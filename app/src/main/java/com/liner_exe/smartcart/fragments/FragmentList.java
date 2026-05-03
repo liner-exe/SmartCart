@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
@@ -56,7 +57,12 @@ public class FragmentList extends Fragment {
         });
 
         RecyclerView recyclerView = binding.recyclerViewListItems;
-        adapter = new ListItemAdapter(Collections.emptyList());
+        adapter = new ListItemAdapter(Collections.emptyList(), new ListItemAdapter.OnListItemActionListener() {
+            @Override
+            public void onCheckbox(ListItem listItem) {
+                viewModel.toggleItemStatus(listItem);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

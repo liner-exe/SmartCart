@@ -110,6 +110,17 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribe());
     }
 
+    public void toggleItemStatus(ListItem item) {
+        boolean newStatus = !item.isBought();
+        disposable.add(repository.updateItemStatus(
+                        item.getListId(),
+                        item.getProduct().getId(),
+                        newStatus
+                ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
     public void setCurrentListId(int listId) {
         currentListId.onNext(listId);
     }
