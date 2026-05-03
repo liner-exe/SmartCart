@@ -72,6 +72,7 @@ public class FragmentHome extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putString("listName", shoppingList.getName());
+            bundle.putInt("listId", shoppingList.getId());
             navController.navigate(R.id.action_mainFragment_to_fragmentList, bundle);
         });
 

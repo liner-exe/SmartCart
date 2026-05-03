@@ -7,12 +7,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.domain.models.Product;
 
+import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-    private Product[] localDataSet;
+
+public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
+    private List<ListItem> listItems;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textName;
@@ -40,8 +44,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
     }
 
-    public ProductAdapter(Product[] products) {
-        localDataSet = products;
+    public ListItemAdapter(List<ListItem> listItems) {
+        this.listItems = listItems;
+        notifyDataSetChanged();
+    }
+
+    public void setListItems(List<ListItem> listItems) {
+        this.listItems = listItems;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -55,13 +65,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.getTextName().setText(localDataSet[position].getName());
-//        viewHolder.getTextAmount().setText(Integer.toString(localDataSet[position].getAmount()) + " шт.");
-//        viewHolder.getCheckBox().setChecked(localDataSet[position].isChecked());
+        ListItem listItem = listItems.get(position);
+
+        viewHolder.getTextName().setText(listItem.getProduct().getName());
+        viewHolder.getTextAmount().setText(listItem.getQuantity() + " шт.");
+        viewHolder.getCheckBox().setChecked(listItem.isBought());
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return listItems.size();
     }
 }

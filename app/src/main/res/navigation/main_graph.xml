@@ -41,6 +41,10 @@
             android:name="listName"
             app:argType="string"
             android:defaultValue="list_name" />
+        <argument
+            android:name="listId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/productsManagementFragment"

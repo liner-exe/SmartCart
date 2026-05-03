@@ -1,8 +1,11 @@
 package com.liner_exe.data.repository;
 
+import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
+import com.liner_exe.data.local.dto.ListItemDto;
 import com.liner_exe.data.local.entities.ProductEntity;
+import com.liner_exe.data.mapper.ListItemMapper;
 import com.liner_exe.data.mapper.ProductMapper;
 import com.liner_exe.data.mapper.ShoppingListMapper;
 import com.liner_exe.domain.models.ListItem;
@@ -12,6 +15,7 @@ import com.liner_exe.domain.repository.IShoppingRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,11 +27,15 @@ import io.reactivex.rxjava3.core.Flowable;
 public class ShoppingRepositoryImpl implements IShoppingRepository {
     private final ProductDao productDao;
     private final ShoppingListDao shoppingListDao;
+    private final ListItemDao listItemDao;
 
     @Inject
-    public ShoppingRepositoryImpl(ProductDao productDao, ShoppingListDao shoppingListDao) {
+    public ShoppingRepositoryImpl(ProductDao productDao,
+                                  ShoppingListDao shoppingListDao,
+                                  ListItemDao listItemDao) {
         this.productDao = productDao;
         this.shoppingListDao = shoppingListDao;
+        this.listItemDao = listItemDao;
     }
 
     @Override
@@ -77,12 +85,7 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     }
 
     @Override
-    public List<ListItem> getAllListItems() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public ListItem getItemsForList(int listId) {
-        return null;
+    public Flowable<List<ListItem>> getItemsForList(int listId) {
+        return listItemDao.getItemsForList(listId).map(ListItemMapper::toModelList);
     }
 }

@@ -1,52 +1,22 @@
 package com.liner_exe.domain.models;
 
 public class ListItem {
-    private final int id;
-
-    private int listId;
-    private String name;
-    private int quantity;
+    private final Product product;
+    private final int quantity;
     private boolean isBought;
+    private final int listId;
 
-    public ListItem(int id, int listId, String name, int quantity, boolean isBought) {
-        this.id = id;
-        this.listId = listId;
-        this.name = name;
+    public ListItem(Product product, int quantity, boolean isBought, int listId) {
+        this.product = product;
         this.quantity = quantity;
         this.isBought = isBought;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getListId() {
-        return listId;
-    }
-
-    public void setListId(int listId) {
         this.listId = listId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public boolean isBought() {
-        return isBought;
-    }
+    public Product getProduct() { return product; }
+    public int getQuantity() { return quantity; }
+    public boolean isBought() { return isBought; }
+    public int getListId() { return listId; }
 
     public void setBought(boolean bought) {
         isBought = bought;

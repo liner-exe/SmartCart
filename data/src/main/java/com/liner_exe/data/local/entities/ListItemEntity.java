@@ -11,13 +11,15 @@ import androidx.room.ForeignKey;
             entity = ShoppingListEntity.class,
             parentColumns = "id",
             childColumns = "listId",
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         ),
         @ForeignKey(
             entity = ProductEntity.class,
             parentColumns = "id",
             childColumns = "productId",
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     }
 )
