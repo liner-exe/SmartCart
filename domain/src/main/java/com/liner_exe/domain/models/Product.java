@@ -1,6 +1,8 @@
 package com.liner_exe.domain.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private final int id;
     private String name;
 

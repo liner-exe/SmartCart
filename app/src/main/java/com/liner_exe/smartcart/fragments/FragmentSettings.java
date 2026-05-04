@@ -1,6 +1,9 @@
 package com.liner_exe.smartcart.fragments;
 
 import android.app.AlertDialog;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,10 +43,34 @@ public class FragmentSettings extends Fragment {
     }
 
     private void showAboutDialog() {
+        PackageInfo packageInfo = null;
+        ApplicationInfo ai = null;
+
+        try {
+            PackageManager pm = getContext().getPackageManager();
+            String packageName = getContext().getPackageName();
+            packageInfo = pm.getPackageInfo(packageName, 0);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         new AlertDialog.Builder(getContext())
                 .setTitle("О приложении")
-                .setMessage("Версия 0.1.0\nРазработчик: liner.exe")
+                .setMessage(String.format("Версия %s\nРазработчик: %s", packageInfo.versionName, getDeveloperName()))
                 .setPositiveButton("ОК", null)
                 .show();
+    }
+
+    private String getDeveloperName() {
+        try {
+            ApplicationInfo ai = getContext().getPackageManager()
+                    .getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA);
+
+            Bundle bundle = ai.metaData;
+            return bundle.getString("developer_name");
+        } catch (Exception e) {
+            return "Unknown";
+        }
     }
 }

@@ -23,6 +23,7 @@ import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
 import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
 import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
+import com.liner_exe.smartcart.modal.ProductEditSheet;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.ArrayList;
@@ -59,7 +60,9 @@ public class ProductsManagementFragment extends Fragment {
                 new ProductsManagementAdapter.OnProductActionListener() {
                 @Override
                 public void onEdit(Product product) {
-                    Toast.makeText(getContext(), "Edited!", Toast.LENGTH_SHORT).show();
+                    ProductEditSheet.newInstance(product).show(
+                            getChildFragmentManager(), "ProductEditSheet"
+                    );
                 }
 
                 @Override
@@ -79,6 +82,12 @@ public class ProductsManagementFragment extends Fragment {
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
+
+        adapter.setOnItemClickListener(((product, position) -> {
+            ProductEditSheet.newInstance(product).show(
+                    getChildFragmentManager(), "ProductEditSheet"
+            );
+        }));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

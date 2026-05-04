@@ -25,6 +25,12 @@ public class ProductsManagementAdapter
         void onDelete(Product product);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Product product, int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
     private final OnProductActionListener listener;
 
     private List<Product> products;
@@ -39,6 +45,9 @@ public class ProductsManagementAdapter
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     @Override
     public int getItemCount() {
@@ -60,6 +69,10 @@ public class ProductsManagementAdapter
 
         viewHolder.getButtonMore().setOnClickListener(v -> {
             showPopupMenu(v, product);
+        });
+
+        viewHolder.itemView.setOnClickListener(v -> {
+            onItemClickListener.onItemClick(product, position);
         });
     }
 

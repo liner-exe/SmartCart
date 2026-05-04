@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="developer_name"
+            android:value="liner.exe" />
     </application>
 
 </manifest>
