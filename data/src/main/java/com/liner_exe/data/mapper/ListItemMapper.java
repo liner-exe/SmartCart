@@ -12,6 +12,7 @@ public class ListItemMapper {
         return new ListItem(
                 new Product(dto.productId, dto.productName),
                 dto.quantity,
+                dto.price,
                 dto.isChecked,
                 dto.listId
         );

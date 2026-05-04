@@ -17,6 +17,7 @@ public interface ListItemDao {
             "li.listId AS listId, " +
             "p.name AS productName, " +
             "li.quantity AS quantity, " +
+            "li.price AS price, " +
             "li.isChecked AS isChecked " +
             "FROM list_items li " +
             "INNER JOIN products p ON li.productId = p.id " +

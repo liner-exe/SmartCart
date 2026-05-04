@@ -15,6 +15,9 @@ public class ListItemDto {
     @ColumnInfo(name = "quantity")
     public int quantity;
 
+    @ColumnInfo(name = "price")
+    public int price;
+
     @ColumnInfo(name = "isChecked")
     public boolean isChecked;
 }

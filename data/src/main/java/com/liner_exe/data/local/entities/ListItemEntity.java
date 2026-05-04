@@ -28,6 +28,7 @@ public class ListItemEntity {
     public int productId;
 
     public int quantity;
+    public double price;
     public boolean isChecked;
 
     public ListItemEntity(int listId, int productId) {
