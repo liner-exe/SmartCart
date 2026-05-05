@@ -37,11 +37,6 @@ public class ProductsManagementFragment extends Fragment {
     private ShoppingViewModel viewModel;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products_management,
@@ -53,10 +48,10 @@ public class ProductsManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewProductsManagement;
-        adapter = new ProductsManagementAdapter(new ArrayList<>(),
+        adapter = new ProductsManagementAdapter(
                 new ProductsManagementAdapter.OnProductActionListener() {
                 @Override
                 public void onEdit(Product product) {
@@ -94,7 +89,7 @@ public class ProductsManagementFragment extends Fragment {
 
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
             if (newProducts != null) {
-                adapter.setProducts(newProducts);
+                adapter.setItems(newProducts);
             }
         });
 

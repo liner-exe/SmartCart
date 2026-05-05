@@ -28,11 +28,15 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        NavController navController = Navigation
+                .findNavController(requireActivity(), R.id.main_nav_host);
 
         binding.productsManagementButton.setOnClickListener(view -> {
-            NavController navController = Navigation
-                    .findNavController(requireActivity(), R.id.main_nav_host);
             navController.navigate(R.id.action_mainFragment_to_productsManagementFragment);
+        });
+
+        binding.categoriesManagementButton.setOnClickListener(view -> {
+            navController.navigate(R.id.action_mainFragment_to_categoryManagementFragment);
         });
 
         binding.aboutButton.setOnClickListener(view -> {

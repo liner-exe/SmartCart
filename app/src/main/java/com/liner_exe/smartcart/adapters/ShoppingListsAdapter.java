@@ -11,14 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.liner_exe.smartcart.R;
 import com.liner_exe.domain.models.ShoppingList;
+import com.liner_exe.smartcart.R;
 
 import java.util.List;
 
 public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ViewHolder> {
     public interface OnShoppingListActionListener {
         void onRename(ShoppingList shoppingList);
+
         void onDelete(ShoppingList shoppingList);
     }
 

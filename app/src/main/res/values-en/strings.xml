@@ -5,6 +5,8 @@
     <string name="navigation_monitoring">Monitoring</string>
     <string name="list_name">List name</string>
     <string name="products_management">Products management</string>
+    <string name="categories_management">Category management</string>
+    <string name="stores_management">Stores management</string>
     <string name="about_app">About app</string>
     <string name="dialog_add_list_error_empty">Name can\'t be empty</string>
     <string name="dialog_add_product_error_empty">Name can\'t be empty</string>
@@ -14,8 +16,11 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_add">Add</string>
     <string name="product_name">Product name</string>
+    <string name="category_name">Category name</string>
+    <string name="category_edit">Category edit</string>
     <string name="dialog_add_list_title">New list</string>
     <string name="dialog_add_list_message">Enter list name</string>
     <string name="dialog_add_product_title">New product</string>
     <string name="dialog_add_product_message">Enter product name</string>
+    <string name="action_done">Done</string>
 </resources>

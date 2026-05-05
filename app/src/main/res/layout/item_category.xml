@@ -4,20 +4,27 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:layout_margin="4dp"
         android:background="@drawable/rounded_layout"
         android:backgroundTint="#1A2A3A"
-        android:padding="16dp"
-        android:layout_margin="4dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/product_item_title"
+            android:id="@+id/category_item_emoji"
+            android:layout_width="20dp"
+            android:layout_height="20dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/category_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Category"
+            android:layout_marginStart="10dp"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:text="Product" />
+            android:textSize="16sp" />
 
         <Space
             android:layout_width="0dp"
@@ -25,14 +32,14 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/product_item_button_more"
+            android:id="@+id/category_item_button_more"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/more"
-            android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            android:src="@drawable/more"
             app:tint="@color/white" />
     </LinearLayout>
 </layout>

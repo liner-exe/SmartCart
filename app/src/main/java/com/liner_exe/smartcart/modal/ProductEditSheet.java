@@ -26,7 +26,7 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
     public static ProductEditSheet newInstance(Product product) {
         ProductEditSheet sheet = new ProductEditSheet();
         Bundle args = new Bundle();
-        args.putSerializable("arg_product", (Serializable) product);
+        args.putSerializable("arg_product", product);
         sheet.setArguments(args);
         return sheet;
     }

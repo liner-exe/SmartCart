@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
+import com.liner_exe.smartcart.databinding.ItemCategoryBinding;
+import com.liner_exe.smartcart.databinding.ItemProductBinding;
 
 import java.util.List;
 
 public class ProductsManagementAdapter
-        extends RecyclerView.Adapter<ProductsManagementAdapter.ProductsManagementViewHolder> {
+        extends BaseAdapter<Product, ItemProductBinding> {
     public interface OnProductActionListener {
         void onEdit(Product product);
 
@@ -25,55 +27,18 @@ public class ProductsManagementAdapter
         void onDelete(Product product);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Product product, int position);
-    }
-
-    private OnItemClickListener onItemClickListener;
-
     private final OnProductActionListener listener;
 
-    private List<Product> products;
-
-    public ProductsManagementAdapter(List<Product> products, OnProductActionListener listener) {
-        this.products = products;
+    public ProductsManagementAdapter(OnProductActionListener listener) {
         this.listener = listener;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-        notifyDataSetChanged();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    @Override
-    public int getItemCount() {
-        return products.size();
     }
 
     @NonNull
     @Override
-    public ProductsManagementViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_product, viewGroup, false);
-        return new ProductsManagementAdapter.ProductsManagementViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ProductsManagementViewHolder viewHolder, int position) {
-        Product product = products.get(position);
-        viewHolder.getProductName().setText(product.getName());
-
-        viewHolder.getButtonMore().setOnClickListener(v -> {
-            showPopupMenu(v, product);
-        });
-
-        viewHolder.itemView.setOnClickListener(v -> {
-            onItemClickListener.onItemClick(product, position);
-        });
+    public BaseViewHolder<ItemProductBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemProductBinding binding = ItemProductBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new BaseViewHolder<>(binding);
     }
 
     private void showPopupMenu(View view, Product product) {
@@ -99,23 +64,11 @@ public class ProductsManagementAdapter
         popupMenu.show();
     }
 
-    public static class ProductsManagementViewHolder extends RecyclerView.ViewHolder {
-        private final TextView productName;
-        private final ImageButton buttonMore;
-
-        public ProductsManagementViewHolder(@NonNull View view) {
-            super(view);
-
-            this.productName = view.findViewById(R.id.product_item_title);
-            this.buttonMore = view.findViewById(R.id.product_item_button_more);
-        }
-
-        public TextView getProductName() {
-            return productName;
-        }
-
-        public ImageButton getButtonMore() {
-            return buttonMore;
-        }
+    @Override
+    protected void bind(ItemProductBinding binding, Product product) {
+        binding.productItemTitle.setText(product.getName());
+        binding.productItemButtonMore.setOnClickListener(v -> {
+            showPopupMenu(v, product);
+        });
     }
 }

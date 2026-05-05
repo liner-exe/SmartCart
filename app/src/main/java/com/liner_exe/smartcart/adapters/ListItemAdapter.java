@@ -8,84 +8,43 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.R;
+import com.liner_exe.smartcart.databinding.ItemListBinding;
 
 import java.util.List;
 
 
-public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
+public class ListItemAdapter extends BaseAdapter<ListItem, ItemListBinding> {
     public interface OnListItemActionListener {
         void onCheckbox(ListItem listItem);
     }
 
     private final OnListItemActionListener listener;
 
-    private List<ListItem> listItems;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textName;
-        private final TextView textAmount;
-        private final CheckBox checkBox;
-
-        public ViewHolder(View view) {
-            super(view);
-
-            textName = (TextView) view.findViewById(R.id.text_product_name);
-            textAmount = (TextView) view.findViewById(R.id.text_quantity);
-            checkBox = (CheckBox) view.findViewById(R.id.checkbox_item);
-        }
-
-        public TextView getTextName() {
-            return textName;
-        }
-
-        public TextView getTextAmount() {
-            return textAmount;
-        }
-
-        public CheckBox getCheckBox() {
-            return checkBox;
-        }
-    }
-
-    public ListItemAdapter(List<ListItem> listItems, OnListItemActionListener listener) {
-        this.listItems = listItems;
+    public ListItemAdapter(OnListItemActionListener listener) {
         this.listener = listener;
-        notifyDataSetChanged();
     }
 
-    public void setListItems(List<ListItem> listItems) {
-        this.listItems = listItems;
-        notifyDataSetChanged();
-    }
-
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_list, viewGroup, false);
-
-        return new ViewHolder(view);
+    public BaseViewHolder<ItemListBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemListBinding binding = ItemListBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false);
+        return new BaseViewHolder<>(binding);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        ListItem listItem = listItems.get(position);
-
-        viewHolder.getTextName().setText(listItem.getProduct().getName());
-        viewHolder.getTextAmount().setText(listItem.getQuantity() + " шт.");
-        viewHolder.getCheckBox().setChecked(listItem.isBought());
-
-        viewHolder.getCheckBox().setOnClickListener(v -> {
-            listener.onCheckbox(listItem);
+    protected void bind(ItemListBinding binding, ListItem item) {
+        binding.textProductName.setText(item.getProduct().getName());
+        binding.textQuantity.setText(item.getQuantity() + " шт");
+        binding.checkboxItem.setChecked(item.isBought());
+        binding.checkboxItem.setOnClickListener(v -> {
+            listener.onCheckbox(item);
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return listItems.size();
     }
 }

@@ -13,10 +13,18 @@
 
     <!-- Settings -->
     <string name="products_management">Управление продуктами</string>
+    <string name="categories_management">Управление категориями</string>
+    <string name="stores_management">Управление магазинами</string>
     <string name="about_app">О приложении</string>
 
     <!-- Products Management -->
     <string name="product_name">Название продукта</string>
+
+    <!-- Category Management -->
+    <string name="category_name">Название категории</string>
+
+    <!-- Category Edit -->
+    <string name="category_edit">Редактирование категории</string>
 
     <!-- Dialog add list -->
     <string name="dialog_add_list_title">Новый список</string>

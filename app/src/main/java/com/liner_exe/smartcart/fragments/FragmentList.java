@@ -57,7 +57,7 @@ public class FragmentList extends Fragment {
         });
 
         RecyclerView recyclerView = binding.recyclerViewListItems;
-        adapter = new ListItemAdapter(Collections.emptyList(), new ListItemAdapter.OnListItemActionListener() {
+        adapter = new ListItemAdapter(new ListItemAdapter.OnListItemActionListener() {
             @Override
             public void onCheckbox(ListItem listItem) {
                 viewModel.toggleItemStatus(listItem);
@@ -68,7 +68,7 @@ public class FragmentList extends Fragment {
 
         viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
             if (newListItems != null) {
-                adapter.setListItems(newListItems);
+                adapter.setItems(newListItems);
             }
         });
 
