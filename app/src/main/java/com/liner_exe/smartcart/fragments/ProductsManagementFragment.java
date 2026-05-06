@@ -63,8 +63,8 @@ public class ProductsManagementFragment extends Fragment {
                 @Override
                 public void onRename(Product product) {
                     ProductDialogFragment.newInstance(product.getName(), newName -> {
-                        product.setName(newName);
-                        viewModel.updateProduct(product);
+                        Product updatedProduct = new Product(product.getId(), newName);
+                        viewModel.updateProduct(updatedProduct);
                     }).show(getChildFragmentManager(), "RenameProductDialog");
                 }
 

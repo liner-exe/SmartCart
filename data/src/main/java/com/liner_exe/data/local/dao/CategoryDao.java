@@ -3,6 +3,7 @@ package com.liner_exe.data.local.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.liner_exe.data.local.entities.CategoryEntity;
 
@@ -18,4 +19,10 @@ public interface CategoryDao {
 
     @Query("SELECT * from categories")
     Flowable<List<CategoryEntity>> getAll();
+
+    @Update
+    Completable update(CategoryEntity category);
+
+    @Query("DELETE from categories WHERE id = :id")
+    Completable deleteById(int id);
 }

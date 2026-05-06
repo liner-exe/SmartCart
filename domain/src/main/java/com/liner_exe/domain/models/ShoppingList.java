@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class ShoppingList implements DiffIdentifiable {
     private final int id;
-    private String name;
+    private final String name;
     private final int totalItems;
     private final int boughtItems;
 
@@ -14,13 +14,6 @@ public class ShoppingList implements DiffIdentifiable {
         this.name = name;
         this.totalItems = totalItems;
         this.boughtItems = boughtItems;
-    }
-
-    public ShoppingList(int id, String name) {
-        this.id = id;
-        this.name = name;
-        this.totalItems = 0;
-        this.boughtItems = 0;
     }
 
     public ShoppingList(String name) {
@@ -36,10 +29,6 @@ public class ShoppingList implements DiffIdentifiable {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getBoughtItems() {

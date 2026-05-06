@@ -35,4 +35,8 @@ public interface IShoppingRepository {
     Completable addCategory(Category category);
 
     Flowable<List<Category>> getAllCategories();
+
+    Completable updateCategory(Category category);
+
+    Completable deleteCategoryById(int id);
 }

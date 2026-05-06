@@ -1,13 +1,14 @@
 package com.liner_exe.domain.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Category implements DiffIdentifiable {
+public class Category implements Serializable, DiffIdentifiable {
     private final int id;
 
-    private String name;
+    private final String name;
 
-    private String emoji;
+    private final String emoji;
 
     public Category(int id, String name, String emoji) {
         this.id = id;
@@ -29,16 +30,8 @@ public class Category implements DiffIdentifiable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmoji() {
         return emoji;
-    }
-
-    public void setEmoji(String emoji) {
-        this.emoji = emoji;
     }
 
     @Override

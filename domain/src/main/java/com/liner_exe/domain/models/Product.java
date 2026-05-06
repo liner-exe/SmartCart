@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Product implements Serializable, DiffIdentifiable {
     private final int id;
-    private String name;
+    private final String name;
 
     public Product(int id, String name) {
         this.id = id;
@@ -23,10 +23,6 @@ public class Product implements Serializable, DiffIdentifiable {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

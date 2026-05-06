@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +54,12 @@ public class CategoriesManagementFragment extends Fragment {
         });
 
         RecyclerView recyclerView = binding.rvCategories;
-        adapter = new CategoriesManagementAdapter();
+        adapter = new CategoriesManagementAdapter(new CategoriesManagementAdapter.OnCategoryActionListener() {
+            @Override
+            public void onDelete(Category category) {
+                viewModel.deleteCategoryById(category.getId());
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -63,21 +69,17 @@ public class CategoriesManagementFragment extends Fragment {
             }
         });
 
-//        adapter.setItems(List.of(
-//                new Category("Vegetables", "🍅"),
-//                new Category("Fruits", "🍎")
-//        ));
-
-//        adapter.setOnItemClickListener((category, position) -> {
-//            NavController navController = Navigation.findNavController(requireActivity(),
-//                    R.id.main_nav_host);
-//            navController.navigate(R.id.action_categoryManagementFragment_to_categoryEditFragment);
-//        });
+        adapter.setOnItemClickListener((category, position) -> {
+            NavDirections action = CategoriesManagementFragmentDirections
+                    .actionCategoryManagementFragmentToCategoryEditFragment()
+                    .setCategory(category);
+            Navigation.findNavController(view).navigate(action);
+        });
 
         binding.fabAddCategory.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireActivity(),
-                    R.id.main_nav_host);
-            navController.navigate(R.id.action_categoryManagementFragment_to_categoryEditFragment);
+            NavDirections action = CategoriesManagementFragmentDirections
+                    .actionCategoryManagementFragmentToCategoryEditFragment();
+            Navigation.findNavController(view).navigate(action);
         });
     }
 }

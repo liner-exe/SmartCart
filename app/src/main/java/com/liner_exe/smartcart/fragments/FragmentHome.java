@@ -51,8 +51,11 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onRename(ShoppingList shoppingList) {
                         ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
-                            shoppingList.setName(newName);
-                            viewModel.updateList(shoppingList);
+                            ShoppingList updatedShoppingList = new ShoppingList(
+                                    shoppingList.getId(), newName,
+                                    shoppingList.getTotalItems(), shoppingList.getBoughtItems()
+                            );
+                            viewModel.updateList(updatedShoppingList);
                         }).show(getChildFragmentManager(), "RenameListDialog");
                     }
 

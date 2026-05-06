@@ -109,4 +109,14 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     public Flowable<List<Category>> getAllCategories() {
         return categoryDao.getAll().map(CategoryMapper::toModelList);
     }
+
+    @Override
+    public Completable updateCategory(Category category) {
+        return categoryDao.update(CategoryMapper.toEntity(category));
+    }
+
+    @Override
+    public Completable deleteCategoryById(int id) {
+        return categoryDao.deleteById(id);
+    }
 }

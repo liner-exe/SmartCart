@@ -5,14 +5,12 @@ import java.util.Objects;
 public class ListItem implements DiffIdentifiable {
     private final int id;
     private final Product product;
-    private int quantity;
-
-    private double price;
-    private boolean isBought;
+    private final int quantity;
+    private final double price;
+    private final boolean isBought;
     private final int listId;
 
     public ListItem(int id, Product product, int quantity, double price, boolean isBought, int listId) {
-
         this.id = id;
         this.product = product;
         this.quantity = quantity;
@@ -28,24 +26,13 @@ public class ListItem implements DiffIdentifiable {
     public Product getProduct() { return product; }
     public int getQuantity() { return quantity; }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public boolean isBought() { return isBought; }
-    public int getListId() { return listId; }
 
-    public void setBought(boolean bought) {
-        isBought = bought;
-    }
+    public int getListId() { return listId; }
 
     @Override
     public boolean isContentTheSame(Object other) {

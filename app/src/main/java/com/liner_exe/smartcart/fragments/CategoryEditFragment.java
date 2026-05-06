@@ -15,15 +15,23 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentCategoryEditBinding;
 import com.liner_exe.smartcart.utils.Utils;
+import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CategoryEditFragment extends Fragment {
     private FragmentCategoryEditBinding binding;
+    private ShoppingViewModel viewModel;
+    private Category category;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,11 +45,28 @@ public class CategoryEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+
+        if (getArguments() != null) {
+            CategoryEditFragmentArgs args = CategoryEditFragmentArgs.fromBundle(getArguments());
+            category = args.getCategory();
+        }
+
+        boolean isEdit = category != null;
+
+        if (isEdit) {
+            binding.appToolbar.setTitle(R.string.category_edit);
+            binding.ilCategoryEditName.setPrefixText(category.getEmoji() + " ");
+            binding.etCategoryEditName.setText(category.getName());
+            binding.etCategoryEditName.setSelection(category.getName().length());
+        }
+
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         binding.fabDoneCategory.setOnClickListener(v -> {
+            saveCategory();
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
@@ -96,6 +121,7 @@ public class CategoryEditFragment extends Fragment {
         binding.emojiPickerCategoryEdit.setOnEmojiPickedListener(item -> {
             String selectedEmoji = item.getEmoji();
 
+
             binding.ilCategoryEditName.setPrefixText(selectedEmoji + " ");
         });
     }
@@ -115,5 +141,22 @@ public class CategoryEditFragment extends Fragment {
                     .withEndAction(this::setupEmojiPicker)
                     .start();
         });
+    }
+
+    private void saveCategory() {
+        String name = binding.etCategoryEditName.getText().toString().trim();
+        String emoji = binding.ilCategoryEditName.getPrefixText().toString().trim();
+
+        if (name.isEmpty()) {
+            binding.ilCategoryEditName.setError("Введите название");
+            return;
+        }
+
+        if (category == null) {
+            viewModel.addCategory(new Category(name, emoji));
+        } else {
+            Category updatedCategory = new Category(category.getId(), name, emoji);
+            viewModel.updateCategory(updatedCategory);
+        }
     }
 }

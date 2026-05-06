@@ -22,8 +22,8 @@ public class CategoryMapper {
 
         return new CategoryEntity(
                 model.getId(),
-                model.getEmoji(),
-                model.getName()
+                model.getName(),
+                model.getEmoji()
         );
     }
 

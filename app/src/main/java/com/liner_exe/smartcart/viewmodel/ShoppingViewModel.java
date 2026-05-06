@@ -104,7 +104,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -116,7 +117,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -128,7 +130,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -140,7 +143,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -152,7 +156,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -164,7 +169,8 @@ public class ShoppingViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
@@ -173,6 +179,31 @@ public class ShoppingViewModel extends ViewModel {
 
     public void addCategory(Category category) {
         disposable.add(repository.addCategory(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                        },
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
+    }
+
+    public void updateCategory(Category category) {
+        disposable.add(repository.updateCategory(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {},
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
+    }
+
+    public void deleteCategoryById(int id) {
+        disposable.add(repository.deleteCategoryById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -192,7 +223,8 @@ public class ShoppingViewModel extends ViewModel {
                 ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {},
+                        () -> {
+                        },
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
