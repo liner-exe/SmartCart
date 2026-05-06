@@ -1,6 +1,7 @@
 package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class CategoriesManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
 
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
@@ -56,10 +57,16 @@ public class CategoriesManagementFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter.setItems(List.of(
-                new Category("Vegetables", "🍅"),
-                new Category("Fruits", "🍎")
-        ));
+        viewModel.categories.observe(getViewLifecycleOwner(), newCategories -> {
+            if (newCategories != null) {
+                adapter.setItems(newCategories);
+            }
+        });
+
+//        adapter.setItems(List.of(
+//                new Category("Vegetables", "🍅"),
+//                new Category("Fruits", "🍎")
+//        ));
 
 //        adapter.setOnItemClickListener((category, position) -> {
 //            NavController navController = Navigation.findNavController(requireActivity(),

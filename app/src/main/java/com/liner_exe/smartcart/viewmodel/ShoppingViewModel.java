@@ -48,6 +48,7 @@ public class ShoppingViewModel extends ViewModel {
         subscribeToProducts();
         subscribeToLists();
         subscribeToListItems();
+        subscribeToCategories();
     }
 
     private void subscribeToProducts() {
@@ -87,7 +88,15 @@ public class ShoppingViewModel extends ViewModel {
     }
 
     private void subscribeToCategories() {
-
+        disposable.add(repository.getAllCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        _categories::setValue,
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
     }
 
     public void addList(ShoppingList shoppingList) {
