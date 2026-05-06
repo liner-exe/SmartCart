@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.models.ShoppingList;
@@ -35,6 +36,9 @@ public class ShoppingViewModel extends ViewModel {
 
     private final MutableLiveData<List<ListItem>> _listItems = new MutableLiveData<>();
     public LiveData<List<ListItem>> listItems = _listItems;
+
+    private final MutableLiveData<List<Category>> _categories = new MutableLiveData<>();
+    public LiveData<List<Category>> categories = _categories;
 
     private final BehaviorSubject<Integer> currentListId = BehaviorSubject.create();
 
@@ -80,6 +84,10 @@ public class ShoppingViewModel extends ViewModel {
                         throwable -> {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }));
+    }
+
+    private void subscribeToCategories() {
+
     }
 
     public void addList(ShoppingList shoppingList) {
@@ -144,6 +152,18 @@ public class ShoppingViewModel extends ViewModel {
 
     public void deleteProductById(int id) {
         disposable.add(repository.deleteProductById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {},
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
+    }
+
+    public void addCategory(Category category) {
+        disposable.add(repository.addCategory(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

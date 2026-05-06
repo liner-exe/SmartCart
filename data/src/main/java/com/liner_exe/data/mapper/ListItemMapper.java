@@ -10,6 +10,7 @@ import java.util.List;
 public class ListItemMapper {
     public static ListItem toModel(ListItemDto dto) {
         return new ListItem(
+                dto.id,
                 new Product(dto.productId, dto.productName),
                 dto.quantity,
                 dto.price,

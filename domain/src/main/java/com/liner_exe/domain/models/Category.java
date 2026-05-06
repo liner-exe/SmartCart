@@ -1,6 +1,8 @@
 package com.liner_exe.domain.models;
 
-public class Category {
+import java.util.Objects;
+
+public class Category implements DiffIdentifiable {
     private final int id;
 
     private String name;
@@ -37,5 +39,25 @@ public class Category {
 
     public void setEmoji(String emoji) {
         this.emoji = emoji;
+    }
+
+    @Override
+    public boolean isContentTheSame(Object other) {
+        return this.equals(other);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return id == category.id &&
+                Objects.equals(name, category.name) &&
+                Objects.equals(emoji, category.emoji);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, emoji);
     }
 }

@@ -61,8 +61,14 @@ public class CategoryEditFragment extends Fragment {
                         if (isAdded()) startEmojiPickerSmoothAppearance();
                     });
                 }
-                @Override public void onAnimationStart(Animation animation) {}
-                @Override public void onAnimationRepeat(Animation animation) {}
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
             });
         }
         return anim;

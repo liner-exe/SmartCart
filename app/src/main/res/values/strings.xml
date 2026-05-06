@@ -23,7 +23,8 @@
     <!-- Category Management -->
     <string name="category_name">Название категории</string>
 
-    <!-- Category Edit -->
+    <!-- Category Add / Edit -->
+    <string name="category_add">Добавление категории</string>
     <string name="category_edit">Редактирование категории</string>
 
     <!-- Dialog add list -->

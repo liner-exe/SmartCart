@@ -61,7 +61,13 @@ public class CategoriesManagementFragment extends Fragment {
                 new Category("Fruits", "🍎")
         ));
 
-        adapter.setOnItemClickListener((category, position) -> {
+//        adapter.setOnItemClickListener((category, position) -> {
+//            NavController navController = Navigation.findNavController(requireActivity(),
+//                    R.id.main_nav_host);
+//            navController.navigate(R.id.action_categoryManagementFragment_to_categoryEditFragment);
+//        });
+
+        binding.fabAddCategory.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(requireActivity(),
                     R.id.main_nav_host);
             navController.navigate(R.id.action_categoryManagementFragment_to_categoryEditFragment);

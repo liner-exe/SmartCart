@@ -1,8 +1,9 @@
 package com.liner_exe.domain.models;
 
 import java.util.List;
+import java.util.Objects;
 
-public class ShoppingList {
+public class ShoppingList implements DiffIdentifiable {
     private final int id;
     private String name;
     private final int totalItems;
@@ -51,5 +52,26 @@ public class ShoppingList {
 
     public String getProgressString() {
         return boughtItems + "/" + totalItems;
+    }
+
+    @Override
+    public boolean isContentTheSame(Object other) {
+        return this.equals(other);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoppingList list = (ShoppingList) o;
+        return id == list.id &&
+                boughtItems == list.boughtItems &&
+                totalItems == list.totalItems &&
+                Objects.equals(name, list.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, boughtItems, totalItems);
     }
 }

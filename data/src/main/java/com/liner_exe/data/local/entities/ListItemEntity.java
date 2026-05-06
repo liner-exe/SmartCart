@@ -2,10 +2,10 @@ package com.liner_exe.data.local.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 @Entity(
     tableName = "list_items",
-    primaryKeys = {"listId", "productId"},
     foreignKeys = {
         @ForeignKey(
             entity = ShoppingListEntity.class,
@@ -24,6 +24,9 @@ import androidx.room.ForeignKey;
     }
 )
 public class ListItemEntity {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
     public int listId;
     public int productId;
 

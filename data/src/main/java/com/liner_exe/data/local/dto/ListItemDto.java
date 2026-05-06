@@ -3,6 +3,9 @@ package com.liner_exe.data.local.dto;
 import androidx.room.ColumnInfo;
 
 public class ListItemDto {
+    @ColumnInfo(name = "id")
+    public int id;
+
     @ColumnInfo(name = "productId")
     public int productId;
 

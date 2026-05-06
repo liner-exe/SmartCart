@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.core.Flowable;
 @Dao
 public interface ListItemDao {
     @Query("SELECT " +
+            "li.id AS id, " +
             "p.id AS productId, " +
             "li.listId AS listId, " +
             "p.name AS productName, " +

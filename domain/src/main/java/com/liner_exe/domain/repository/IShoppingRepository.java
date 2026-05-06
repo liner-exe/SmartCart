@@ -1,5 +1,6 @@
 package com.liner_exe.domain.repository;
 
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.models.ShoppingList;
@@ -30,4 +31,8 @@ public interface IShoppingRepository {
     Flowable<List<ListItem>> getItemsForList(int listId);
 
     Completable updateItemStatus(int listId, int productId, boolean isBought);
+
+    Completable addCategory(Category category);
+
+    Flowable<List<Category>> getAllCategories();
 }

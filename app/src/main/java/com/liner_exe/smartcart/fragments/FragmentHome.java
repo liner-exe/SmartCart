@@ -22,8 +22,6 @@ import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
 import com.liner_exe.smartcart.dialogs.ShoppingListDialogFragment;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
-import java.util.Collections;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -48,21 +46,21 @@ public class FragmentHome extends Fragment {
         viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewLists;
-        adapter = new ShoppingListsAdapter(Collections.emptyList(),
+        adapter = new ShoppingListsAdapter(
                 new ShoppingListsAdapter.OnShoppingListActionListener() {
-            @Override
-            public void onRename(ShoppingList shoppingList) {
-                ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
-                    shoppingList.setName(newName);
-                    viewModel.updateList(shoppingList);
-                }).show(getChildFragmentManager(), "RenameListDialog");
-            }
+                    @Override
+                    public void onRename(ShoppingList shoppingList) {
+                        ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
+                            shoppingList.setName(newName);
+                            viewModel.updateList(shoppingList);
+                        }).show(getChildFragmentManager(), "RenameListDialog");
+                    }
 
-            @Override
-            public void onDelete(ShoppingList shoppingList) {
-                viewModel.deleteListById(shoppingList.getId());
-            }
-        });
+                    @Override
+                    public void onDelete(ShoppingList shoppingList) {
+                        viewModel.deleteListById(shoppingList.getId());
+                    }
+                });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -78,7 +76,7 @@ public class FragmentHome extends Fragment {
 
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {
             if (newLists != null) {
-                adapter.setShoppingLists(newLists);
+                adapter.setItems(newLists);
             }
         });
 

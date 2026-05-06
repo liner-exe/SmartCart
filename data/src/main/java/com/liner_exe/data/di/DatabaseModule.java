@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.liner_exe.data.local.AppDatabase;
+import com.liner_exe.data.local.dao.CategoryDao;
 import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
@@ -46,5 +47,10 @@ public class DatabaseModule {
     @Provides
     public ListItemDao provideListItemDao(AppDatabase db) {
         return db.listItemDao();
+    }
+
+    @Provides
+    public CategoryDao provideCategoryDao(AppDatabase db) {
+        return db.categoryDao();
     }
 }

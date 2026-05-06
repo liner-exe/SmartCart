@@ -1,8 +1,9 @@
 package com.liner_exe.domain.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Product implements Serializable {
+public class Product implements Serializable, DiffIdentifiable {
     private final int id;
     private String name;
 
@@ -26,5 +27,23 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean isContentTheSame(Object other) {
+        return this.equals(other);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.getId() && Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
