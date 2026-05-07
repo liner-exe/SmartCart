@@ -64,6 +64,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_productsManagementFragment_to_categorySelectionFragment"
+            app:destination="@id/categorySelectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/categoryManagementFragment"
@@ -102,5 +109,20 @@
             app:nullable="true"
             android:defaultValue="@null">
         </argument>
+    </fragment>
+    <fragment
+        android:id="@+id/categorySelectionFragment"
+        android:name="com.liner_exe.smartcart.fragments.CategorySelectionFragment"
+        android:label="CategorySelectionFragment" >
+        <action
+            android:id="@+id/action_categorySelectionFragment_to_productsManagementFragment"
+            app:destination="@id/productsManagementFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="product"
+            app:argType="com.liner_exe.domain.models.Product" />
     </fragment>
 </navigation>

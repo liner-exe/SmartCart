@@ -9,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.BottomSheetEditProductBinding;
+import com.liner_exe.smartcart.fragments.ProductsManagementFragmentDirections;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
-
-import java.io.Serializable;
 
 public class ProductEditSheet extends BottomSheetDialogFragment {
     private BottomSheetEditProductBinding binding;
@@ -65,6 +67,12 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
         binding.productEditButtonDone.setOnClickListener(v -> {
             viewModel.updateProduct(product);
             dismiss();
+        });
+
+        binding.productEditButtonChangeCategory.setOnClickListener(v -> {
+            NavDirections action = ProductsManagementFragmentDirections
+                    .actionProductsManagementFragmentToCategorySelectionFragment(product);
+            NavHostFragment.findNavController(this).navigate(action);
         });
     }
 }
