@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class ProductsManagementFragment extends Fragment {
                 @Override
                 public void onRename(Product product) {
                     ProductDialogFragment.newInstance(product.getName(), newName -> {
-                        Product updatedProduct = new Product(product.getId(), newName);
+                        Product updatedProduct = new Product(product.getId(), newName, product.getCategoryId());
                         viewModel.updateProduct(updatedProduct);
                     }).show(getChildFragmentManager(), "RenameProductDialog");
                 }
@@ -89,7 +90,8 @@ public class ProductsManagementFragment extends Fragment {
 
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
             if (newProducts != null) {
-                adapter.setItems(newProducts);
+                adapter.setItems(new ArrayList<>(newProducts));
+                Log.d("ADAPTER", "setItems called, size: " + (newProducts != null ? newProducts.size() : 0));
             }
         });
 

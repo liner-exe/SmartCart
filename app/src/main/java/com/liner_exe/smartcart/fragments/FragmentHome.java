@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,13 +70,12 @@ public class FragmentHome extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((shoppingList, position) -> {
-            NavController navController = Navigation.findNavController(requireActivity(),
-                    R.id.main_nav_host);
+            NavDirections action = MainFragmentDirections
+                    .actionMainFragmentToFragmentList()
+                    .setListId(shoppingList.getId())
+                    .setListName(shoppingList.getName());
 
-            Bundle bundle = new Bundle();
-            bundle.putString("listName", shoppingList.getName());
-            bundle.putInt("listId", shoppingList.getId());
-            navController.navigate(R.id.action_mainFragment_to_fragmentList, bundle);
+            NavHostFragment.findNavController(this).navigate(action);
         });
 
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {

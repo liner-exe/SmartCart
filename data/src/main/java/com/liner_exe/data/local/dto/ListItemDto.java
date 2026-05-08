@@ -12,6 +12,9 @@ public class ListItemDto {
     @ColumnInfo(name = "listId")
     public int listId;
 
+    @ColumnInfo(name = "categoryId")
+    public Integer categoryId;
+
     @ColumnInfo(name = "productName")
     public String productName;
 

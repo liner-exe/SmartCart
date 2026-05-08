@@ -5,6 +5,7 @@ import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
 import com.liner_exe.data.local.dto.ListItemDto;
+import com.liner_exe.data.local.entities.CategoryEntity;
 import com.liner_exe.data.local.entities.ProductEntity;
 import com.liner_exe.data.mapper.CategoryMapper;
 import com.liner_exe.data.mapper.ListItemMapper;
@@ -25,6 +26,8 @@ import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
 public class ShoppingRepositoryImpl implements IShoppingRepository {
@@ -108,6 +111,14 @@ public class ShoppingRepositoryImpl implements IShoppingRepository {
     @Override
     public Flowable<List<Category>> getAllCategories() {
         return categoryDao.getAll().map(CategoryMapper::toModelList);
+    }
+
+    @Override
+    public Single<Category> getCategoryById(int id) {
+        return Single.fromCallable(() -> {
+            CategoryEntity category = categoryDao.findById(id);
+            return CategoryMapper.toModel(category);
+        }).subscribeOn(Schedulers.io());
     }
 
     @Override

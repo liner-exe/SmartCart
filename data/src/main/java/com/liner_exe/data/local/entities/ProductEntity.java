@@ -27,9 +27,9 @@ public class ProductEntity {
     }
 
     @Ignore
-    public ProductEntity(int id, String name) {
+    public ProductEntity(int id, String name, Integer categoryId) {
         this.id = id;
         this.name = name;
-        this.categoryId = null;
+        this.categoryId = categoryId;
     }
 }

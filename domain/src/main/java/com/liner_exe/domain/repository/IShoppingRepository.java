@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public interface IShoppingRepository {
     Completable addProduct(Product product);
@@ -35,6 +36,8 @@ public interface IShoppingRepository {
     Completable addCategory(Category category);
 
     Flowable<List<Category>> getAllCategories();
+
+    Single<Category> getCategoryById(int categoryId);
 
     Completable updateCategory(Category category);
 

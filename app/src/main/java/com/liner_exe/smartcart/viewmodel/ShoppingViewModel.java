@@ -40,6 +40,9 @@ public class ShoppingViewModel extends ViewModel {
     private final MutableLiveData<List<Category>> _categories = new MutableLiveData<>();
     public LiveData<List<Category>> categories = _categories;
 
+    private final MutableLiveData<Category> _selectedCategory = new MutableLiveData<>();
+    public LiveData<Category> selectedCategory = _selectedCategory;
+
     private final BehaviorSubject<Integer> currentListId = BehaviorSubject.create();
 
     @Inject
@@ -190,6 +193,18 @@ public class ShoppingViewModel extends ViewModel {
                 ));
     }
 
+    public void getCategory(int id) {
+        disposable.add(repository.getCategoryById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        _selectedCategory::setValue,
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
+    }
+
     public void updateCategory(Category category) {
         disposable.add(repository.updateCategory(category)
                 .subscribeOn(Schedulers.io())
@@ -212,6 +227,14 @@ public class ShoppingViewModel extends ViewModel {
                             Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
                         }
                 ));
+    }
+
+    public void resetSelectedCategory() {
+        _selectedCategory.setValue(null);
+    }
+
+    public void setSelectedCategory(Category category) {
+        _selectedCategory.postValue(category);
     }
 
     public void toggleItemStatus(ListItem item) {

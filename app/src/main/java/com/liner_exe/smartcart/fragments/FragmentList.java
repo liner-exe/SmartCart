@@ -46,8 +46,10 @@ public class FragmentList extends Fragment {
         viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
 
         if (getArguments() != null) {
-            listName = getArguments().getString("listName");
-            listId = getArguments().getInt("listId");
+            FragmentListArgs args = FragmentListArgs.fromBundle(getArguments());
+
+            listName = args.getListName();
+            listId = args.getListId();
 
             viewModel.setCurrentListId(listId);
         }

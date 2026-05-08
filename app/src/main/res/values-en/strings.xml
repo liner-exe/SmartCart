@@ -15,10 +15,12 @@
     <string name="action_rename">Rename</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_add">Add</string>
+    <string name="no_category">No category</string>
     <string name="product_name">Product name</string>
     <string name="category_name">Category name</string>
     <string name="category_add">Add category</string>
     <string name="category_edit">Category edit</string>
+    <string name="category_selection">Category selection</string>
     <string name="dialog_add_list_title">New list</string>
     <string name="dialog_add_list_message">Enter list name</string>
     <string name="dialog_add_product_title">New product</string>

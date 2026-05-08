@@ -11,6 +11,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface CategoryDao {
@@ -19,6 +20,9 @@ public interface CategoryDao {
 
     @Query("SELECT * from categories")
     Flowable<List<CategoryEntity>> getAll();
+
+    @Query("SELECT * from categories WHERE id = :categoryId")
+    CategoryEntity findById(int categoryId);
 
     @Update
     Completable update(CategoryEntity category);

@@ -17,6 +17,9 @@
     <string name="stores_management">Управление магазинами</string>
     <string name="about_app">О приложении</string>
 
+    <!-- Categories -->
+    <string name="no_category">Без категории</string>
+
     <!-- Products Management -->
     <string name="product_name">Название продукта</string>
 
@@ -26,6 +29,7 @@
     <!-- Category Add / Edit -->
     <string name="category_add">Добавление категории</string>
     <string name="category_edit">Редактирование категории</string>
+    <string name="category_selection">Выбор категории</string>
 
     <!-- Dialog add list -->
     <string name="dialog_add_list_title">Новый список</string>

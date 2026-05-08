@@ -11,7 +11,7 @@ public class ListItemMapper {
     public static ListItem toModel(ListItemDto dto) {
         return new ListItem(
                 dto.id,
-                new Product(dto.productId, dto.productName),
+                new Product(dto.productId, dto.productName, dto.categoryId),
                 dto.quantity,
                 dto.price,
                 dto.isChecked,

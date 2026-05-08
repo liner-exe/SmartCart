@@ -16,12 +16,13 @@ public interface ListItemDao {
             "li.id AS id, " +
             "p.id AS productId, " +
             "li.listId AS listId, " +
+            "p.categoryId AS categoryId, " +
             "p.name AS productName, " +
             "li.quantity AS quantity, " +
             "li.price AS price, " +
             "li.isChecked AS isChecked " +
             "FROM list_items li " +
-            "INNER JOIN products p ON li.productId = p.id " +
+            "LEFT JOIN products p ON li.productId = p.id " +
             "WHERE li.listId = :listId"
     )
     Flowable<List<ListItemDto>> getItemsForList(int listId);

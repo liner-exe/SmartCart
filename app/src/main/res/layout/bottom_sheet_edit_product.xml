@@ -33,6 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/drag_handle">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/product_edit_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{product.getName()}"
@@ -59,6 +60,16 @@
             app:layout_constraintEnd_toEndOf="parent">
         </com.google.android.material.button.MaterialButton>
 
+        <include
+            android:id="@+id/product_edit_category_display"
+            layout="@layout/item_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+
+            app:layout_constraintTop_toBottomOf="@id/product_edit_button_change_category">
+        </include>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/product_edit_button_delete"
             style="@style/Widget.Material3.Button.Icon"
@@ -70,7 +81,7 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/product_edit_button_done"
-            app:layout_constraintTop_toBottomOf="@id/product_edit_button_change_category">
+            app:layout_constraintTop_toBottomOf="@id/product_edit_category_display">
         </com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.button.MaterialButton
