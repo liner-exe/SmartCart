@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ProductAddFragment">
+        tools:context=".fragments.ProductAddFragment"
+        android:background="@color/white">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -13,8 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:navigationIcon="@drawable/arrow_back"
-                app:title="select product"
-                app:titleCentered="true">
+                app:title="select product">
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -66,7 +66,7 @@ public class CategoryEditFragment extends Fragment {
         });
 
         binding.fabDoneCategory.setOnClickListener(v -> {
-            if (!category.getName().isEmpty() && !category.getEmoji().isEmpty()) {
+            if (category == null || (!category.getName().isEmpty() && !category.getEmoji().isEmpty())) {
                 saveCategory();
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
