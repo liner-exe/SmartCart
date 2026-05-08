@@ -75,7 +75,7 @@ public class FragmentHome extends Fragment {
                     .setListId(shoppingList.getId())
                     .setListName(shoppingList.getName());
 
-            NavHostFragment.findNavController(this).navigate(action);
+            NavHostFragment.findNavController(requireParentFragment().requireParentFragment()).navigate(action);
         });
 
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {

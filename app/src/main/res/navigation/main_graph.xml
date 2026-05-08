@@ -52,6 +52,9 @@
             android:name="listId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_fragmentList_to_productAddFragment"
+            app:destination="@id/productAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsManagementFragment"
@@ -124,5 +127,13 @@
         <argument
             android:name="product"
             app:argType="com.liner_exe.domain.models.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/productAddFragment"
+        android:name="com.liner_exe.smartcart.fragments.ProductAddFragment"
+        android:label="ProductAddFragment" >
+        <action
+            android:id="@+id/action_productAddFragment_to_fragmentList"
+            app:destination="@id/fragmentList" />
     </fragment>
 </navigation>

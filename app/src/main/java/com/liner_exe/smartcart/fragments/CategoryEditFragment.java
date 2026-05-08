@@ -66,8 +66,10 @@ public class CategoryEditFragment extends Fragment {
         });
 
         binding.fabDoneCategory.setOnClickListener(v -> {
-            saveCategory();
-            requireActivity().getSupportFragmentManager().popBackStack();
+            if (!category.getName().isEmpty() && !category.getEmoji().isEmpty()) {
+                saveCategory();
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
         });
 
         setupFabAnimation();
@@ -148,7 +150,7 @@ public class CategoryEditFragment extends Fragment {
         String emoji = binding.ilCategoryEditName.getPrefixText().toString().trim();
 
         if (name.isEmpty()) {
-            binding.ilCategoryEditName.setError("Введите название");
+            binding.ilCategoryEditName.setError(getString(R.string.dialog_add_list_error_empty));
             return;
         }
 
