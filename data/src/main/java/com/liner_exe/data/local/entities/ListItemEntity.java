@@ -2,30 +2,36 @@ package com.liner_exe.data.local.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 @Entity(
     tableName = "list_items",
-    primaryKeys = {"listId", "productId"},
     foreignKeys = {
         @ForeignKey(
             entity = ShoppingListEntity.class,
             parentColumns = "id",
             childColumns = "listId",
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         ),
         @ForeignKey(
             entity = ProductEntity.class,
             parentColumns = "id",
             childColumns = "productId",
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     }
 )
 public class ListItemEntity {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
     public int listId;
     public int productId;
 
     public int quantity;
+    public double price;
     public boolean isChecked;
 
     public ListItemEntity(int listId, int productId) {

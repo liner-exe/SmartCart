@@ -11,64 +11,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.liner_exe.smartcart.R;
 import com.liner_exe.domain.models.ShoppingList;
+import com.liner_exe.smartcart.R;
+import com.liner_exe.smartcart.databinding.CardShoppingListBinding;
 
 import java.util.List;
 
-public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ViewHolder> {
+public class ShoppingListsAdapter extends BaseAdapter<ShoppingList, CardShoppingListBinding> {
     public interface OnShoppingListActionListener {
         void onRename(ShoppingList shoppingList);
+
         void onDelete(ShoppingList shoppingList);
     }
 
     private final OnShoppingListActionListener listener;
 
-    private List<ShoppingList> shoppingLists;
-    private OnItemClickListener onItemClickListener;
-
-    public interface OnItemClickListener {
-        void onItemClick(ShoppingList shoppingList, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    public ShoppingListsAdapter(List<ShoppingList> shoppingLists, OnShoppingListActionListener listener) {
-        this.shoppingLists = shoppingLists;
+    public ShoppingListsAdapter(OnShoppingListActionListener listener) {
         this.listener = listener;
-        notifyDataSetChanged();
-    }
-
-    public void setShoppingLists(List<ShoppingList> shoppingLists) {
-        this.shoppingLists = shoppingLists;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        return shoppingLists.size();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_shopping_list, viewGroup, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        ShoppingList shoppingList = shoppingLists.get(position);
-
-        viewHolder.getListName().setText(shoppingList.getName());
-        viewHolder.getButtonMore().setOnClickListener(v -> showPopupMenu(v, shoppingList));
-
-        viewHolder.itemView.setOnClickListener(v -> {
-            onItemClickListener.onItemClick(shoppingList, position);
-        });
+    public BaseViewHolder<CardShoppingListBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        CardShoppingListBinding binding = CardShoppingListBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false
+        );
+        return new BaseViewHolder<>(binding);
     }
 
     private void showPopupMenu(View view, ShoppingList shoppingList) {
@@ -92,35 +60,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
         popupMenu.show();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView listName;
-        private final ProgressBar progressBar;
-        private final TextView progressText;
-        private final ImageButton buttonMore;
+    @Override
+    protected void bind(CardShoppingListBinding binding, ShoppingList list) {
+        binding.shoppingListName.setText(list.getName());
+        binding.shoppingListProgressText.setText(list.getProgressString());
+        binding.shoppingListButtonMore.setOnClickListener(v -> showPopupMenu(v, list));
 
-        public ViewHolder(@NonNull View view) {
-            super(view);
-
-            this.listName = view.findViewById(R.id.shopping_list_name);
-            this.progressBar = view.findViewById(R.id.shopping_list_progress_bar);
-            this.progressText = view.findViewById(R.id.shopping_list_progress_text);
-            this.buttonMore = view.findViewById(R.id.shopping_list_button_more);
-        }
-
-        public TextView getListName() {
-            return listName;
-        }
-
-        public ProgressBar getProgressBar() {
-            return progressBar;
-        }
-
-        public TextView getProgressText() {
-            return progressText;
-        }
-
-        public ImageButton getButtonMore() {
-            return buttonMore;
-        }
+        binding.shoppingListProgressBar.setProgress(list.getBoughtItems());
+        binding.shoppingListProgressBar.setMax(list.getTotalItems());
     }
 }

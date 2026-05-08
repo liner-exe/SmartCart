@@ -12,7 +12,8 @@ public class ProductMapper {
 
         return new Product(
             entity.id,
-            entity.name
+            entity.name,
+            entity.categoryId
         );
     }
 
@@ -21,7 +22,8 @@ public class ProductMapper {
 
         return new ProductEntity(
             model.getId(),
-            model.getName()
+            model.getName(),
+            model.getCategoryId()
         );
     }
 

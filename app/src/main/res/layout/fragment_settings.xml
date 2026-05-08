@@ -21,6 +21,26 @@
             </com.liner_exe.smartcart.components.SettingsItemButton>
 
             <com.liner_exe.smartcart.components.SettingsItemButton
+                android:id="@+id/categories_management_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIcon="@drawable/category"
+                app:itemText="@string/categories_management"
+                app:itemColor="@color/white"
+                android:layout_marginBottom="4dp">
+            </com.liner_exe.smartcart.components.SettingsItemButton>
+
+            <com.liner_exe.smartcart.components.SettingsItemButton
+                android:id="@+id/stores_management_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIcon="@drawable/store"
+                app:itemText="@string/stores_management"
+                app:itemColor="@color/white"
+                android:layout_marginBottom="4dp">
+            </com.liner_exe.smartcart.components.SettingsItemButton>
+
+            <com.liner_exe.smartcart.components.SettingsItemButton
                 android:id="@+id/about_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

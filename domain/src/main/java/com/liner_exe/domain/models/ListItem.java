@@ -1,54 +1,58 @@
 package com.liner_exe.domain.models;
 
-public class ListItem {
+import java.util.Objects;
+
+public class ListItem implements DiffIdentifiable {
     private final int id;
+    private final Product product;
+    private final int quantity;
+    private final double price;
+    private final boolean isBought;
+    private final int listId;
 
-    private int listId;
-    private String name;
-    private int quantity;
-    private boolean isBought;
-
-    public ListItem(int id, int listId, String name, int quantity, boolean isBought) {
+    public ListItem(int id, Product product, int quantity, double price, boolean isBought, int listId) {
         this.id = id;
-        this.listId = listId;
-        this.name = name;
+        this.product = product;
         this.quantity = quantity;
+        this.price = price;
         this.isBought = isBought;
+        this.listId = listId;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getListId() {
-        return listId;
+    public Product getProduct() { return product; }
+    public int getQuantity() { return quantity; }
+
+    public double getPrice() {
+        return price;
     }
 
-    public void setListId(int listId) {
-        this.listId = listId;
+    public boolean isBought() { return isBought; }
+
+    public int getListId() { return listId; }
+
+    @Override
+    public boolean isContentTheSame(Object other) {
+        return this.equals(other);
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListItem item = (ListItem) o;
+        return quantity == item.quantity &&
+                isBought == item.isBought &&
+                listId == item.listId &&
+                Double.compare(item.price, price) == 0 &&
+                Objects.equals(product, item.product);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public boolean isBought() {
-        return isBought;
-    }
-
-    public void setBought(boolean bought) {
-        isBought = bought;
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, quantity, price, isBought, listId);
     }
 }

@@ -4,8 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.liner_exe.data.local.dto.ShoppingListWithProgressDto;
 import com.liner_exe.data.local.entities.ListItemEntity;
 import com.liner_exe.data.local.entities.ShoppingListEntity;
 
@@ -19,8 +21,8 @@ public interface ShoppingListDao {
     @Insert
     Completable insert(ShoppingListEntity shoppingList);
 
-    @Query("SELECT * from shopping_lists")
-    Flowable<List<ShoppingListEntity>> getAllLists();
+//    @Query("SELECT * from shopping_lists")
+//    Flowable<List<ShoppingListEntity>> getAllLists();
 
     @Update
     Completable update(ShoppingListEntity shoppingList);
@@ -35,4 +37,15 @@ public interface ShoppingListDao {
 
     @Query("DELETE FROM list_items WHERE listId = :listId AND productId = :productId")
     Completable deleteProductFromList(int listId, int productId);
+
+    @Transaction
+    @Query("SELECT " +
+            "sl.id, " +
+            "sl.name, " +
+            "COUNT(li.productId) AS totalItems, " +
+            "SUM(CASE WHEN li.isChecked = 1 THEN 1 ELSE 0 END) AS boughtItems " +
+            "FROM shopping_lists sl " +
+            "LEFT JOIN list_items li ON sl.id = li.listId " +
+            "GROUP BY sl.id")
+    Flowable<List<ShoppingListWithProgressDto>> getAllLists();
 }

@@ -9,11 +9,13 @@ activity = "1.13.0"
 constraintlayout = "2.2.1"
 fragment = "1.8.9"
 room = "2.8.4"
-navigationFragment = "2.9.7"
-navigationUi = "2.9.7"
+navigationFragment = "2.9.8"
+navigationUi = "2.9.8"
 hilt = "2.57.1"
 rxjava = "3.1.8"
 rxandroid = "3.0.2"
+emoji2 = "1.6.0"
+safe-args = "2.9.8"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -33,8 +35,13 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava" }
 rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
 room-rxjava3 = { group = "androidx.room", name = "room-rxjava3", version.ref = "room" }
+androidx-emoji2 = { group = "androidx.emoji2", name = "emoji2", version.ref = "emoji2" }
+androidx-emoji2-views = { group = "androidx.emoji2", name = "emoji2-views", version.ref = "emoji2" }
+androidx-emoji2-emojipicker = { group = "androidx.emoji2", name = "emoji2-emojipicker", version.ref = "emoji2" }
+androidx-emoji2-bundled = { group = "androidx.emoji2", name = "emoji2-bundled", version.ref = "emoji2" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "safe-args" }

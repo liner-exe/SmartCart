@@ -28,7 +28,8 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:paddingBottom="80dp"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:contentDescription="@string/app_name">
         </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

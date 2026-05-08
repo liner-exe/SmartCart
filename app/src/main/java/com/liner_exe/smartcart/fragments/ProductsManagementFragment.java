@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
 import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
 import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
+import com.liner_exe.smartcart.modal.ProductEditSheet;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.ArrayList;
@@ -36,11 +38,6 @@ public class ProductsManagementFragment extends Fragment {
     private ShoppingViewModel viewModel;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products_management,
@@ -52,21 +49,23 @@ public class ProductsManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewProductsManagement;
-        adapter = new ProductsManagementAdapter(new ArrayList<>(),
+        adapter = new ProductsManagementAdapter(
                 new ProductsManagementAdapter.OnProductActionListener() {
                 @Override
                 public void onEdit(Product product) {
-                    Toast.makeText(getContext(), "Edited!", Toast.LENGTH_SHORT).show();
+                    ProductEditSheet.newInstance(product).show(
+                            getChildFragmentManager(), "ProductEditSheet"
+                    );
                 }
 
                 @Override
                 public void onRename(Product product) {
                     ProductDialogFragment.newInstance(product.getName(), newName -> {
-                        product.setName(newName);
-                        viewModel.updateProduct(product);
+                        Product updatedProduct = new Product(product.getId(), newName, product.getCategoryId());
+                        viewModel.updateProduct(updatedProduct);
                     }).show(getChildFragmentManager(), "RenameProductDialog");
                 }
 
@@ -80,12 +79,19 @@ public class ProductsManagementFragment extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
+        adapter.setOnItemClickListener(((product, position) -> {
+            ProductEditSheet.newInstance(product).show(
+                    getChildFragmentManager(), "ProductEditSheet"
+            );
+        }));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
             if (newProducts != null) {
-                adapter.setProducts(newProducts);
+                adapter.setItems(new ArrayList<>(newProducts));
+                Log.d("ADAPTER", "setItems called, size: " + (newProducts != null ? newProducts.size() : 0));
             }
         });
 
