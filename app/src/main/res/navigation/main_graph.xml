@@ -54,7 +54,11 @@
             android:defaultValue="-1" />
         <action
             android:id="@+id/action_fragmentList_to_productAddFragment"
-            app:destination="@id/productAddFragment" />
+            app:destination="@id/productAddFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/productsManagementFragment"
@@ -134,6 +138,10 @@
         android:label="ProductAddFragment" >
         <action
             android:id="@+id/action_productAddFragment_to_fragmentList"
-            app:destination="@id/fragmentList" />
+            app:destination="@id/fragmentList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>
