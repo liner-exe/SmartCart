@@ -13,12 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.liner_exe.domain.models.ListItem;
-import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
-import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.adapters.ListItemAddAdapter;
-import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListItemAddBinding;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 

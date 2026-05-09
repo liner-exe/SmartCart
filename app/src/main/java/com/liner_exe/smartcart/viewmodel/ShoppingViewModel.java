@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
@@ -103,94 +104,31 @@ public class ShoppingViewModel extends ViewModel {
     }
 
     public void addList(ShoppingList shoppingList) {
-        disposable.add(repository.addList(shoppingList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.addList(shoppingList), "addList");
     }
 
     public void updateList(ShoppingList shoppingList) {
-        disposable.add(repository.updateList(shoppingList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.updateList(shoppingList), "updateList");
     }
 
     public void deleteListById(int id) {
-        disposable.add(repository.deleteListById(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.deleteListById(id), "deleteListById");
     }
 
     public void addProduct(Product product) {
-        disposable.add(repository.addProduct(product)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.addProduct(product), "addProduct");
     }
 
     public void updateProduct(Product product) {
-        disposable.add(repository.updateProduct(product)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.updateProduct(product), "updateProduct");
     }
 
     public void deleteProductById(int id) {
-        disposable.add(repository.deleteProductById(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.deleteProductById(id), "deleteProductById");
     }
 
     public void addCategory(Category category) {
-        disposable.add(repository.addCategory(category)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.addCategory(category), "addCategory");
     }
 
     public void getCategory(int id) {
@@ -206,27 +144,11 @@ public class ShoppingViewModel extends ViewModel {
     }
 
     public void updateCategory(Category category) {
-        disposable.add(repository.updateCategory(category)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {},
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.updateCategory(category), "updateCategory");
     }
 
     public void deleteCategoryById(int id) {
-        disposable.add(repository.deleteCategoryById(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {},
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.deleteCategoryById(id), "deleteCategoryById");
     }
 
     public void resetSelectedCategory() {
@@ -239,23 +161,26 @@ public class ShoppingViewModel extends ViewModel {
 
     public void toggleItemStatus(ListItem item) {
         boolean newStatus = !item.isBought();
-        disposable.add(repository.updateItemStatus(
-                        item.getListId(),
-                        item.getProduct().getId(),
-                        newStatus
-                ).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        () -> {
-                        },
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
+        executeCompletable(repository.updateItemStatus(
+                item.getListId(),
+                item.getProduct().getId(),
+                newStatus), "toggleItemStatus");
     }
 
     public void setCurrentListId(int listId) {
         currentListId.onNext(listId);
+    }
+
+    private void executeCompletable(Completable completable, String logTag) {
+        disposable.add(completable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {},
+                        throwable -> {
+                            Log.e("SC_DB_ERROR", logTag + ": " + throwable.getMessage());
+                        }
+                ));
     }
 
     @Override
