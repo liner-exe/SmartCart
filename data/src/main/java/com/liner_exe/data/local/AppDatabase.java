@@ -7,16 +7,19 @@ import com.liner_exe.data.local.dao.CategoryDao;
 import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
+import com.liner_exe.data.local.dao.StoreDao;
 import com.liner_exe.data.local.entities.CategoryEntity;
 import com.liner_exe.data.local.entities.ListItemEntity;
 import com.liner_exe.data.local.entities.ProductEntity;
 import com.liner_exe.data.local.entities.ShoppingListEntity;
+import com.liner_exe.data.local.entities.StoreEntity;
 
 @Database(entities = {
         ProductEntity.class,
         ShoppingListEntity.class,
         ListItemEntity.class,
-        CategoryEntity.class
+        CategoryEntity.class,
+        StoreEntity.class
         },
         version = 1
 )
@@ -26,6 +29,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
     public abstract ShoppingListDao shoppingListDao();
     public abstract ListItemDao listItemDao();
-
     public abstract CategoryDao categoryDao();
+    public abstract StoreDao storeDao();
 }

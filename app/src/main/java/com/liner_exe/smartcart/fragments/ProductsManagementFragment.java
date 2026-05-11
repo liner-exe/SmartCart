@@ -25,6 +25,7 @@ import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
 import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
 import com.liner_exe.smartcart.modal.ProductEditSheet;
+import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ProductsManagementFragment extends Fragment {
     private FragmentProductsManagementBinding binding;
     private ProductsManagementAdapter adapter;
-    private ShoppingViewModel viewModel;
+    private ProductViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -49,7 +50,7 @@ public class ProductsManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewProductsManagement;
         adapter = new ProductsManagementAdapter(

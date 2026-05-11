@@ -39,6 +39,10 @@ public class FragmentSettings extends Fragment {
             navController.navigate(R.id.action_mainFragment_to_categoryManagementFragment);
         });
 
+        binding.storesManagementButton.setOnClickListener(view -> {
+            navController.navigate(R.id.action_categoryManagementFragment_to_categoryEditFragment);
+        });
+
         binding.aboutButton.setOnClickListener(view -> {
             showAboutDialog();
         });

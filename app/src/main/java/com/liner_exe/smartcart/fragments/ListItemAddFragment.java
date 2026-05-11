@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAddAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListItemAddBinding;
+import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 
 public class ListItemAddFragment extends Fragment {
-    FragmentListItemAddBinding binding;
-    ListItemAddAdapter adapter;
-    ShoppingViewModel viewModel;
+    private FragmentListItemAddBinding binding;
+    private ListItemAddAdapter adapter;
+    private ProductViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ListItemAddFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
         RecyclerView recyclerView = binding.rvListItemsToAdd;
         adapter = new ListItemAddAdapter();

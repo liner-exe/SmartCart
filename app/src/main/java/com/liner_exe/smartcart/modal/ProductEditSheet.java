@@ -24,12 +24,14 @@ import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.BottomSheetEditProductBinding;
 import com.liner_exe.smartcart.databinding.ItemCategoryBinding;
 import com.liner_exe.smartcart.fragments.ProductsManagementFragmentDirections;
+import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import org.w3c.dom.Text;
 
 public class ProductEditSheet extends BottomSheetDialogFragment {
     private BottomSheetEditProductBinding binding;
+    private ProductViewModel productViewModel;
     private ShoppingViewModel viewModel;
     private Product product;
 
@@ -50,6 +52,7 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
         }
 
         viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
     }
 
     @Nullable
@@ -68,13 +71,13 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
         binding.setProduct(product);
 
         binding.productEditButtonDelete.setOnClickListener(v -> {
-            viewModel.deleteProductById(product.getId());
+            productViewModel.deleteProductById(product.getId());
             dismiss();
         });
 
         binding.productEditButtonDone.setOnClickListener(v -> {
             updateProductFromUI();
-            viewModel.updateProduct(product);
+            productViewModel.updateProduct(product);
             dismiss();
         });
 

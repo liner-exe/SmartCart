@@ -10,9 +10,11 @@ import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.models.ShoppingList;
+import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.repository.IShoppingRepository;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -20,6 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
@@ -28,12 +31,6 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject;
 public class ShoppingViewModel extends ViewModel {
     private final IShoppingRepository repository;
     private final CompositeDisposable disposable = new CompositeDisposable();
-
-    private final MutableLiveData<List<Product>> _products = new MutableLiveData<>();
-    public LiveData<List<Product>> products = _products;
-
-    private final MutableLiveData<List<ShoppingList>> _shoppingLists = new MutableLiveData<>();
-    public LiveData<List<ShoppingList>> shoppingLists = _shoppingLists;
 
     private final MutableLiveData<List<ListItem>> _listItems = new MutableLiveData<>();
     public LiveData<List<ListItem>> listItems = _listItems;
@@ -49,32 +46,8 @@ public class ShoppingViewModel extends ViewModel {
     @Inject
     public ShoppingViewModel(IShoppingRepository repository) {
         this.repository = repository;
-        subscribeToProducts();
-        subscribeToLists();
         subscribeToListItems();
         subscribeToCategories();
-    }
-
-    private void subscribeToProducts() {
-        disposable.add(repository.getAllProducts()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(_products::setValue,
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }
-                ));
-    }
-
-    private void subscribeToLists() {
-        disposable.add(repository.getAllLists()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        _shoppingLists::setValue,
-                        throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
-                        }));
     }
 
     private void subscribeToListItems() {
@@ -103,30 +76,6 @@ public class ShoppingViewModel extends ViewModel {
                 ));
     }
 
-    public void addList(ShoppingList shoppingList) {
-        executeCompletable(repository.addList(shoppingList), "addList");
-    }
-
-    public void updateList(ShoppingList shoppingList) {
-        executeCompletable(repository.updateList(shoppingList), "updateList");
-    }
-
-    public void deleteListById(int id) {
-        executeCompletable(repository.deleteListById(id), "deleteListById");
-    }
-
-    public void addProduct(Product product) {
-        executeCompletable(repository.addProduct(product), "addProduct");
-    }
-
-    public void updateProduct(Product product) {
-        executeCompletable(repository.updateProduct(product), "updateProduct");
-    }
-
-    public void deleteProductById(int id) {
-        executeCompletable(repository.deleteProductById(id), "deleteProductById");
-    }
-
     public void addCategory(Category category) {
         executeCompletable(repository.addCategory(category), "addCategory");
     }
@@ -149,6 +98,14 @@ public class ShoppingViewModel extends ViewModel {
 
     public void deleteCategoryById(int id) {
         executeCompletable(repository.deleteCategoryById(id), "deleteCategoryById");
+    }
+
+    public void addStore(Store store) {
+        executeCompletable(repository.addStore(store), "addStore");
+    }
+
+    public void updateStore(Store store) {
+        executeCompletable(repository.updateStore(store), "updateStore");
     }
 
     public void resetSelectedCategory() {
