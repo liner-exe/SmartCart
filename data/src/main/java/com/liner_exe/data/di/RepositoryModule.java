@@ -1,8 +1,10 @@
 package com.liner_exe.data.di;
 
+import com.liner_exe.data.repository.CategoryRepositoryImpl;
 import com.liner_exe.data.repository.ProductRepositoryImpl;
 import com.liner_exe.data.repository.ShoppingListRepositoryImpl;
 import com.liner_exe.data.repository.ShoppingRepositoryImpl;
+import com.liner_exe.domain.repository.ICategoryRepository;
 import com.liner_exe.domain.repository.IProductRepository;
 import com.liner_exe.domain.repository.IShoppingListRepository;
 import com.liner_exe.domain.repository.IShoppingRepository;
@@ -28,4 +30,8 @@ public abstract class RepositoryModule {
     @Binds
     @Singleton
     public abstract IShoppingListRepository bindShoppingListRepository(ShoppingListRepositoryImpl impl);
+
+    @Binds
+    @Singleton
+    public abstract ICategoryRepository bindCategoryRepository(CategoryRepositoryImpl impl);
 }

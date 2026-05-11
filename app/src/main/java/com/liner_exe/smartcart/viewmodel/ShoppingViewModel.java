@@ -47,7 +47,6 @@ public class ShoppingViewModel extends ViewModel {
     public ShoppingViewModel(IShoppingRepository repository) {
         this.repository = repository;
         subscribeToListItems();
-        subscribeToCategories();
     }
 
     private void subscribeToListItems() {
