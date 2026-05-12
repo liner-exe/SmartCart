@@ -6,8 +6,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -28,22 +31,37 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         NavController navController = Navigation
                 .findNavController(requireActivity(), R.id.main_nav_host);
 
-        binding.productsManagementButton.setOnClickListener(view -> {
-            navController.navigate(R.id.action_mainFragment_to_productsManagementFragment);
+        binding.productsManagementButton.setOnClickListener(v -> {
+            NavDirections action = MainFragmentDirections
+                    .actionMainFragmentToProductsManagementFragment();
+            navController.navigate(action);
         });
 
-        binding.categoriesManagementButton.setOnClickListener(view -> {
-            navController.navigate(R.id.action_mainFragment_to_categoryManagementFragment);
+        binding.categoriesManagementButton.setOnClickListener(v -> {
+            NavDirections action = MainFragmentDirections
+                    .actionMainFragmentToCategoryManagementFragment();
+            navController.navigate(action);
         });
 
-        binding.aboutButton.setOnClickListener(view -> {
+        binding.storesManagementButton.setOnClickListener(v -> {
+            NavDirections action = MainFragmentDirections
+                    .actionMainFragmentToStoresManagementFragment();
+            navController.navigate(action);
+        });
+
+        binding.aboutButton.setOnClickListener(v -> {
             showAboutDialog();
         });
-
-        return binding.getRoot();
     }
 
     private void showAboutDialog() {

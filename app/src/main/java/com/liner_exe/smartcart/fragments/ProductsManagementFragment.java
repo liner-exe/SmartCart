@@ -6,9 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,16 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ProductsManagementAdapter;
-import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
 import com.liner_exe.smartcart.databinding.FragmentProductsManagementBinding;
 import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
 import com.liner_exe.smartcart.modal.ProductEditSheet;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
+import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;
 
@@ -35,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ProductsManagementFragment extends Fragment {
     private FragmentProductsManagementBinding binding;
     private ProductsManagementAdapter adapter;
-    private ShoppingViewModel viewModel;
+    private ProductViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -49,7 +45,7 @@ public class ProductsManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewProductsManagement;
         adapter = new ProductsManagementAdapter(
@@ -91,7 +87,6 @@ public class ProductsManagementFragment extends Fragment {
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
             if (newProducts != null) {
                 adapter.setItems(new ArrayList<>(newProducts));
-                Log.d("ADAPTER", "setItems called, size: " + (newProducts != null ? newProducts.size() : 0));
             }
         });
 

@@ -10,6 +10,7 @@ import com.liner_exe.data.local.dao.CategoryDao;
 import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.local.dao.ProductDao;
 import com.liner_exe.data.local.dao.ShoppingListDao;
+import com.liner_exe.data.local.dao.StoreDao;
 
 import javax.inject.Singleton;
 
@@ -52,5 +53,10 @@ public class DatabaseModule {
     @Provides
     public CategoryDao provideCategoryDao(AppDatabase db) {
         return db.categoryDao();
+    }
+
+    @Provides
+    public StoreDao provideStoreDao(AppDatabase db) {
+        return db.storeDao();
     }
 }

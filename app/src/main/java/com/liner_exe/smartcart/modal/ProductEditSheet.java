@@ -2,12 +2,10 @@ package com.liner_exe.smartcart.modal;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,20 +15,18 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.textfield.TextInputEditText;
-import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.BottomSheetEditProductBinding;
 import com.liner_exe.smartcart.databinding.ItemCategoryBinding;
 import com.liner_exe.smartcart.fragments.ProductsManagementFragmentDirections;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
-
-import org.w3c.dom.Text;
+import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
+import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 
 public class ProductEditSheet extends BottomSheetDialogFragment {
     private BottomSheetEditProductBinding binding;
-    private ShoppingViewModel viewModel;
+    private ProductViewModel productViewModel;
+    private CategoryViewModel categoryViewModel;
     private Product product;
 
     public static ProductEditSheet newInstance(Product product) {
@@ -49,7 +45,8 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
             product = (Product) getArguments().getSerializable("arg_product");
         }
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
     }
 
     @Nullable
@@ -68,13 +65,13 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
         binding.setProduct(product);
 
         binding.productEditButtonDelete.setOnClickListener(v -> {
-            viewModel.deleteProductById(product.getId());
+            productViewModel.deleteProductById(product.getId());
             dismiss();
         });
 
         binding.productEditButtonDone.setOnClickListener(v -> {
             updateProductFromUI();
-            viewModel.updateProduct(product);
+            productViewModel.updateProduct(product);
             dismiss();
         });
 
@@ -88,7 +85,7 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
 
         productEditCategoryDisplay.categoryItemButtonMore.setVisibility(View.GONE);
 
-        viewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
+        categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
                 Log.d("SC_SelectedCategory", "selected cat: " + category.getName());
 
@@ -109,8 +106,8 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
             }
         });
 
-        if (product.getCategoryId() != null && viewModel.selectedCategory.getValue() == null) {
-            viewModel.getCategory(product.getCategoryId());
+        if (product.getCategoryId() != null && categoryViewModel.selectedCategory.getValue() == null) {
+            categoryViewModel.getCategory(product.getCategoryId());
         }
     }
 
@@ -125,6 +122,6 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
 
-        viewModel.resetSelectedCategory();
+        categoryViewModel.resetSelectedCategory();
     }
 }

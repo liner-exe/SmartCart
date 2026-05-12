@@ -23,9 +23,7 @@ import com.liner_exe.domain.models.Category;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.CategoriesManagementAdapter;
 import com.liner_exe.smartcart.databinding.FragmentCategoriesManagementBinding;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
-
-import java.util.List;
+import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -33,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CategoriesManagementFragment extends Fragment {
     private FragmentCategoriesManagementBinding binding;
     private CategoriesManagementAdapter adapter;
-    private ShoppingViewModel viewModel;
+    private CategoryViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -47,7 +45,7 @@ public class CategoriesManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();

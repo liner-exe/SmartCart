@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +20,7 @@ import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
 import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
 import com.liner_exe.smartcart.dialogs.ShoppingListDialogFragment;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
+import com.liner_exe.smartcart.viewmodel.ShoppingListViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -30,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentHome extends Fragment {
     private FragmentHomeBinding binding;
     private ShoppingListsAdapter adapter;
-    private ShoppingViewModel viewModel;
+    private ShoppingListViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -45,7 +43,7 @@ public class FragmentHome extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerViewLists;
         adapter = new ShoppingListsAdapter(

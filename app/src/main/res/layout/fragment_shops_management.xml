@@ -4,19 +4,27 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ProductAddFragment">
+        android:background="@color/white"
+        tools:context=".fragments.StoresManagementFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.appbar.MaterialToolbar
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/app_toolbar"
+                app:title="@string/stores_management"
                 app:navigationIcon="@drawable/arrow_back"
-                app:title="select product"
-                app:titleCentered="true">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shops"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        </androidx.recyclerview.widget.RecyclerView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
