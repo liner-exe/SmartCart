@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.ListItem;
-import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
-
-import java.util.Collections;
+import com.liner_exe.smartcart.viewmodel.ShoppingListDetailsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -29,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentList extends Fragment {
     private FragmentListBinding binding;
     private ListItemAdapter adapter;
-    private ShoppingViewModel viewModel;
+    private ShoppingListDetailsViewModel viewModel;
     private String listName;
     private int listId;
 
@@ -45,7 +41,7 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ShoppingListDetailsViewModel.class);
 
         if (getArguments() != null) {
             FragmentListArgs args = FragmentListArgs.fromBundle(getArguments());

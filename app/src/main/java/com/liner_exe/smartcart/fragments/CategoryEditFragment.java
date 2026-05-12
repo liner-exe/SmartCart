@@ -21,7 +21,7 @@ import com.liner_exe.domain.models.Category;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentCategoryEditBinding;
 import com.liner_exe.smartcart.utils.Utils;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
+import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CategoryEditFragment extends Fragment {
     private FragmentCategoryEditBinding binding;
-    private ShoppingViewModel viewModel;
+    private CategoryViewModel viewModel;
     private Category category;
 
     @Override
@@ -45,7 +45,7 @@ public class CategoryEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
         if (getArguments() != null) {
             CategoryEditFragmentArgs args = CategoryEditFragmentArgs.fromBundle(getArguments());

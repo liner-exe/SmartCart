@@ -17,7 +17,6 @@ import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAddAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListItemAddBinding;
 import com.liner_exe.smartcart.viewmodel.ProductViewModel;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 
 public class ListItemAddFragment extends Fragment {

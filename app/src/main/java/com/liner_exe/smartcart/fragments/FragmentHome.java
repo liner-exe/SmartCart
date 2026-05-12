@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +21,6 @@ import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
 import com.liner_exe.smartcart.databinding.FragmentHomeBinding;
 import com.liner_exe.smartcart.dialogs.ShoppingListDialogFragment;
 import com.liner_exe.smartcart.viewmodel.ShoppingListViewModel;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

@@ -56,6 +56,14 @@ public class CategoryViewModel extends BaseViewModel {
         executeCompletable(repository.deleteById(id), "deleteCategoryById");
     }
 
+    public void resetSelectedCategory() {
+        _selectedCategory.setValue(null);
+    }
+
+    public void setSelectedCategory(Category category) {
+        _selectedCategory.postValue(category);
+    }
+
     private void subscribeToCategories() {
         disposable.add(repository.getAll()
                 .subscribeOn(Schedulers.io())

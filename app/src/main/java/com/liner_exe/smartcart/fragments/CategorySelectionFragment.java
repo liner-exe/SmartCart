@@ -18,14 +18,14 @@ import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.CategorySelectionAdapter;
 import com.liner_exe.smartcart.databinding.FragmentCategorySelectionBinding;
+import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
 import com.liner_exe.smartcart.viewmodel.ProductViewModel;
-import com.liner_exe.smartcart.viewmodel.ShoppingViewModel;
 
 public class CategorySelectionFragment extends Fragment {
     private FragmentCategorySelectionBinding binding;
     private CategorySelectionAdapter adapter;
     private ProductViewModel productViewModel;
-    private ShoppingViewModel shoppingViewModel;
+    private CategoryViewModel categoryViewModel;
     private Product product;
 
     @Override
@@ -42,6 +42,7 @@ public class CategorySelectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
+        categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
         if (getArguments() != null) {
             CategorySelectionFragmentArgs args = CategorySelectionFragmentArgs.fromBundle(getArguments());
@@ -62,11 +63,11 @@ public class CategorySelectionFragment extends Fragment {
                     product.getName(),
                     category.getId()
             ));
-            shoppingViewModel.setSelectedCategory(category);
+            categoryViewModel.setSelectedCategory(category);
             NavHostFragment.findNavController(this).popBackStack();
         });
 
-        shoppingViewModel.categories.observe(getViewLifecycleOwner(), categories -> {
+        categoryViewModel.categories.observe(getViewLifecycleOwner(), categories -> {
             if (categories != null) {
                 adapter.setItems(categories);
             }
