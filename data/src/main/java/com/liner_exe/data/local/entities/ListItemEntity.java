@@ -37,7 +37,7 @@ public class ListItemEntity {
     public int listId;
     public int productId;
 
-    public int storeId;
+    public Integer storeId;
 
     public int quantity;
     public double price;
@@ -47,5 +47,7 @@ public class ListItemEntity {
         this.listId = listId;
         this.productId = productId;
         this.isChecked = false;
+        this.storeId = null;
+        this.quantity = 1;
     }
 }

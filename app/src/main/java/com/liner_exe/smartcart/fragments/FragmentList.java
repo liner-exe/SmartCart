@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
-import com.liner_exe.smartcart.viewmodel.ShoppingListDetailsViewModel;
+import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -25,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentList extends Fragment {
     private FragmentListBinding binding;
     private ListItemAdapter adapter;
-    private ShoppingListDetailsViewModel viewModel;
+    private ListItemsViewModel viewModel;
     private String listName;
     private int listId;
 
@@ -40,7 +39,7 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingListDetailsViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
 
         handleArguments();
 
@@ -85,7 +84,7 @@ public class FragmentList extends Fragment {
     private void setupFab() {
         binding.fabAddListItem.setOnClickListener(v -> {
             NavDirections action = FragmentListDirections
-                    .actionFragmentListToProductAddFragment();
+                    .actionFragmentListToProductAddFragment(listId);
             NavHostFragment.findNavController(this).navigate(action);
         });
     }

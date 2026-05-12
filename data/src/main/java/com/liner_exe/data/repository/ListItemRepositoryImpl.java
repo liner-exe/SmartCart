@@ -3,6 +3,7 @@ package com.liner_exe.data.repository;
 import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.mapper.ListItemMapper;
 import com.liner_exe.domain.models.ListItem;
+import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.repository.IListItemRepository;
 
 import java.util.List;
@@ -21,12 +22,17 @@ public class ListItemRepositoryImpl implements IListItemRepository {
     }
 
     @Override
+    public Completable add(ListItem listItem) {
+        return dao.insert(ListItemMapper.toEntity(listItem));
+    }
+
+    @Override
     public Flowable<List<ListItem>> getItemsForList(int id) {
         return dao.getItemsForList(id).map(ListItemMapper::toModelList);
     }
 
     @Override
     public Completable updateItemStatus(int listId, int productId, boolean isBought) {
-        return null;
+        return dao.updateItemStatus(listId, productId, isBought);
     }
 }

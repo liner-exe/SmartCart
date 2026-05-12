@@ -1,9 +1,12 @@
 package com.liner_exe.data.local.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.liner_exe.data.local.dto.ListItemDto;
+import com.liner_exe.data.local.entities.ListItemEntity;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface ListItemDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insert(ListItemEntity listItem);
+
     @Query("SELECT " +
             "li.id AS id, " +
             "p.id AS productId, " +

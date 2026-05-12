@@ -1,6 +1,7 @@
 package com.liner_exe.data.mapper;
 
 import com.liner_exe.data.local.dto.ListItemDto;
+import com.liner_exe.data.local.entities.ListItemEntity;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 
@@ -15,7 +16,15 @@ public class ListItemMapper {
                 dto.quantity,
                 dto.price,
                 dto.isChecked,
-                dto.listId
+                dto.listId,
+                dto.storeId
+        );
+    }
+
+    public static ListItemEntity toEntity(ListItem listItem) {
+        return new ListItemEntity(
+            listItem.getListId(),
+            listItem.getProduct().getId()
         );
     }
 

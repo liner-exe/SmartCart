@@ -9,14 +9,26 @@ public class ListItem implements DiffIdentifiable {
     private final double price;
     private final boolean isBought;
     private final int listId;
+    private final Integer storeId;
 
-    public ListItem(int id, Product product, int quantity, double price, boolean isBought, int listId) {
+    public ListItem(int id, Product product, int quantity, double price, boolean isBought, int listId, Integer storeId) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
         this.isBought = isBought;
         this.listId = listId;
+        this.storeId = storeId;
+    }
+
+    public ListItem(int listId, Product product) {
+        this.id = 0;
+        this.product = product;
+        this.quantity = 1;
+        this.price = 0.0;
+        this.isBought = false;
+        this.listId = listId;
+        this.storeId = null;
     }
 
     public int getId() {

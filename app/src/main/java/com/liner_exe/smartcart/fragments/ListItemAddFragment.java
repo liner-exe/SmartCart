@@ -11,15 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.adapters.ListItemAddAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListItemAddBinding;
 import com.liner_exe.smartcart.viewmodel.ProductViewModel;
+import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 
 
 public class ListItemAddFragment extends Fragment {
     private FragmentListItemAddBinding binding;
     private ListItemAddAdapter adapter;
-    private ProductViewModel viewModel;
+    private ProductViewModel productViewModel;
+    private ListItemsViewModel listItemsViewModel;
+    private int currentListId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,11 +35,21 @@ public class ListItemAddFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
+        productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
+        listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
+
+        handleArguments();
 
         setupToolbar();
         setupRecyclerView();
         observeViewModel();
+    }
+
+    private void handleArguments() {
+        if (getArguments() != null) {
+            ListItemAddFragmentArgs args = ListItemAddFragmentArgs.fromBundle(getArguments());
+            currentListId = args.getListId();
+        }
     }
 
     private void setupToolbar() {
@@ -49,10 +63,15 @@ public class ListItemAddFragment extends Fragment {
 
         binding.rvListItemsToAdd.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvListItemsToAdd.setAdapter(adapter);
+
+        adapter.setOnItemClickListener((product, position) -> {
+            listItemsViewModel.addProductAsListItem(product);
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
     }
 
     private void observeViewModel() {
-        viewModel.products.observe(getViewLifecycleOwner(), products -> {
+        productViewModel.products.observe(getViewLifecycleOwner(), products -> {
             adapter.setItems(products);
         });
     }

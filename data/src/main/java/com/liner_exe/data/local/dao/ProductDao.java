@@ -17,9 +17,6 @@ import io.reactivex.rxjava3.core.Flowable;
 @Dao
 public interface ProductDao {
     @Insert
-    void insertAll(ProductEntity... products);
-
-    @Insert
     Completable insert(ProductEntity product);
 
     @Query("SELECT * from products")
