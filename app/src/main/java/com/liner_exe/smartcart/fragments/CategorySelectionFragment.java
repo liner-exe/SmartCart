@@ -31,9 +31,7 @@ public class CategorySelectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_category_selection, container, false
-        );
+        binding = FragmentCategorySelectionBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -44,18 +42,31 @@ public class CategorySelectionFragment extends Fragment {
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
+        handleArguments();
+
+        setupToolbar();
+        setupRecyclerView();
+        observeViewModel();
+    }
+
+    private void handleArguments() {
         if (getArguments() != null) {
             CategorySelectionFragmentArgs args = CategorySelectionFragmentArgs.fromBundle(getArguments());
             product = args.getProduct();
         }
+    }
 
+    private void setupToolbar() {
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
+    }
+
+    private void setupRecyclerView() {
         adapter = new CategorySelectionAdapter();
-        RecyclerView recyclerView = binding.rvCategoriesToSelect;
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.rvCategoriesToSelect.setAdapter(adapter);
+        binding.rvCategoriesToSelect.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter.setOnItemClickListener((category, position) -> {
             productViewModel.updateProduct(new Product(
@@ -66,7 +77,9 @@ public class CategorySelectionFragment extends Fragment {
             categoryViewModel.setSelectedCategory(category);
             NavHostFragment.findNavController(this).popBackStack();
         });
+    }
 
+    private void observeViewModel() {
         categoryViewModel.categories.observe(getViewLifecycleOwner(), categories -> {
             if (categories != null) {
                 adapter.setItems(categories);

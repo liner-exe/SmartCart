@@ -32,8 +32,7 @@ public class CategoriesManagementFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories_management,
-                container, false);
+        binding = FragmentCategoriesManagementBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

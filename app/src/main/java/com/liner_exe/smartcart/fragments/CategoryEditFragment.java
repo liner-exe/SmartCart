@@ -36,8 +36,7 @@ public class CategoryEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category_edit,
-                container, false);
+        binding = FragmentCategoryEditBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -47,32 +46,44 @@ public class CategoryEditFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
+        handleArguments();
+
+        setupToolbar();
+        setupInitialState();
+        setupFab();
+
+        setupFabAnimation();
+    }
+
+    private void handleArguments() {
         if (getArguments() != null) {
             CategoryEditFragmentArgs args = CategoryEditFragmentArgs.fromBundle(getArguments());
             category = args.getCategory();
         }
+    }
 
-        boolean isEdit = category != null;
+    private void setupToolbar() {
+        binding.appToolbar.setTitle(category != null ? R.string.category_edit : R.string.category_add);
+        binding.appToolbar.setNavigationOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+    }
 
-        if (isEdit) {
-            binding.appToolbar.setTitle(R.string.category_edit);
+    private void setupInitialState() {
+        if (category != null) {
             binding.ilCategoryEditName.setPrefixText(category.getEmoji() + " ");
             binding.etCategoryEditName.setText(category.getName());
             binding.etCategoryEditName.setSelection(category.getName().length());
         }
+    }
 
-        binding.appToolbar.setNavigationOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
-
+    private void setupFab() {
         binding.fabDoneCategory.setOnClickListener(v -> {
             if (category == null || (!category.getName().isEmpty() && !category.getEmoji().isEmpty())) {
                 saveCategory();
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
-
-        setupFabAnimation();
     }
 
     @Override

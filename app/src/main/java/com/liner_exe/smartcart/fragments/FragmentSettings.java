@@ -38,6 +38,10 @@ public class FragmentSettings extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupClickListeners();
+    }
+
+    private void setupClickListeners() {
         NavController navController = Navigation
                 .findNavController(requireActivity(), R.id.main_nav_host);
 

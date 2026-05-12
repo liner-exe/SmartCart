@@ -33,7 +33,6 @@ public class FragmentList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentListBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 
@@ -43,6 +42,16 @@ public class FragmentList extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ShoppingListDetailsViewModel.class);
 
+        handleArguments();
+
+        setupToolbar();
+        setupRecyclerView();
+        setupFab();
+
+        observeViewModel();
+    }
+
+    private void handleArguments() {
         if (getArguments() != null) {
             FragmentListArgs args = FragmentListArgs.fromBundle(getArguments());
 
@@ -51,33 +60,41 @@ public class FragmentList extends Fragment {
 
             viewModel.setCurrentListId(listId);
         }
+    }
 
+    private void setupToolbar() {
         binding.listAppBar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
-        RecyclerView recyclerView = binding.recyclerViewListItems;
+        binding.listAppBar.setTitle(listName);
+    }
+
+    private void setupRecyclerView() {
         adapter = new ListItemAdapter(new ListItemAdapter.OnListItemActionListener() {
             @Override
             public void onCheckbox(ListItem listItem) {
                 viewModel.toggleItemStatus(listItem);
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
 
-        viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
-            if (newListItems != null) {
-                adapter.setItems(newListItems);
-            }
-        });
+        binding.rvListItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvListItems.setAdapter(adapter);
+    }
 
-        binding.listAppBar.setTitle(listName);
-
+    private void setupFab() {
         binding.fabAddListItem.setOnClickListener(v -> {
             NavDirections action = FragmentListDirections
                     .actionFragmentListToProductAddFragment();
             NavHostFragment.findNavController(this).navigate(action);
+        });
+    }
+
+    private void observeViewModel() {
+        viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
+            if (newListItems != null) {
+                adapter.setItems(newListItems);
+            }
         });
     }
 }
