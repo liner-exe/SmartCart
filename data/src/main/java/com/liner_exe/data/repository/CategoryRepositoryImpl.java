@@ -43,11 +43,11 @@ public class CategoryRepositoryImpl implements ICategoryRepository {
 
     @Override
     public Completable update(Category category) {
-        return null;
+        return dao.update(CategoryMapper.toEntity(category));
     }
 
     @Override
     public Completable deleteById(int id) {
-        return null;
+        return dao.deleteById(id);
     }
 }

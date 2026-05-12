@@ -18,6 +18,8 @@
     <string name="no_category">No category</string>
     <string name="product_name">Product name</string>
     <string name="category_name">Category name</string>
+    <string name="store_name">Store name</string>
+    <string name="store_add">Add store</string>
     <string name="category_add">Add category</string>
     <string name="category_edit">Category edit</string>
     <string name="category_selection">Category selection</string>

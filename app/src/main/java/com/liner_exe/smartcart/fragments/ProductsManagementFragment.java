@@ -8,9 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +45,21 @@ public class ProductsManagementFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
-        RecyclerView recyclerView = binding.recyclerViewProductsManagement;
+        setupToolbar();
+        setupRecyclerView();
+        observeViewModel();
+        bindDialog();
+    }
+
+    private void setupToolbar() {
+        binding.appToolbar.setNavigationOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+    }
+
+    private void setupRecyclerView() {
         adapter = new ProductsManagementAdapter(
-                new ProductsManagementAdapter.OnProductActionListener() {
+            new ProductsManagementAdapter.OnProductActionListener() {
                 @Override
                 public void onEdit(Product product) {
                     ProductEditSheet.newInstance(product).show(
@@ -71,26 +81,22 @@ public class ProductsManagementFragment extends Fragment {
                 }
         });
 
-        binding.appToolbar.setNavigationOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
+        binding.rvProductsManagement.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvProductsManagement.setAdapter(adapter);
 
         adapter.setOnItemClickListener(((product, position) -> {
             ProductEditSheet.newInstance(product).show(
                     getChildFragmentManager(), "ProductEditSheet"
             );
         }));
+    }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-
+    private void observeViewModel() {
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
             if (newProducts != null) {
                 adapter.setItems(new ArrayList<>(newProducts));
             }
         });
-
-        bindDialog();
     }
 
     private void bindDialog() {

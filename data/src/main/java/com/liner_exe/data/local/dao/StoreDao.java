@@ -7,6 +7,8 @@ import androidx.room.Update;
 
 import com.liner_exe.data.local.entities.StoreEntity;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
@@ -16,7 +18,7 @@ public interface StoreDao {
     Completable insert(StoreEntity shop);
 
     @Query("SELECT * FROM stores")
-    Flowable<StoreEntity> getAll();
+    Flowable<List<StoreEntity>> getAll();
 
     @Update
     Completable update(StoreEntity shop);

@@ -1,19 +1,15 @@
 package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CategoriesManagementFragment extends Fragment {
     private FragmentCategoriesManagementBinding binding;
     private CategoriesManagementAdapter adapter;
-    private CategoryViewModel viewModel;
+    private CategoryViewModel categoryViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -45,39 +41,49 @@ public class CategoriesManagementFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
+        setupToolbar();
+        setupRecyclerView();
+        observeViewModel();
+        setupFab();
+    }
+
+    private void setupToolbar() {
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
+    }
 
-        RecyclerView recyclerView = binding.rvCategories;
+    private void setupRecyclerView() {
         adapter = new CategoriesManagementAdapter(new CategoriesManagementAdapter.OnCategoryActionListener() {
             @Override
             public void onDelete(Category category) {
-                viewModel.deleteCategoryById(category.getId());
+                categoryViewModel.deleteCategoryById(category.getId());
             }
         });
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvCategories.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvCategories.setAdapter(adapter);
 
-        viewModel.categories.observe(getViewLifecycleOwner(), newCategories -> {
+        adapter.setOnItemClickListener((category, position) -> navigateToEdit(category));
+    }
+
+    private void observeViewModel() {
+        categoryViewModel.categories.observe(getViewLifecycleOwner(), newCategories -> {
             if (newCategories != null) {
                 adapter.setItems(newCategories);
             }
         });
+    }
 
-        adapter.setOnItemClickListener((category, position) -> {
-            NavDirections action = CategoriesManagementFragmentDirections
-                    .actionCategoryManagementFragmentToCategoryEditFragment()
-                    .setCategory(category);
-            Navigation.findNavController(view).navigate(action);
-        });
+    private void setupFab() {
+        binding.fabAddCategory.setOnClickListener(v -> navigateToEdit(null));
+    }
 
-        binding.fabAddCategory.setOnClickListener(v -> {
-            NavDirections action = CategoriesManagementFragmentDirections
-                    .actionCategoryManagementFragmentToCategoryEditFragment();
-            Navigation.findNavController(view).navigate(action);
-        });
+    private void navigateToEdit(@Nullable Category category) {
+        NavDirections action = CategoriesManagementFragmentDirections
+                .actionCategoryManagementFragmentToCategoryEditFragment()
+                .setCategory(category);
+        Navigation.findNavController(binding.getRoot()).navigate(action);
     }
 }

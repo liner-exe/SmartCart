@@ -31,9 +31,7 @@ public class FragmentHome extends Fragment {
     private ShoppingListViewModel viewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_home, container, false);
         return binding.getRoot();
@@ -43,29 +41,36 @@ public class FragmentHome extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingListViewModel.class);
 
-        RecyclerView recyclerView = binding.recyclerViewLists;
+        setupRecyclerView();
+        observeViewModel();
+        bindDialog();
+    }
+
+    private void setupRecyclerView() {
         adapter = new ShoppingListsAdapter(
-                new ShoppingListsAdapter.OnShoppingListActionListener() {
-                    @Override
-                    public void onRename(ShoppingList shoppingList) {
-                        ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
-                            ShoppingList updatedShoppingList = new ShoppingList(
-                                    shoppingList.getId(), newName,
-                                    shoppingList.getTotalItems(), shoppingList.getBoughtItems()
-                            );
-                            viewModel.updateList(updatedShoppingList);
-                        }).show(getChildFragmentManager(), "RenameListDialog");
-                    }
+            new ShoppingListsAdapter.OnShoppingListActionListener() {
+                @Override
+                public void onRename(ShoppingList shoppingList) {
+                    ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
+                        ShoppingList updatedShoppingList = new ShoppingList(
+                                shoppingList.getId(), newName,
+                                shoppingList.getTotalItems(), shoppingList.getBoughtItems()
+                        );
+                        viewModel.updateList(updatedShoppingList);
+                    }).show(getChildFragmentManager(), "RenameListDialog");
+                }
 
-                    @Override
-                    public void onDelete(ShoppingList shoppingList) {
-                        viewModel.deleteListById(shoppingList.getId());
-                    }
-                });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+                @Override
+                public void onDelete(ShoppingList shoppingList) {
+                    viewModel.deleteListById(shoppingList.getId());
+                }
+            }
+        );
+
+        binding.rvLists.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvLists.setAdapter(adapter);
 
         adapter.setOnItemClickListener((shoppingList, position) -> {
             NavDirections action = MainFragmentDirections
@@ -75,14 +80,14 @@ public class FragmentHome extends Fragment {
 
             NavHostFragment.findNavController(requireParentFragment().requireParentFragment()).navigate(action);
         });
+    }
 
+    private void observeViewModel() {
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {
             if (newLists != null) {
                 adapter.setItems(newLists);
             }
         });
-
-        bindDialog();
     }
 
     private void bindDialog() {

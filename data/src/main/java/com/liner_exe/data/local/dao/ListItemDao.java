@@ -17,6 +17,7 @@ public interface ListItemDao {
             "p.id AS productId, " +
             "li.listId AS listId, " +
             "p.categoryId AS categoryId, " +
+            "li.storeId AS storeId, " +
             "p.name AS productName, " +
             "li.quantity AS quantity, " +
             "li.price AS price, " +

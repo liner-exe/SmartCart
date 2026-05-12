@@ -41,7 +41,7 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingListDetailsViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ShoppingListDetailsViewModel.class);
 
         if (getArguments() != null) {
             FragmentListArgs args = FragmentListArgs.fromBundle(getArguments());

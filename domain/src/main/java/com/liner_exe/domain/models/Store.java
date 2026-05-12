@@ -11,6 +11,11 @@ public class Store implements DiffIdentifiable {
         this.name = name;
     }
 
+    public Store(String name) {
+        this.name = name;
+        this.id = 0;
+    }
+
     @Override
     public int getId() {
         return id;

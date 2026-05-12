@@ -26,6 +26,10 @@
     <!-- Category Management -->
     <string name="category_name">Название категории</string>
 
+    <!-- Stores Management -->
+    <string name="store_name">Название магазина</string>
+    <string name="store_add">Добавление магазина</string>
+
     <!-- Category Add / Edit -->
     <string name="category_add">Добавление категории</string>
     <string name="category_edit">Редактирование категории</string>

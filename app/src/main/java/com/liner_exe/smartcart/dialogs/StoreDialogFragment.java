@@ -18,20 +18,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.liner_exe.smartcart.R;
-import com.liner_exe.smartcart.databinding.DialogAddProductBinding;
+import com.liner_exe.smartcart.databinding.DialogAddStoreBinding;
 
-public class ProductDialogFragment extends DialogFragment {
-    public interface OnProductAddedListener {
+public class StoreDialogFragment extends DialogFragment {
+    public interface OnStoreAddedListener {
         void onAdd(String name);
     }
 
-    private OnProductAddedListener listener;
+    private OnStoreAddedListener listener;
     private String currentName;
 
-    private DialogAddProductBinding binding;
+    private DialogAddStoreBinding binding;
 
-    public static ProductDialogFragment newInstance(String currentName, OnProductAddedListener listener) {
-        ProductDialogFragment fragment = new ProductDialogFragment();
+    public static StoreDialogFragment newInstance(String currentName, OnStoreAddedListener listener) {
+        StoreDialogFragment fragment = new StoreDialogFragment();
         fragment.listener = listener;
         fragment.currentName = currentName;
 
@@ -43,8 +43,8 @@ public class ProductDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        binding = DialogAddProductBinding.inflate(getLayoutInflater());
-        TextInputEditText editText = binding.editProductName;
+        binding = DialogAddStoreBinding.inflate(getLayoutInflater());
+        TextInputEditText editText = binding.editStoreName;
 
         if (currentName != null) {
             editText.setText(currentName);
@@ -70,19 +70,19 @@ public class ProductDialogFragment extends DialogFragment {
     }
 
     private void setupListeners(AlertDialog dialog) {
-        binding.editProductName.setOnEditorActionListener((textView, actionID, event) -> {
+        binding.editStoreName.setOnEditorActionListener((textView, actionID, event) -> {
             if (actionID == EditorInfo.IME_ACTION_DONE) {
-                attemptSave(binding.editProductName, binding.productAddInputLayout, dialog);
+                attemptSave(binding.editStoreName, binding.storeAddInputLayout, dialog);
                 return true;
             }
             return false;
         });
 
-        binding.editProductName.addTextChangedListener(new TextWatcher() {
+        binding.editStoreName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.productAddInputLayout.setError(null);
-                binding.productAddInputLayout.setErrorEnabled(false);
+                binding.storeAddInputLayout.setError(null);
+                binding.storeAddInputLayout.setErrorEnabled(false);
             }
 
             @Override
@@ -97,7 +97,7 @@ public class ProductDialogFragment extends DialogFragment {
 
             if (button != null) {
                 button.setOnClickListener(v -> {
-                    attemptSave(binding.editProductName, binding.productAddInputLayout, dialog);
+                    attemptSave(binding.editStoreName, binding.storeAddInputLayout, dialog);
                 });
             }
         });

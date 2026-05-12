@@ -20,6 +20,13 @@ import androidx.room.PrimaryKey;
             childColumns = "productId",
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
+        ),
+        @ForeignKey(
+            entity = StoreEntity.class,
+            parentColumns = "id",
+            childColumns = "storeId",
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     }
 )
@@ -29,6 +36,8 @@ public class ListItemEntity {
 
     public int listId;
     public int productId;
+
+    public int storeId;
 
     public int quantity;
     public double price;

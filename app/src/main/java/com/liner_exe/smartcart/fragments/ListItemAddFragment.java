@@ -37,17 +37,27 @@ public class ListItemAddFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
-        RecyclerView recyclerView = binding.rvListItemsToAdd;
-        adapter = new ListItemAddAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        setupToolbar();
+        setupRecyclerView();
+        observeViewModel();
+    }
 
-        viewModel.products.observe(getViewLifecycleOwner(), products -> {
-            adapter.setItems(products);
-        });
-
+    private void setupToolbar() {
         binding.appToolbar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
+        });
+    }
+
+    private void setupRecyclerView() {
+        adapter = new ListItemAddAdapter();
+
+        binding.rvListItemsToAdd.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvListItemsToAdd.setAdapter(adapter);
+    }
+
+    private void observeViewModel() {
+        viewModel.products.observe(getViewLifecycleOwner(), products -> {
+            adapter.setItems(products);
         });
     }
 }
