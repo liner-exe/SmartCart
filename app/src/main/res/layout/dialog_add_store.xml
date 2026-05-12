@@ -8,7 +8,7 @@
             android:id="@+id/store_add_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/store_add">
+            android:hint="@string/store_name">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_store_name"
                 android:layout_width="match_parent"

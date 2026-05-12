@@ -8,9 +8,11 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 public interface IStoreRepository {
-    Completable addStore(Store store);
+    Completable add(Store store);
 
     Flowable<List<Store>> getAll();
 
-    Completable updateStore(Store store);
+    Completable update(Store store);
+
+    Completable deleteById(int id);
 }

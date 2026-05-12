@@ -20,6 +20,7 @@ import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.StoreAdapter;
 import com.liner_exe.smartcart.databinding.FragmentStoresManagementBinding;
 import com.liner_exe.smartcart.dialogs.ProductDialogFragment;
+import com.liner_exe.smartcart.dialogs.StoreDialogFragment;
 import com.liner_exe.smartcart.viewmodel.StoresViewModel;
 
 public class StoresManagementFragment extends Fragment {
@@ -54,7 +55,20 @@ public class StoresManagementFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new StoreAdapter();
+        adapter = new StoreAdapter(new StoreAdapter.OnStoreActionListener() {
+            @Override
+            public void onRename(Store store) {
+                StoreDialogFragment.newInstance(store.getName(), newName -> {
+                    Store updatedStore = new Store(store.getId(), newName);
+                    storesViewModel.updateStore(updatedStore);
+                }).show(getChildFragmentManager(), "RenameProductDialog");
+            }
+
+            @Override
+            public void onDelete(Store store) {
+                storesViewModel.deleteStoreById(store.getId());
+            }
+        });
 
         binding.rvShops.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvShops.setAdapter(adapter);
@@ -70,9 +84,9 @@ public class StoresManagementFragment extends Fragment {
 
     private void bindDialog() {
         binding.fabAddStore.setOnClickListener(v -> {
-            ProductDialogFragment.newInstance(null, name -> {
+            StoreDialogFragment.newInstance(null, name -> {
                 storesViewModel.addStore(new Store(name));
-            }).show(getChildFragmentManager(), "AddProductDialog");
+            }).show(getChildFragmentManager(), "AddStoreDialog");
         });
     }
 }

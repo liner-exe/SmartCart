@@ -30,7 +30,15 @@ public class StoresViewModel extends BaseViewModel {
     }
 
     public void addStore(Store store) {
-        executeCompletable(repository.addStore(store), "addStore");
+        executeCompletable(repository.add(store), "addStore");
+    }
+
+    public void updateStore(Store store) {
+        executeCompletable(repository.update(store), "updateStore");
+    }
+
+    public void deleteStoreById(int id) {
+        executeCompletable(repository.deleteById(id), "deleteStoreById");
     }
 
     private void subscribeToStores() {

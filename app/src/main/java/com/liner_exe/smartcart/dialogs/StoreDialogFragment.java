@@ -52,8 +52,8 @@ public class StoreDialogFragment extends DialogFragment {
         }
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(currentName == null ? R.string.dialog_add_product_title : R.string.action_rename)
-                .setMessage(R.string.dialog_add_product_message)
+                .setTitle(currentName == null ? R.string.dialog_add_store_title : R.string.action_rename)
+                .setMessage(R.string.dialog_add_store_message)
                 .setView(binding.getRoot())
                 .setPositiveButton(currentName == null ? R.string.action_add : R.string.action_rename, null)
                 .setNegativeButton(R.string.action_cancel, null)
@@ -108,7 +108,7 @@ public class StoreDialogFragment extends DialogFragment {
         String name = editText.getText() != null ? editText.getText().toString().trim() : "";
 
         if (name.isEmpty()) {
-            inputLayout.setError(getString(R.string.dialog_add_product_error_empty));
+            inputLayout.setError(getString(R.string.dialog_add_store_error_empty));
             inputLayout.setErrorEnabled(true);
         } else {
             if (listener != null) {

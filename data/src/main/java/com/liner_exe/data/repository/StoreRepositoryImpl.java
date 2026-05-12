@@ -21,7 +21,7 @@ public class StoreRepositoryImpl implements IStoreRepository {
     }
 
     @Override
-    public Completable addStore(Store store) {
+    public Completable add(Store store) {
         return dao.insert(StoreMapper.toEntity(store));
     }
 
@@ -31,7 +31,12 @@ public class StoreRepositoryImpl implements IStoreRepository {
     }
 
     @Override
-    public Completable updateStore(Store store) {
+    public Completable update(Store store) {
         return dao.update(StoreMapper.toEntity(store));
+    }
+
+    @Override
+    public Completable deleteById(int id) {
+        return dao.deleteById(id);
     }
 }

@@ -10,6 +10,7 @@
     <string name="about_app">About app</string>
     <string name="dialog_add_list_error_empty">Name can\'t be empty</string>
     <string name="dialog_add_product_error_empty">Name can\'t be empty</string>
+    <string name="dialog_add_store_error_empty">Name can\'t be empty</string>
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_rename">Rename</string>
@@ -28,4 +29,6 @@
     <string name="dialog_add_product_title">New product</string>
     <string name="dialog_add_product_message">Enter product name</string>
     <string name="action_done">Done</string>
+    <string name="dialog_add_store_title">Store name</string>
+    <string name="dialog_add_store_message">Enter store name</string>
 </resources>

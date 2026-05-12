@@ -22,4 +22,7 @@ public interface StoreDao {
 
     @Update
     Completable update(StoreEntity shop);
+
+    @Query("DELETE FROM stores WHERE id = :id")
+    Completable deleteById(int id);
 }

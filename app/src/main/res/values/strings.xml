@@ -45,6 +45,11 @@
     <string name="dialog_add_product_message">Введите название товара</string>
     <string name="dialog_add_product_error_empty">Название не может быть пустым!</string>
 
+    <!-- Dialog add store -->
+    <string name="dialog_add_store_title">Новый магазин</string>
+    <string name="dialog_add_store_message">Введите название магазина</string>
+    <string name="dialog_add_store_error_empty">Название не может быть пустым!</string>
+
     <!-- Actions -->
     <string name="action_edit">Редактировать</string>
     <string name="action_rename">Переименовать</string>
