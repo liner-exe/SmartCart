@@ -90,9 +90,12 @@ public class ProductsManagementFragment extends Fragment {
 
     private void observeViewModel() {
         viewModel.products.observe(getViewLifecycleOwner(), newProducts -> {
-            if (newProducts != null) {
-                adapter.setItems(new ArrayList<>(newProducts));
-            }
+            boolean isEmpty = newProducts == null || newProducts.isEmpty();
+
+            adapter.setItems(newProducts);
+
+            binding.rvProductsManagement.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+            binding.emptyStateView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         });
     }
 

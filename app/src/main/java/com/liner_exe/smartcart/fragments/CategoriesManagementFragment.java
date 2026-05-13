@@ -7,16 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.Category;
-import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.CategoriesManagementAdapter;
 import com.liner_exe.smartcart.databinding.FragmentCategoriesManagementBinding;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
@@ -69,9 +66,12 @@ public class CategoriesManagementFragment extends Fragment {
 
     private void observeViewModel() {
         categoryViewModel.categories.observe(getViewLifecycleOwner(), newCategories -> {
-            if (newCategories != null) {
-                adapter.setItems(newCategories);
-            }
+            boolean isEmpty = newCategories == null || newCategories.isEmpty();
+
+            adapter.setItems(newCategories);
+
+            binding.rvCategories.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+            binding.emptyStateView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         });
     }
 

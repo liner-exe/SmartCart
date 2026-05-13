@@ -76,9 +76,12 @@ public class StoresManagementFragment extends Fragment {
 
     private void observeViewModel() {
         storesViewModel.stores.observe(getViewLifecycleOwner(), stores -> {
-            if (stores != null) {
-                adapter.setItems(stores);
-            }
+            boolean isEmpty = stores == null || stores.isEmpty();
+
+            adapter.setItems(stores);
+
+            binding.rvShops.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+            binding.emptyStateView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         });
     }
 

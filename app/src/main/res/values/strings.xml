@@ -10,6 +10,8 @@
 
     <!-- Home -->
     <string name="list_name">Название списка</string>
+    <string name="home_empty_list_title">У вас нет списков покупок</string>
+    <string name="home_empty_list_message">Нажмите «+», чтобы добавить список покупок</string>
 
     <!-- Settings -->
     <string name="products_management">Управление продуктами</string>
@@ -22,13 +24,19 @@
 
     <!-- Products Management -->
     <string name="product_name">Название продукта</string>
+    <string name="pm_empty_list_title">Список продуктов пуст</string>
+    <string name="pm_empty_list_message">Нажмите «+», чтобы добавить свой первый продукт</string>
 
     <!-- Category Management -->
     <string name="category_name">Название категории</string>
+    <string name="cm_empty_list_title">Список категорий пуст</string>
+    <string name="cm_empty_list_message">Нажмите «+», чтобы добавить свою первую категорию</string>
 
     <!-- Stores Management -->
     <string name="store_name">Название магазина</string>
-    <string name="store_add">Добавление магазина</string>
+     <string name="store_add">Добавление магазина</string>
+    <string name="sm_empty_list_title">Список магазинов пуст</string>
+    <string name="sm_empty_list_message">Нажмите «+», чтобы добавить свой первый магазин</string>
 
     <!-- Category Add / Edit -->
     <string name="category_add">Добавление категории</string>

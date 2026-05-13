@@ -83,9 +83,12 @@ public class FragmentHome extends Fragment {
 
     private void observeViewModel() {
         viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {
-            if (newLists != null) {
-                adapter.setItems(newLists);
-            }
+            boolean isEmpty = newLists == null || newLists.isEmpty();
+
+            adapter.setItems(newLists);
+
+            binding.rvLists.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+            binding.emptyStateView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         });
     }
 
