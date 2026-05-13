@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.repository.ICategoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,7 +72,7 @@ public class CategoryViewModel extends BaseViewModel {
                 .subscribe(
                         _categories::setValue,
                         throwable -> {
-                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                            Log.e("SC_DB_ERROR", "error vm: " + throwable.getMessage());
                         }
                 ));
     }

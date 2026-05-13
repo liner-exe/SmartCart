@@ -13,5 +13,5 @@ public interface IListItemRepository {
 
     Flowable<List<ListItem>> getItemsForList(int id);
 
-    Completable updateItemStatus(int listId, int productId, boolean isBought);
+    Completable updateItemStatus(int itemId, int listId, int productId, boolean isBought);
 }

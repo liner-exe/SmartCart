@@ -47,6 +47,7 @@ public class ListItemsViewModel extends BaseViewModel {
     public void toggleItemStatus(ListItem listItem) {
         boolean newStatus = !listItem.isBought();
         executeCompletable(repository.updateItemStatus(
+                listItem.getId(),
                 listItem.getListId(),
                 listItem.getProduct().getId(),
                 newStatus), "toggleItemStatus");

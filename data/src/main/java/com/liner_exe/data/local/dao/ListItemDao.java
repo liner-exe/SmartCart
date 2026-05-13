@@ -36,6 +36,7 @@ public interface ListItemDao {
 
     @Query("UPDATE list_items SET isChecked = :isBought " +
             "WHERE productId = :productId " +
-            "AND listId = :listId")
-    Completable updateItemStatus(int listId, int productId, boolean isBought);
+            "AND listId = :listId " +
+            "AND id = :itemId")
+    Completable updateItemStatus(int itemId, int listId, int productId, boolean isBought);
 }

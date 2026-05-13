@@ -28,8 +28,6 @@ public class CategoryMapper {
     }
 
     public static List<Category> toModelList(List<CategoryEntity> entities) {
-        if (entities.isEmpty()) return null;
-
         List<Category> models = new ArrayList<>();
         for (CategoryEntity entity : entities) {
             models.add(toModel(entity));

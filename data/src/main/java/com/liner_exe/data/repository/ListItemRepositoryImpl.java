@@ -32,7 +32,7 @@ public class ListItemRepositoryImpl implements IListItemRepository {
     }
 
     @Override
-    public Completable updateItemStatus(int listId, int productId, boolean isBought) {
-        return dao.updateItemStatus(listId, productId, isBought);
+    public Completable updateItemStatus(int itemId, int listId, int productId, boolean isBought) {
+        return dao.updateItemStatus(itemId, listId, productId, isBought);
     }
 }
