@@ -6,10 +6,6 @@ import java.util.Locale;
 
 public class DateUtils {
     public static String formatDate(long timestamp) {
-        if (timestamp < 1000000000000L) {
-            timestamp *= 1000;
-        }
-
         return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(timestamp));
     }
 }

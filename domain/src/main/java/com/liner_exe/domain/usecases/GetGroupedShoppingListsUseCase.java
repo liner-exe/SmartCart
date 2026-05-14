@@ -8,7 +8,7 @@ import com.liner_exe.domain.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetGrouppedShoppingListsUseCase {
+public class GetGroupedShoppingListsUseCase {
     public List<DisplayItem> execute(List<ShoppingList> lists, String query) {
         if (lists == null) return new ArrayList<>();
 

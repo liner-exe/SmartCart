@@ -7,12 +7,10 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.liner_exe.domain.models.DisplayItem;
-import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.domain.repository.IShoppingListRepository;
-import com.liner_exe.domain.usecases.GetGrouppedShoppingListsUseCase;
+import com.liner_exe.domain.usecases.GetGroupedShoppingListsUseCase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +22,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class ShoppingListViewModel extends BaseViewModel {
     private final IShoppingListRepository repository;
-    private final GetGrouppedShoppingListsUseCase getGrouppedShoppingListsUseCase;
+    private final GetGroupedShoppingListsUseCase getGroupedShoppingListsUseCase;
 
     private final MutableLiveData<List<ShoppingList>> _allShoppingLists = new MutableLiveData<>();
 
@@ -40,10 +38,10 @@ public class ShoppingListViewModel extends BaseViewModel {
     @Inject
     public ShoppingListViewModel(
             IShoppingListRepository repository,
-            GetGrouppedShoppingListsUseCase getGrouppedShoppingListsUseCase
+            GetGroupedShoppingListsUseCase getGroupedShoppingListsUseCase
     ) {
         this.repository = repository;
-        this.getGrouppedShoppingListsUseCase = getGrouppedShoppingListsUseCase;
+        this.getGroupedShoppingListsUseCase = getGroupedShoppingListsUseCase;
 
         _uiStateLists.addSource(_allShoppingLists, stores -> combineAndProcess());
         _uiStateLists.addSource(_searchQuery, query -> combineAndProcess());
@@ -59,7 +57,7 @@ public class ShoppingListViewModel extends BaseViewModel {
         List<ShoppingList> list = _allShoppingLists.getValue();
         String query = _searchQuery.getValue();
 
-        List<DisplayItem> result = getGrouppedShoppingListsUseCase.execute(list, query);
+        List<DisplayItem> result = getGroupedShoppingListsUseCase.execute(list, query);
         _uiStateLists.setValue(result);
     }
 

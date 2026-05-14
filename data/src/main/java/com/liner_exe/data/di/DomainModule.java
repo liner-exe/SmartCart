@@ -1,10 +1,9 @@
 package com.liner_exe.data.di;
 
-import com.liner_exe.domain.usecases.GetGrouppedShoppingListsUseCase;
+import com.liner_exe.domain.usecases.GetGroupedShoppingListsUseCase;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -15,7 +14,7 @@ import dagger.hilt.components.SingletonComponent;
 public class DomainModule {
     @Provides
     @Singleton
-    public GetGrouppedShoppingListsUseCase provideGetGrouppedShoppingListsUseCase() {
-        return new GetGrouppedShoppingListsUseCase();
+    public GetGroupedShoppingListsUseCase provideGetGrouppedShoppingListsUseCase() {
+        return new GetGroupedShoppingListsUseCase();
     }
 }
