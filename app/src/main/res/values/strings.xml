@@ -26,17 +26,20 @@
     <string name="product_name">Название продукта</string>
     <string name="pm_empty_list_title">Список продуктов пуст</string>
     <string name="pm_empty_list_message">Нажмите «+», чтобы добавить свой первый продукт</string>
+    <string name="pm_search_bar_hint">Поиск продуктов...</string>
 
     <!-- Category Management -->
     <string name="category_name">Название категории</string>
     <string name="cm_empty_list_title">Список категорий пуст</string>
     <string name="cm_empty_list_message">Нажмите «+», чтобы добавить свою первую категорию</string>
+    <string name="cm_search_bar_hint">Поиск категории...</string>
 
     <!-- Stores Management -->
     <string name="store_name">Название магазина</string>
      <string name="store_add">Добавление магазина</string>
     <string name="sm_empty_list_title">Список магазинов пуст</string>
     <string name="sm_empty_list_message">Нажмите «+», чтобы добавить свой первый магазин</string>
+    <string name="sm_search_bar_hint">Поиск магазинов...</string>
 
     <!-- Category Add / Edit -->
     <string name="category_add">Добавление категории</string>
@@ -57,6 +60,10 @@
     <string name="dialog_add_store_title">Новый магазин</string>
     <string name="dialog_add_store_message">Введите название магазина</string>
     <string name="dialog_add_store_error_empty">Название не может быть пустым!</string>
+
+    <!-- Search -->
+    <string name="search_nothing_found_title">Ничего не найдено</string>
+    <string name="search_nothing_found_message">Попробуйте изменить запрос</string>
 
     <!-- Actions -->
     <string name="action_edit">Редактировать</string>

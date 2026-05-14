@@ -12,6 +12,7 @@
     <string name="dialog_add_list_error_empty">Name can\'t be empty</string>
     <string name="dialog_add_product_error_empty">Name can\'t be empty</string>
     <string name="dialog_add_store_error_empty">Name can\'t be empty</string>
+    <string name="search_nothing_found_message">Try to change query</string>
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_rename">Rename</string>
@@ -20,12 +21,15 @@
     <string name="no_category">No category</string>
     <string name="product_name">Product name</string>
     <string name="pm_empty_list_message">Press «+» to add first product</string>
+    <string name="pm_search_bar_hint">Search products...</string>
     <string name="category_name">Category name</string>
     <string name="cm_empty_list_message">Press «+» to add first category</string>
+    <string name="cm_search_bar_hint">Search category...</string>
     <string name="store_name">Store name</string>
     <string name="store_add">Add store</string>
     <string name="sm_empty_list_title">Store list is empty</string>
     <string name="sm_empty_list_message">Press «+» to add first store</string>
+    <string name="sm_search_bar_hint">Search store...</string>
     <string name="category_add">Add category</string>
     <string name="category_edit">Category edit</string>
     <string name="category_selection">Category selection</string>
@@ -39,4 +43,5 @@
     <string name="pm_empty_list_title">Product list is empty</string>
     <string name="cm_empty_list_title">Caterory list is empty</string>
     <string name="home_empty_list_title">You don\'t have shopping lists</string>
+    <string name="search_nothing_found_title">Nothing found</string>
 </resources>

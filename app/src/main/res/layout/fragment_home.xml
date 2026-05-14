@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.FragmentHome">
+        
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_input_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:hintEnabled="false"
+                    app:startIconDrawable="@drawable/ic_search"
+                    app:boxCornerRadiusTopStart="28dp"
+                    app:boxCornerRadiusBottomStart="28dp"
+                    app:boxCornerRadiusTopEnd="28dp"
+                    app:boxCornerRadiusBottomEnd="28dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/pm_search_bar_hint"
+                        android:background="@null"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_lists"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:paddingBottom="80dp"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/empty_state_view"
@@ -26,12 +54,14 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/empty_state_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="@string/home_empty_list_title">
                 </TextView>
                 <TextView
+                    android:id="@+id/empty_state_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -42,7 +72,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_list"
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

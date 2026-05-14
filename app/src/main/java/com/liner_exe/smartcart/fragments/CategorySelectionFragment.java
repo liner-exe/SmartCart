@@ -80,10 +80,8 @@ public class CategorySelectionFragment extends Fragment {
     }
 
     private void observeViewModel() {
-        categoryViewModel.categories.observe(getViewLifecycleOwner(), categories -> {
-            if (categories != null) {
-                adapter.setItems(categories);
-            }
+        categoryViewModel.filteredCategories.observe(getViewLifecycleOwner(), categories -> {
+            adapter.setItems(categories);
         });
     }
 }

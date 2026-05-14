@@ -1,6 +1,8 @@
 package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ShoppingListsAdapter;
@@ -42,6 +45,7 @@ public class FragmentHome extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ShoppingListViewModel.class);
 
+        setupSearchLogic();
         setupRecyclerView();
         observeViewModel();
         bindDialog();
@@ -68,8 +72,8 @@ public class FragmentHome extends Fragment {
             }
         );
 
-        binding.rvLists.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvLists.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((shoppingList, position) -> {
             NavDirections action = MainFragmentDirections
@@ -82,21 +86,78 @@ public class FragmentHome extends Fragment {
     }
 
     private void observeViewModel() {
-        viewModel.shoppingLists.observe(getViewLifecycleOwner(), newLists -> {
-            boolean isEmpty = newLists == null || newLists.isEmpty();
+        viewModel.isDbEmpty.observe(getViewLifecycleOwner(), isEmpty -> {
+            binding.searchInputLayout.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        });
 
+        viewModel.filteredShoppingLists.observe(getViewLifecycleOwner(), newLists -> {
             adapter.setItems(newLists);
 
-            binding.rvLists.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
-            binding.emptyStateView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+            boolean isEmpty = newLists == null || newLists.isEmpty();
+            boolean isQueryEmpty = binding.searchEditText.getText().toString().trim().isEmpty();
+
+            updateVisibilityUI(isEmpty, !isQueryEmpty);
         });
     }
 
     private void bindDialog() {
-        binding.fabAddList.setOnClickListener(v -> {
+        binding.fab.setOnClickListener(v -> {
             ShoppingListDialogFragment.newInstance(null, name -> {
                 viewModel.addList(new ShoppingList(name));
             }).show(getChildFragmentManager(), "AddListDialog");
         });
+    }
+
+    private void setupSearchLogic() {
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                viewModel.setSearchQuery(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    private void updateVisibilityUI(boolean isEmpty, boolean isFromSearch) {
+        if (isEmpty) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.emptyStateView.setVisibility(View.VISIBLE);
+
+            updateScrollFlags(true);
+
+            if (isFromSearch) {
+                binding.emptyStateTitle.setText(R.string.search_nothing_found_title);
+                binding.emptyStateMessage.setText(R.string.search_nothing_found_message);
+            } else {
+                binding.emptyStateTitle.setText(R.string.home_empty_list_title);
+                binding.emptyStateMessage.setText(R.string.home_empty_list_message);
+            }
+        } else {
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.emptyStateView.setVisibility(View.GONE);
+            updateScrollFlags(false);
+        }
+    }
+
+    private void updateScrollFlags(boolean isEmpty) {
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) binding.searchInputLayout.getLayoutParams();
+        if (isEmpty) {
+            params.setScrollFlags(0);
+        } else {
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                    | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+        }
+        binding.searchInputLayout.setLayoutParams(params);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.setSearchQuery("");
     }
 }

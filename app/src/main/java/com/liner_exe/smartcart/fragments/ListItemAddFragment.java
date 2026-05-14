@@ -71,7 +71,7 @@ public class ListItemAddFragment extends Fragment {
     }
 
     private void observeViewModel() {
-        productViewModel.products.observe(getViewLifecycleOwner(), products -> {
+        productViewModel.filteredProducts.observe(getViewLifecycleOwner(), products -> {
             adapter.setItems(products);
         });
     }
