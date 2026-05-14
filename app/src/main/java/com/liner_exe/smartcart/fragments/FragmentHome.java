@@ -59,7 +59,8 @@ public class FragmentHome extends Fragment {
                     ShoppingListDialogFragment.newInstance(shoppingList.getName(), newName -> {
                         ShoppingList updatedShoppingList = new ShoppingList(
                                 shoppingList.getId(), newName,
-                                shoppingList.getTotalItems(), shoppingList.getBoughtItems()
+                                shoppingList.getTotalItems(), shoppingList.getBoughtItems(),
+                                0
                         );
                         viewModel.updateList(updatedShoppingList);
                     }).show(getChildFragmentManager(), "RenameListDialog");
@@ -75,13 +76,17 @@ public class FragmentHome extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener((shoppingList, position) -> {
-            NavDirections action = MainFragmentDirections
-                    .actionMainFragmentToFragmentList()
-                    .setListId(shoppingList.getId())
-                    .setListName(shoppingList.getName());
+        adapter.setOnItemClickListener((item, position) -> {
+            if (item instanceof ShoppingList) {
+                ShoppingList shoppingList = (ShoppingList) item;
 
-            NavHostFragment.findNavController(requireParentFragment().requireParentFragment()).navigate(action);
+                NavDirections action = MainFragmentDirections
+                        .actionMainFragmentToFragmentList()
+                        .setListId(shoppingList.getId())
+                        .setListName(shoppingList.getName());
+
+                NavHostFragment.findNavController(requireParentFragment().requireParentFragment()).navigate(action);
+            }
         });
     }
 
@@ -90,7 +95,7 @@ public class FragmentHome extends Fragment {
             binding.searchInputLayout.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         });
 
-        viewModel.filteredShoppingLists.observe(getViewLifecycleOwner(), newLists -> {
+        viewModel.uiStateLists.observe(getViewLifecycleOwner(), newLists -> {
             adapter.setItems(newLists);
 
             boolean isEmpty = newLists == null || newLists.isEmpty();

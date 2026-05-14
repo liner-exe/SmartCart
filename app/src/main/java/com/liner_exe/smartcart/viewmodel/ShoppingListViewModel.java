@@ -6,9 +6,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.liner_exe.domain.models.DisplayItem;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.models.ShoppingList;
 import com.liner_exe.domain.repository.IShoppingListRepository;
+import com.liner_exe.domain.usecases.GetGrouppedShoppingListsUseCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class ShoppingListViewModel extends BaseViewModel {
     private final IShoppingListRepository repository;
+    private final GetGrouppedShoppingListsUseCase getGrouppedShoppingListsUseCase;
 
     private final MutableLiveData<List<ShoppingList>> _allShoppingLists = new MutableLiveData<>();
 
-    private final MediatorLiveData<List<ShoppingList>> _filteredShoppingLists = new MediatorLiveData<>();
-    public LiveData<List<ShoppingList>> filteredShoppingLists = _filteredShoppingLists;
+    private final MediatorLiveData<List<DisplayItem>> _uiStateLists = new MediatorLiveData<>();
+    public LiveData<List<DisplayItem>> uiStateLists = _uiStateLists;
 
     private final MutableLiveData<String> _searchQuery = new MutableLiveData<>("");
 
@@ -35,11 +38,15 @@ public class ShoppingListViewModel extends BaseViewModel {
 
 
     @Inject
-    public ShoppingListViewModel(IShoppingListRepository repository) {
+    public ShoppingListViewModel(
+            IShoppingListRepository repository,
+            GetGrouppedShoppingListsUseCase getGrouppedShoppingListsUseCase
+    ) {
         this.repository = repository;
+        this.getGrouppedShoppingListsUseCase = getGrouppedShoppingListsUseCase;
 
-        _filteredShoppingLists.addSource(_allShoppingLists, stores -> performFilter());
-        _filteredShoppingLists.addSource(_searchQuery, query -> performFilter());
+        _uiStateLists.addSource(_allShoppingLists, stores -> combineAndProcess());
+        _uiStateLists.addSource(_searchQuery, query -> combineAndProcess());
 
         subscribeToLists();
     }
@@ -48,27 +55,12 @@ public class ShoppingListViewModel extends BaseViewModel {
         _searchQuery.setValue(query);
     }
 
-    public void performFilter() {
+    private void combineAndProcess() {
         List<ShoppingList> list = _allShoppingLists.getValue();
         String query = _searchQuery.getValue();
 
-        if (list == null) {
-            _filteredShoppingLists.setValue(new ArrayList<>());
-            return;
-        }
-
-        if (query == null || query.isEmpty()) {
-            _filteredShoppingLists.setValue(list);
-        } else {
-            List<ShoppingList> filtered = new ArrayList<>();
-            String pattern = query.toLowerCase().trim();
-            for (ShoppingList shoppingList : list) {
-                if (shoppingList.getName().toLowerCase().contains(pattern)) {
-                    filtered.add(shoppingList);
-                }
-            }
-            _filteredShoppingLists.setValue(filtered);
-        }
+        List<DisplayItem> result = getGrouppedShoppingListsUseCase.execute(list, query);
+        _uiStateLists.setValue(result);
     }
 
     public void addList(ShoppingList shoppingList) {

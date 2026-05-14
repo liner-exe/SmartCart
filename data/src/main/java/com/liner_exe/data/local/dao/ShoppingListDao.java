@@ -24,6 +24,9 @@ public interface ShoppingListDao {
 //    @Query("SELECT * from shopping_lists")
 //    Flowable<List<ShoppingListEntity>> getAllLists();
 
+    @Query("SELECT * FROM shopping_lists ORDER BY createdAt DESC")
+    Flowable<List<ShoppingListEntity>> getAllSorted();
+
     @Update
     Completable update(ShoppingListEntity shoppingList);
 
@@ -42,10 +45,11 @@ public interface ShoppingListDao {
     @Query("SELECT " +
             "sl.id, " +
             "sl.name, " +
+            "sl.createdAt, " +
             "COUNT(li.productId) AS totalItems, " +
             "SUM(CASE WHEN li.isChecked = 1 THEN 1 ELSE 0 END) AS boughtItems " +
             "FROM shopping_lists sl " +
             "LEFT JOIN list_items li ON sl.id = li.listId " +
-            "GROUP BY sl.id")
+            "GROUP BY sl.id, sl.name, sl.createdAt")
     Flowable<List<ShoppingListWithProgressDto>> getAllLists();
 }
