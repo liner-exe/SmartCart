@@ -21,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
+            android:hint="Название продукта"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/drag_handle"
@@ -111,6 +113,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:hint="Цена за шт."
+            app:expandedHintEnabled="false"
 
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintTop_toBottomOf="@id/li_edit_quantity_input_layout"

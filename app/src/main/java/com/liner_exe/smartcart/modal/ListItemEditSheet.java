@@ -2,6 +2,8 @@ package com.liner_exe.smartcart.modal;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.liner_exe.data.storage.SettingsManager;
+import com.liner_exe.domain.enums.Currency;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.domain.utils.validators.PriceValidator;
@@ -25,6 +29,9 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
     private CategoryViewModel categoryViewModel;
     private ProductViewModel productViewModel;
     private ListItem listItem;
+
+    private SettingsManager settingsManager;
+    private Currency currentCurrency;
 
     public static ListItemEditSheet newInstance(ListItem listItem) {
         ListItemEditSheet sheet = new ListItemEditSheet();
@@ -41,6 +48,9 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         if (getArguments() != null) {
             listItem = (ListItem) getArguments().getSerializable("arg_listItem");
         }
+
+        settingsManager = new SettingsManager(requireContext());
+        currentCurrency = settingsManager.getCurrency();
 
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
@@ -66,6 +76,32 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         binding.liEditQuantityEditText.setText(String.valueOf(listItem.getQuantity()));
         binding.liEditPriceEditText.setText(PriceValidator.format(listItem.getPrice()));
 
+        updateTotalDisplay();
+
+        TextWatcher totalPriceUpdateTextWatcher = new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String priceInput = binding.liEditPriceEditText.getText().toString();
+
+                if (!priceInput.isEmpty() && !PriceValidator.isValid(priceInput)) {
+                    binding.liEditPriceInputLayout.setError("Формат 10.50");
+                } else {
+                    binding.liEditPriceInputLayout.setError(null);
+                }
+
+                updateTotalDisplay();
+            }
+        };
+
+        binding.liEditQuantityEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
+        binding.liEditPriceEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
+
         binding.liEditButtonDelete.setOnClickListener(v -> {
             listItemsViewModel.deleteListItemById(listItem.getId(), listItem.getListId(),
                     listItem.getProduct().getId());
@@ -90,15 +126,21 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         });
     }
 
+    private void updateTotalDisplay() {
+        String quantityString = binding.liEditQuantityEditText.getText().toString();
+        String priceString = binding.liEditPriceEditText.getText().toString();
+
+        double quantity = quantityString.isEmpty() ? 0 : Double.parseDouble(quantityString);
+        double price = (priceString.isEmpty() || !PriceValidator.isValid(priceString)) ?
+                0 : PriceValidator.parse(priceString);
+
+        binding.liEditTotalPriceText.setText(currentCurrency.format(price * quantity));
+    }
+
     private boolean updateListItemFromUI() {
         String currentName = binding.liEditNameEditText.getText().toString().trim();
         String quantityText = binding.liEditQuantityEditText.getText().toString();
         String priceText = binding.liEditPriceEditText.getText().toString();
-
-        if (!PriceValidator.isValid(priceText)) {
-            binding.liEditPriceInputLayout.setError("Формат 0.00");
-            return false;
-        }
 
         int quantity = quantityText.isEmpty() ? 1 : Integer.parseInt(quantityText);
         double price = PriceValidator.parse(priceText);

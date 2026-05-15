@@ -20,6 +20,13 @@ public enum Currency {
         return code;
     }
 
+    public static Currency fromCode(String code) {
+        for (Currency c : values()) {
+            if (c.code.equalsIgnoreCase(code)) return c;
+        }
+        return DOLLAR;
+    }
+
     public String format(double amount) {
         if (this == DOLLAR) {
             return String.format("%s %.2f", symbol, amount);
