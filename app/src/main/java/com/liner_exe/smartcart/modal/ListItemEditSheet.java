@@ -17,6 +17,8 @@ import com.liner_exe.data.storage.SettingsManager;
 import com.liner_exe.domain.enums.Currency;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
+import com.liner_exe.domain.utils.QuantityCalculator;
+import com.liner_exe.domain.utils.formatters.QuantityFormatter;
 import com.liner_exe.domain.utils.validators.PriceValidator;
 import com.liner_exe.smartcart.databinding.BottomSheetEditListItemBinding;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
@@ -32,6 +34,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
 
     private SettingsManager settingsManager;
     private Currency currentCurrency;
+    private boolean decimalMode = false;
 
     public static ListItemEditSheet newInstance(ListItem listItem) {
         ListItemEditSheet sheet = new ListItemEditSheet();
@@ -73,8 +76,19 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.liEditNameEditText.setText(listItem.getProduct().getName());
-        binding.liEditQuantityEditText.setText(String.valueOf(listItem.getQuantity()));
+        binding.liEditQuantityEditText.setText(QuantityFormatter.format(listItem.getQuantity()));
         binding.liEditPriceEditText.setText(PriceValidator.format(listItem.getPrice()));
+        binding.liEditMeasureUnitEditText.setText(listItem.getUnit());
+
+        categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
+            if (category != null) {
+                binding.liEditCategoryName.setText(category.getEmoji() + " " + category.getName());
+            } else {
+                binding.liEditCategoryName.setText("Не указана");
+            }
+        });
+
+        categoryViewModel.loadCategoryById(listItem.getProduct().getId()) ;
 
         updateTotalDisplay();
 
@@ -99,8 +113,26 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
             }
         };
 
+        binding.liEditQuantityEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                String text = binding.liEditQuantityEditText.getText().toString();
+
+                decimalMode = text.contains(".") || text.contains(",");
+            }
+        });
+
         binding.liEditQuantityEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
         binding.liEditPriceEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
+
+        binding.liEditButtonMinus.setOnClickListener(v -> {
+            double current = QuantityFormatter.parse(binding.liEditQuantityEditText.getText().toString());
+            updateQuantityField(QuantityCalculator.decrement(current, decimalMode));
+        });
+
+        binding.liEditButtonPlus.setOnClickListener(v -> {
+            double current = QuantityFormatter.parse(binding.liEditQuantityEditText.getText().toString());
+            updateQuantityField(QuantityCalculator.increment(current, decimalMode));
+        });
 
         binding.liEditButtonDelete.setOnClickListener(v -> {
             listItemsViewModel.deleteListItemById(listItem.getId(), listItem.getListId(),
@@ -130,19 +162,26 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         String quantityString = binding.liEditQuantityEditText.getText().toString();
         String priceString = binding.liEditPriceEditText.getText().toString();
 
-        double quantity = quantityString.isEmpty() ? 0 : Double.parseDouble(quantityString);
+        double quantity = QuantityFormatter.parse(quantityString);
         double price = (priceString.isEmpty() || !PriceValidator.isValid(priceString)) ?
                 0 : PriceValidator.parse(priceString);
 
         binding.liEditTotalPriceText.setText(currentCurrency.format(price * quantity));
     }
 
+    private void updateQuantityField(double newValue) {
+        String formatted = QuantityFormatter.format(newValue);
+        binding.liEditQuantityEditText.setText(formatted);
+        binding.liEditQuantityEditText.setSelection(formatted.length());
+    }
+
     private boolean updateListItemFromUI() {
         String currentName = binding.liEditNameEditText.getText().toString().trim();
         String quantityText = binding.liEditQuantityEditText.getText().toString();
         String priceText = binding.liEditPriceEditText.getText().toString();
+        String unit = binding.liEditMeasureUnitEditText.getText().toString().trim();
 
-        int quantity = quantityText.isEmpty() ? 1 : Integer.parseInt(quantityText);
+        double quantity = quantityText.isEmpty() ? 1 : Double.parseDouble(quantityText);
         double price = PriceValidator.parse(priceText);
 
         listItem = new ListItem(
@@ -154,6 +193,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
                 ),
                 quantity,
                 price,
+                unit,
                 listItem.isBought(),
                 listItem.getListId(),
                 null

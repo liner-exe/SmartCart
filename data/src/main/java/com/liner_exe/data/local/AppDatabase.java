@@ -21,7 +21,7 @@ import com.liner_exe.data.local.entities.StoreEntity;
         CategoryEntity.class,
         StoreEntity.class
         },
-        version = 3
+        version = 4
 )
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "smartcart_db";

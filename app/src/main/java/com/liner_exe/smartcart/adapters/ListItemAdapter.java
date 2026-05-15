@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liner_exe.domain.models.ListItem;
+import com.liner_exe.domain.utils.formatters.QuantityFormatter;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.ItemListBinding;
 
@@ -42,7 +43,7 @@ public class ListItemAdapter extends BaseAdapter<ListItem, ItemListBinding> {
     @Override
     protected void bind(ItemListBinding binding, ListItem item) {
         binding.textProductName.setText(item.getProduct().getName());
-        binding.textQuantity.setText(item.getQuantity() + " шт");
+        binding.textQuantity.setText(QuantityFormatter.format(item.getQuantity()) + " " + item.getUnit());
         binding.checkboxItem.setChecked(item.isBought());
         binding.checkboxItem.setOnClickListener(v -> {
             listener.onCheckbox(item);

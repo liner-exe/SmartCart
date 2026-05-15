@@ -78,7 +78,7 @@ public class CategoryViewModel extends BaseViewModel {
         executeCompletable(repository.add(category), "addCategory");
     }
 
-    public void getCategory(int id) {
+    public void loadCategoryById(int id) {
         disposable.add(repository.findById(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

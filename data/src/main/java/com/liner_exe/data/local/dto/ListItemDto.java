@@ -22,10 +22,13 @@ public class ListItemDto {
     public String productName;
 
     @ColumnInfo(name = "quantity")
-    public int quantity;
+    public double quantity;
 
     @ColumnInfo(name = "price")
     public double price;
+
+    @ColumnInfo(name = "unit")
+    public String unit;
 
     @ColumnInfo(name = "isChecked")
     public boolean isChecked;

@@ -15,6 +15,7 @@ public class ListItemMapper {
                 new Product(dto.productId, dto.productName, dto.categoryId),
                 dto.quantity,
                 dto.price,
+                dto.unit,
                 dto.isChecked,
                 dto.listId,
                 dto.storeId
@@ -29,6 +30,7 @@ public class ListItemMapper {
             null,
             listItem.getQuantity(),
             listItem.getPrice(),
+            listItem.getUnit(),
             listItem.isBought()
         );
     }

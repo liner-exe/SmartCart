@@ -60,7 +60,7 @@ public class FragmentHome extends Fragment {
                         ShoppingList updatedShoppingList = new ShoppingList(
                                 shoppingList.getId(), newName,
                                 shoppingList.getTotalItems(), shoppingList.getBoughtItems(),
-                                0
+                                shoppingList.getCreatedAt()
                         );
                         viewModel.updateList(updatedShoppingList);
                     }).show(getChildFragmentManager(), "RenameListDialog");

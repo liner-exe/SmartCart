@@ -107,7 +107,7 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
         });
 
         if (product.getCategoryId() != null && categoryViewModel.selectedCategory.getValue() == null) {
-            categoryViewModel.getCategory(product.getCategoryId());
+            categoryViewModel.loadCategoryById(product.getCategoryId());
         }
     }
 

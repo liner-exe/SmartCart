@@ -87,7 +87,7 @@ public class FragmentSettings extends Fragment {
         }
 
 
-        new AlertDialog.Builder(getContext())
+        new MaterialAlertDialogBuilder(getContext())
                 .setTitle("О приложении")
                 .setMessage(String.format("Версия %s\nРазработчик: %s", packageInfo.versionName, getDeveloperName()))
                 .setPositiveButton("ОК", null)

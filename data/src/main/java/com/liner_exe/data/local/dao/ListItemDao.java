@@ -28,6 +28,7 @@ public interface ListItemDao {
             "p.name AS productName, " +
             "li.quantity AS quantity, " +
             "li.price AS price, " +
+            "li.unit AS unit, " +
             "li.isChecked AS isChecked " +
             "FROM list_items li " +
             "LEFT JOIN products p ON li.productId = p.id " +

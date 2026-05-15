@@ -41,8 +41,9 @@ public class ListItemEntity {
 
     public Integer storeId;
 
-    public int quantity;
+    public double quantity;
     public double price;
+    public String unit;
     public boolean isChecked;
 
     public ListItemEntity(int id, int listId, int productId) {
@@ -51,18 +52,20 @@ public class ListItemEntity {
         this.productId = productId;
         this.isChecked = false;
         this.storeId = null;
-        this.quantity = 1;
+        this.quantity = 1.0;
+        this.unit = null;
     }
 
     @Ignore
     public ListItemEntity(int id, int listId, int productId, Integer storeId,
-                          int quantity, double price, boolean isChecked) {
+                          double quantity, double price, String unit, boolean isChecked) {
         this.id = id;
         this.listId = listId;
         this.productId = productId;
         this.storeId = storeId;
         this.quantity = quantity;
         this.price = price;
+        this.unit = unit;
         this.isChecked = isChecked;
     }
 }
