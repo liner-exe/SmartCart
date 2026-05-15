@@ -30,9 +30,7 @@ public class DatabaseModule {
                 context,
                 AppDatabase.class,
                 AppDatabase.DATABASE_NAME
-        )
-                .fallbackToDestructiveMigration(true)
-                .build();
+        ).build();
     }
 
     @Provides

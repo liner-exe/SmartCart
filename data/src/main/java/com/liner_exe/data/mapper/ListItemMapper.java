@@ -23,8 +23,13 @@ public class ListItemMapper {
 
     public static ListItemEntity toEntity(ListItem listItem) {
         return new ListItemEntity(
+            listItem.getId(),
             listItem.getListId(),
-            listItem.getProduct().getId()
+            listItem.getProduct().getId(),
+            null,
+            listItem.getQuantity(),
+            listItem.getPrice(),
+            listItem.isBought()
         );
     }
 

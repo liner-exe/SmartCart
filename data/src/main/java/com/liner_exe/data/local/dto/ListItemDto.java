@@ -25,7 +25,7 @@ public class ListItemDto {
     public int quantity;
 
     @ColumnInfo(name = "price")
-    public int price;
+    public double price;
 
     @ColumnInfo(name = "isChecked")
     public boolean isChecked;

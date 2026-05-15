@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
+import com.liner_exe.smartcart.databinding.BottomSheetEditListItemBinding;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
+import com.liner_exe.smartcart.modal.ListItemEditSheet;
 import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -75,10 +77,23 @@ public class FragmentList extends Fragment {
             public void onCheckbox(ListItem listItem) {
                 viewModel.toggleItemStatus(listItem);
             }
+
+            @Override
+            public void onEdit(ListItem listItem) {
+                ListItemEditSheet.newInstance(listItem)
+                        .show(getChildFragmentManager(),
+                        "ListItemEdit");
+            }
         });
 
         binding.rvListItems.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvListItems.setAdapter(adapter);
+
+        adapter.setOnItemClickListener((listItem, position) -> {
+            ListItemEditSheet.newInstance(listItem)
+                    .show(getChildFragmentManager(),
+                            "ListItemEdit");
+        });
     }
 
     private void setupFab() {
@@ -91,9 +106,7 @@ public class FragmentList extends Fragment {
 
     private void observeViewModel() {
         viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
-            if (newListItems != null) {
-                adapter.setItems(newListItems);
-            }
+            adapter.setItems(newListItems);
         });
     }
 }

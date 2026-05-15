@@ -1,8 +1,9 @@
 package com.liner_exe.domain.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ListItem implements DiffIdentifiable {
+public class ListItem implements Serializable, DiffIdentifiable {
     private final int id;
     private final Product product;
     private final int quantity;

@@ -21,6 +21,7 @@ import java.util.List;
 public class ListItemAdapter extends BaseAdapter<ListItem, ItemListBinding> {
     public interface OnListItemActionListener {
         void onCheckbox(ListItem listItem);
+        void onEdit(ListItem listItem);
     }
 
     private final OnListItemActionListener listener;

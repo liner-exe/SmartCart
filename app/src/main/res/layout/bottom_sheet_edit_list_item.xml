@@ -1,101 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/li_edit_name_input_layout"
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <com.google.android.material.textfield.TextInputEditText
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:id="@+id/drag_handle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Банан"
-            android:textStyle="bold"
-            android:textSize="24sp">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/li_edit_quantity_input_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        app:layout_constraintHorizontal_weight="1.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/li_edit_button_minus"
-        app:layout_constraintTop_toBottomOf="@id/li_edit_name_input_layout">
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/li_edit_name_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/drag_handle"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/li_edit_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Банан"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:maxLines="1"
+                android:singleLine="true">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/li_edit_button_minus"
-        style="@style/Widget.Material3.Button.Icon"
-        android:layout_width="48dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        app:icon="@drawable/delete"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/li_edit_quantity_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Количество"
+            app:expandedHintEnabled="false"
 
-        app:layout_constraintBottom_toBottomOf="@id/li_edit_quantity_input_layout"
-        app:layout_constraintStart_toEndOf="@id/li_edit_quantity_input_layout"
-        app:layout_constraintTop_toTopOf="@id/li_edit_quantity_input_layout"
-        app:layout_constraintEnd_toStartOf="@id/li_edit_button_plus">
-    </com.google.android.material.button.MaterialButton>
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/li_edit_measure_unit_input_layout"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_name_input_layout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/li_edit_quantity_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:gravity="end">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/li_edit_button_plus"
-        style="@style/Widget.Material3.Button.Icon"
-        android:layout_width="48dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        app:icon="@drawable/add"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/li_edit_measure_unit_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:hint="Ед. измерения"
+            app:expandedHintEnabled="false"
 
-        app:layout_constraintBottom_toBottomOf="@id/li_edit_quantity_input_layout"
-        app:layout_constraintStart_toEndOf="@id/li_edit_button_minus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/li_edit_quantity_input_layout">
-    </com.google.android.material.button.MaterialButton>
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/li_edit_quantity_input_layout"
+            app:layout_constraintEnd_toStartOf="@id/li_edit_button_minus"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_name_input_layout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/li_edit_price_input_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/li_edit_button_minus"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            app:icon="@drawable/delete"
 
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toBottomOf="@id/li_edit_quantity_input_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/li_edit_total_price_text">
-        <com.google.android.material.textfield.TextInputEditText
+            app:layout_constraintBottom_toBottomOf="@id/li_edit_measure_unit_input_layout"
+            app:layout_constraintStart_toEndOf="@id/li_edit_measure_unit_input_layout"
+            app:layout_constraintTop_toTopOf="@id/li_edit_measure_unit_input_layout"
+            app:layout_constraintEnd_toStartOf="@id/li_edit_button_plus">
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/li_edit_button_plus"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            app:icon="@drawable/add"
+
+            app:layout_constraintBottom_toBottomOf="@id/li_edit_measure_unit_input_layout"
+            app:layout_constraintStart_toEndOf="@id/li_edit_button_minus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/li_edit_measure_unit_input_layout">
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/li_edit_price_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_quantity_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/li_edit_measure_unit_input_layout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/li_edit_price_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/li_price_total_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintTop_toTopOf="@id/li_edit_price_input_layout"
+            app:layout_constraintBottom_toBottomOf="@id/li_edit_price_input_layout"
+            app:layout_constraintStart_toEndOf="@id/li_edit_price_input_layout"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Всего"
+                android:textStyle="bold">
+            </TextView>
+
+            <TextView
+                android:id="@+id/li_edit_total_price_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100 dollars">
+            </TextView>
+        </LinearLayout>
+
+
+        <include
+            android:id="@+id/list_item_edit_category_display"
+            layout="@layout/item_category"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
 
-    <TextView
-        android:id="@+id/li_edit_total_price_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="100 dollars"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_price_input_layout">
+        </include>
 
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@id/li_edit_price_input_layout"
-        app:layout_constraintBottom_toBottomOf="@id/li_edit_price_input_layout"
-        app:layout_constraintTop_toTopOf="@id/li_edit_price_input_layout"
-        app:layout_constraintEnd_toEndOf="parent">
-    </TextView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/li_edit_button_change_category"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/rounded_layout"
+            android:text="Изменить категорию"
+            android:layout_marginTop="16dp"
+
+            app:layout_constraintTop_toBottomOf="@id/list_item_edit_category_display"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/li_edit_button_delete"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            app:icon="@drawable/delete"
+            app:iconSize="16dp"
+            android:layout_marginTop="16dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/li_edit_button_done"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_button_change_category">
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/li_edit_button_done"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/action_done"
+            android:layout_marginStart="8dp"
+
+            app:layout_constraintStart_toEndOf="@id/li_edit_button_delete"
+            app:layout_constraintTop_toTopOf="@id/li_edit_button_delete"
+            app:layout_constraintTop_toBottomOf="@id/li_edit_button_delete"
+            app:layout_constraintBottom_toBottomOf="@id/li_edit_button_delete"
+            app:layout_constraintEnd_toEndOf="parent">
+        </com.google.android.material.button.MaterialButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

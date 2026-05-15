@@ -32,7 +32,17 @@ public class ListItemRepositoryImpl implements IListItemRepository {
     }
 
     @Override
+    public Completable update(ListItem listItem) {
+        return dao.updateListItem(ListItemMapper.toEntity(listItem));
+    }
+
+    @Override
     public Completable updateItemStatus(int itemId, int listId, int productId, boolean isBought) {
         return dao.updateItemStatus(itemId, listId, productId, isBought);
+    }
+
+    @Override
+    public Completable deleteById(int itemId, int listId, int productId) {
+        return dao.deleteById(itemId, listId, productId);
     }
 }

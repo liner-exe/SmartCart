@@ -44,6 +44,15 @@ public class ListItemsViewModel extends BaseViewModel {
         _currentListId.onNext(listId);
     }
 
+    public void deleteListItemById(int itemId, int listId, int productId) {
+        executeCompletable(repository.deleteById(itemId, listId, productId),
+                "deleteListItemById");
+    }
+
+    public void updateListItem(ListItem listItem) {
+        executeCompletable(repository.update(listItem), "updateListItem");
+    }
+
     public void toggleItemStatus(ListItem listItem) {
         boolean newStatus = !listItem.isBought();
         executeCompletable(repository.updateItemStatus(

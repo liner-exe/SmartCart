@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.liner_exe.data.local.dto.ListItemDto;
 import com.liner_exe.data.local.entities.ListItemEntity;
@@ -34,9 +35,18 @@ public interface ListItemDao {
     )
     Flowable<List<ListItemDto>> getItemsForList(int listId);
 
+    @Update
+    Completable updateListItem(ListItemEntity listItem);
+
     @Query("UPDATE list_items SET isChecked = :isBought " +
             "WHERE productId = :productId " +
             "AND listId = :listId " +
             "AND id = :itemId")
     Completable updateItemStatus(int itemId, int listId, int productId, boolean isBought);
+
+    @Query("DELETE FROM list_items " +
+            "WHERE productId = :productId " +
+            "AND listId = :listId " +
+            "AND id = :itemId")
+    Completable deleteById(int itemId, int listId, int productId);
 }
