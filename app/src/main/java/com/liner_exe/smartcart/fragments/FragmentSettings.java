@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.liner_exe.data.storage.SettingsManager;
+import com.liner_exe.domain.enums.Currency;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentSettingsBinding;
 
@@ -63,14 +66,17 @@ public class FragmentSettings extends Fragment {
             navController.navigate(action);
         });
 
+        binding.currencyChangeButton.setOnClickListener(v -> {
+            showCurrencySelectionDialog();
+        });
+
         binding.aboutButton.setOnClickListener(v -> {
             showAboutDialog();
         });
     }
 
     private void showAboutDialog() {
-        PackageInfo packageInfo = null;
-        ApplicationInfo ai = null;
+        PackageInfo packageInfo;
 
         try {
             PackageManager pm = getContext().getPackageManager();
@@ -98,5 +104,22 @@ public class FragmentSettings extends Fragment {
         } catch (Exception e) {
             return "Unknown";
         }
+    }
+
+    private void showCurrencySelectionDialog() {
+        SettingsManager settingsManager = new SettingsManager(requireContext());
+        Currency[] currencies = Currency.values();
+
+        String[] items = new String[currencies.length];
+        for (int i = 0; i < currencies.length; i++) {
+            items[i] = currencies[i].getCode() + " (" + currencies[i].getSymbol() + ")";
+        }
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Выберите валюту")
+                .setItems(items, (dialog, i) -> {
+                    Currency selectedCurrency = currencies[i];
+                    settingsManager.setCurrency(selectedCurrency);
+                }).show();
     }
 }

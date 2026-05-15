@@ -2,6 +2,7 @@ package com.liner_exe.domain.enums;
 
 public enum Currency {
     DOLLAR("$", "USD"),
+    EURO("€", "EUR"),
     RUB("₽", "RUB");
 
     private final String symbol;
@@ -31,7 +32,7 @@ public enum Currency {
         if (this == DOLLAR) {
             return String.format("%s %.2f", symbol, amount);
         } else {
-            return String.format("%.2f %s", symbol, amount);
+            return String.format("%.2f %s", amount, symbol);
         }
     }
 }

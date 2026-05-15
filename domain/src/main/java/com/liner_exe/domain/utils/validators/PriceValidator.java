@@ -5,7 +5,7 @@ import java.util.Locale;
 public class PriceValidator {
     public static boolean isValid(String value) {
         String normalized = value.trim().replace(",", ".");
-        return normalized.matches("^\\d+\\.\\d{1,2}$") || normalized.matches("^\\d+$");
+        return normalized.matches("^\\d+(\\.\\d{1,2})?$");
     }
 
     public static double parse(String value) {

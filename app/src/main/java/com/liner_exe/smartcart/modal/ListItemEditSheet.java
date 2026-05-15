@@ -90,7 +90,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
                 String priceInput = binding.liEditPriceEditText.getText().toString();
 
                 if (!priceInput.isEmpty() && !PriceValidator.isValid(priceInput)) {
-                    binding.liEditPriceInputLayout.setError("Формат 10.50");
+                    binding.liEditPriceInputLayout.setError("Формат 99.99 или 9.9");
                 } else {
                     binding.liEditPriceInputLayout.setError(null);
                 }

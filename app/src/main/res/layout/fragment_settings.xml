@@ -41,6 +41,16 @@
             </com.liner_exe.smartcart.components.SettingsItemButton>
 
             <com.liner_exe.smartcart.components.SettingsItemButton
+                android:id="@+id/currency_change_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIcon="@drawable/store"
+                app:itemText="Изменить валюту"
+                app:itemColor="@color/white"
+                android:layout_marginBottom="4dp">
+            </com.liner_exe.smartcart.components.SettingsItemButton>
+
+            <com.liner_exe.smartcart.components.SettingsItemButton
                 android:id="@+id/about_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
