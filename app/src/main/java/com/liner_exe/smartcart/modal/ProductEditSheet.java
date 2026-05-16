@@ -87,8 +87,6 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
 
         categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
-                Log.d("SC_SelectedCategory", "selected cat: " + category.getName());
-
                 product = new Product(
                     product.getId(),
                     product.getName(),

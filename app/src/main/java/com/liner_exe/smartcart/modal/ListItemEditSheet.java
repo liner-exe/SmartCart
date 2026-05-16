@@ -11,25 +11,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.liner_exe.data.storage.SettingsManager;
 import com.liner_exe.domain.enums.Currency;
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.domain.models.Product;
+import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.utils.QuantityCalculator;
 import com.liner_exe.domain.utils.formatters.QuantityFormatter;
 import com.liner_exe.domain.utils.validators.PriceValidator;
 import com.liner_exe.smartcart.databinding.BottomSheetEditListItemBinding;
+import com.liner_exe.smartcart.fragments.FragmentListDirections;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
 import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 import com.liner_exe.smartcart.viewmodel.ProductViewModel;
+import com.liner_exe.smartcart.viewmodel.StoresViewModel;
 
 public class ListItemEditSheet extends BottomSheetDialogFragment {
     private BottomSheetEditListItemBinding binding;
     private ListItemsViewModel listItemsViewModel;
     private CategoryViewModel categoryViewModel;
     private ProductViewModel productViewModel;
+    private StoresViewModel storesViewModel;
     private ListItem listItem;
 
     private SettingsManager settingsManager;
@@ -58,6 +65,18 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        storesViewModel = new ViewModelProvider(requireActivity()).get(StoresViewModel.class);
+
+        categoryViewModel.resetSelectedCategory();
+        storesViewModel.resetSelectedStore();
+
+        if (listItem.getProduct().getCategoryId() != null && categoryViewModel.selectedCategory.getValue() == null) {
+            categoryViewModel.loadCategoryById(listItem.getProduct().getCategoryId());
+        }
+
+        if (listItem.getStoreId() != null && storesViewModel.selectedStore.getValue() == null) {
+            storesViewModel.loadStoreById(listItem.getStoreId());
+        }
     }
 
     @Nullable
@@ -75,6 +94,8 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         binding.liEditNameEditText.setText(listItem.getProduct().getName());
         binding.liEditQuantityEditText.setText(QuantityFormatter.format(listItem.getQuantity()));
         binding.liEditPriceEditText.setText(PriceValidator.format(listItem.getPrice()));
@@ -82,13 +103,39 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
 
         categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
+                Product product = new Product(
+                        listItem.getProduct().getId(),
+                        listItem.getProduct().getName(),
+                        category.getId()
+                );
+
                 binding.liEditCategoryName.setText(category.getEmoji() + " " + category.getName());
             } else {
                 binding.liEditCategoryName.setText("Не указана");
             }
         });
 
-        categoryViewModel.loadCategoryById(listItem.getProduct().getId()) ;
+        storesViewModel.selectedStore.observe(getViewLifecycleOwner(), store -> {
+            if (store != null) {
+                binding.liEditStoreName.setText(store.getName());
+            } else {
+                binding.liEditStoreName.setText("Не выбран");
+            }
+        });
+
+        binding.liEditCardCategory.setOnClickListener(v -> {
+            NavDirections action = FragmentListDirections
+                    .actionFragmentListToCategorySelectionFragment(listItem.getProduct());
+            NavHostFragment.findNavController(this).navigate(action);
+        });
+
+        binding.liEditCardStore.setOnClickListener(v -> {
+            NavDirections action = FragmentListDirections
+                    .actionFragmentListToStoreSelectionFragment(listItem);
+            NavHostFragment.findNavController(this).navigate(action);
+        });
+
+
 
         updateTotalDisplay();
 
@@ -184,19 +231,25 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         double quantity = quantityText.isEmpty() ? 1 : Double.parseDouble(quantityText);
         double price = PriceValidator.parse(priceText);
 
+        Store currentStore = storesViewModel.selectedStore.getValue();
+        Integer storeId = (currentStore != null) ? currentStore.getId() : null;
+
+        Category currentCategory = categoryViewModel.selectedCategory.getValue();
+        Integer categoryId = (currentCategory != null) ? currentCategory.getId() : null;
+
         listItem = new ListItem(
                 listItem.getId(),
                 new Product(
                         listItem.getProduct().getId(),
                         currentName,
-                        listItem.getProduct().getCategoryId()
+                        categoryId
                 ),
                 quantity,
                 price,
                 unit,
                 listItem.isBought(),
                 listItem.getListId(),
-                null
+                storeId
         );
 
         return true;
@@ -205,7 +258,5 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-
-        categoryViewModel.resetSelectedCategory();
     }
 }

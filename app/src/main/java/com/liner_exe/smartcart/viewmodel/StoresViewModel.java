@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.repository.IStoreRepository;
 
@@ -31,6 +32,9 @@ public class StoresViewModel extends BaseViewModel {
 
     private final MutableLiveData<Boolean> _isDbEmpty = new MutableLiveData<>(true);
     public LiveData<Boolean> isDbEmpty = _isDbEmpty;
+
+    private final MutableLiveData<Store> _selectedStore = new MutableLiveData<>();
+    public LiveData<Store> selectedStore = _selectedStore;
 
     @Inject
     public StoresViewModel(IStoreRepository repository) {
@@ -79,6 +83,26 @@ public class StoresViewModel extends BaseViewModel {
 
     public void deleteStoreById(int id) {
         executeCompletable(repository.deleteById(id), "deleteStoreById");
+    }
+
+    public void loadStoreById(int id) {
+        disposable.add(repository.findById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        _selectedStore::setValue,
+                        throwable -> {
+                            Log.e("DB_ERROR", "error vm: " + throwable.getMessage());
+                        }
+                ));
+    }
+
+    public void setSelectedStore(Store store) {
+        _selectedStore.setValue(store);
+    }
+
+    public void resetSelectedStore() {
+        _selectedStore.setValue(null);
     }
 
     private void subscribeToStores() {

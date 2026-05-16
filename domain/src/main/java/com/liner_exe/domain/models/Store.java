@@ -1,5 +1,6 @@
 package com.liner_exe.domain.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Store implements DiffIdentifiable {

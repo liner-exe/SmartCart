@@ -55,6 +55,10 @@ public class ListItem implements Serializable, DiffIdentifiable {
 
     public int getListId() { return listId; }
 
+    public Integer getStoreId() {
+        return storeId;
+    }
+
     @Override
     public boolean isContentTheSame(Object other) {
         return this.equals(other);

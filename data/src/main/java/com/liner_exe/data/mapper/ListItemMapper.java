@@ -27,7 +27,7 @@ public class ListItemMapper {
             listItem.getId(),
             listItem.getListId(),
             listItem.getProduct().getId(),
-            null,
+            listItem.getStoreId(),
             listItem.getQuantity(),
             listItem.getPrice(),
             listItem.getUnit(),

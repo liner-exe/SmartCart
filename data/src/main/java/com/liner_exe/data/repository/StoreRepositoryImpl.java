@@ -1,6 +1,7 @@
 package com.liner_exe.data.repository;
 
 import com.liner_exe.data.local.dao.StoreDao;
+import com.liner_exe.data.local.entities.StoreEntity;
 import com.liner_exe.data.mapper.StoreMapper;
 import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.repository.IStoreRepository;
@@ -11,6 +12,8 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class StoreRepositoryImpl implements IStoreRepository {
     private final StoreDao dao;
@@ -28,6 +31,14 @@ public class StoreRepositoryImpl implements IStoreRepository {
     @Override
     public Flowable<List<Store>> getAll() {
         return dao.getAll().map(StoreMapper::toModelList);
+    }
+
+    @Override
+    public Single<Store> findById(int id) {
+        return Single.fromCallable(() -> {
+            StoreEntity store = dao.findById(id);
+            return StoreMapper.toModel(store);
+        }).subscribeOn(Schedulers.io());
     }
 
     @Override

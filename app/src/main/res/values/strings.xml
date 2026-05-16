@@ -36,7 +36,7 @@
 
     <!-- Stores Management -->
     <string name="store_name">Название магазина</string>
-     <string name="store_add">Добавление магазина</string>
+    <string name="store_add">Добавление магазина</string>
     <string name="sm_empty_list_title">Список магазинов пуст</string>
     <string name="sm_empty_list_message">Нажмите «+», чтобы добавить свой первый магазин</string>
     <string name="sm_search_bar_hint">Поиск магазинов...</string>

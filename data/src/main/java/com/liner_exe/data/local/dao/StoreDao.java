@@ -20,6 +20,9 @@ public interface StoreDao {
     @Query("SELECT * FROM stores")
     Flowable<List<StoreEntity>> getAll();
 
+    @Query("SELECT * FROM stores WHERE id = :storeId")
+    StoreEntity findById(int storeId);
+
     @Update
     Completable update(StoreEntity shop);
 
