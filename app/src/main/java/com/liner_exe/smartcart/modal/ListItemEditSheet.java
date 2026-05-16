@@ -55,12 +55,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            listItem = (ListItem) getArguments().getSerializable("arg_listItem");
-        }
-
-        settingsManager = new SettingsManager(requireContext());
-        currentCurrency = settingsManager.getCurrency();
+        handleArguments();
 
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
@@ -94,8 +89,6 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         binding.liEditNameEditText.setText(listItem.getProduct().getName());
         binding.liEditQuantityEditText.setText(QuantityFormatter.format(listItem.getQuantity()));
         binding.liEditPriceEditText.setText(PriceValidator.format(listItem.getPrice()));
@@ -103,12 +96,6 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
 
         categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
-                Product product = new Product(
-                        listItem.getProduct().getId(),
-                        listItem.getProduct().getName(),
-                        category.getId()
-                );
-
                 binding.liEditCategoryName.setText(category.getEmoji() + " " + category.getName());
             } else {
                 binding.liEditCategoryName.setText("Не указана");
@@ -135,30 +122,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
             NavHostFragment.findNavController(this).navigate(action);
         });
 
-
-
         updateTotalDisplay();
-
-        TextWatcher totalPriceUpdateTextWatcher = new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable editable) {}
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String priceInput = binding.liEditPriceEditText.getText().toString();
-
-                if (!priceInput.isEmpty() && !PriceValidator.isValid(priceInput)) {
-                    binding.liEditPriceInputLayout.setError("Формат 99.99 или 9.9");
-                } else {
-                    binding.liEditPriceInputLayout.setError(null);
-                }
-
-                updateTotalDisplay();
-            }
-        };
 
         binding.liEditQuantityEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -167,9 +131,6 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
                 decimalMode = text.contains(".") || text.contains(",");
             }
         });
-
-        binding.liEditQuantityEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
-        binding.liEditPriceEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
 
         binding.liEditButtonMinus.setOnClickListener(v -> {
             double current = QuantityFormatter.parse(binding.liEditQuantityEditText.getText().toString());
@@ -203,6 +164,17 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
 
             dismiss();
         });
+
+        bindTextWatcher();
+    }
+
+    private void handleArguments() {
+        if (getArguments() != null) {
+            listItem = (ListItem) getArguments().getSerializable("arg_listItem");
+        }
+
+        settingsManager = new SettingsManager(requireContext());
+        currentCurrency = settingsManager.getCurrency();
     }
 
     private void updateTotalDisplay() {
@@ -255,8 +227,29 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         return true;
     }
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
+    private void bindTextWatcher() {
+        TextWatcher totalPriceUpdateTextWatcher = new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String priceInput = binding.liEditPriceEditText.getText().toString();
+
+                if (!priceInput.isEmpty() && !PriceValidator.isValid(priceInput)) {
+                    binding.liEditPriceInputLayout.setError("Формат 99.99 или 9.9");
+                } else {
+                    binding.liEditPriceInputLayout.setError(null);
+                }
+
+                updateTotalDisplay();
+            }
+        };
+
+        binding.liEditQuantityEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
+        binding.liEditPriceEditText.addTextChangedListener(totalPriceUpdateTextWatcher);
     }
 }
