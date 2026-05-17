@@ -15,6 +15,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.liner_exe.domain.models.Category;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.BottomSheetEditProductBinding;
@@ -47,6 +48,12 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
 
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
+
+        categoryViewModel.resetSelectedCategory();
+
+        if (product.getCategoryId() != null && categoryViewModel.selectedCategory.getValue() == null) {
+            categoryViewModel.loadCategoryById(product.getCategoryId());
+        }
     }
 
     @Nullable
@@ -87,13 +94,6 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
 
         categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
-                product = new Product(
-                    product.getId(),
-                    product.getName(),
-                    category.getId()
-                );
-                binding.setProduct(product);
-
                 productEditCategoryDisplay.categoryItemTitle.setText(category.getName());
                 productEditCategoryDisplay.categoryItemEmoji.setText(category.getEmoji());
                 binding.executePendingBindings();
@@ -103,23 +103,15 @@ public class ProductEditSheet extends BottomSheetDialogFragment {
                 productEditCategoryDisplay.categoryItemEmoji.setText("");
             }
         });
-
-        if (product.getCategoryId() != null && categoryViewModel.selectedCategory.getValue() == null) {
-            categoryViewModel.loadCategoryById(product.getCategoryId());
-        }
     }
 
     private void updateProductFromUI() {
         if (binding.productEditNameEditText.getText() == null) return;
 
+        Category currentCategory = categoryViewModel.selectedCategory.getValue();
+        Integer categoryId = (currentCategory != null) ? currentCategory.getId() : null;
+
         String currentName = binding.productEditNameEditText.getText().toString().trim();
-        product = new Product(product.getId(), currentName, product.getCategoryId());
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-
-        categoryViewModel.resetSelectedCategory();
+        product = new Product(product.getId(), currentName, categoryId);
     }
 }

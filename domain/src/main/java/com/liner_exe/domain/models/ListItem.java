@@ -36,6 +36,17 @@ public class ListItem implements Serializable, DiffIdentifiable {
         this.storeId = null;
     }
 
+    public ListItem(int listId, Product product, String unit) {
+        this.id = 0;
+        this.product = product;
+        this.quantity = 1.0;
+        this.price = 0.0;
+        this.unit = unit;
+        this.isBought = false;
+        this.listId = listId;
+        this.storeId = null;
+    }
+
     public int getId() {
         return id;
     }

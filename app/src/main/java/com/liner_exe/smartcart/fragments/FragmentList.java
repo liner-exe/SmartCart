@@ -13,12 +13,14 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.liner_exe.domain.enums.Currency;
 import com.liner_exe.domain.models.ListItem;
+import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
-import com.liner_exe.smartcart.databinding.BottomSheetEditListItemBinding;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
 import com.liner_exe.smartcart.modal.ListItemEditSheet;
 import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
+import com.liner_exe.smartcart.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -26,7 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentList extends Fragment {
     private FragmentListBinding binding;
     private ListItemAdapter adapter;
-    private ListItemsViewModel viewModel;
+    private ListItemsViewModel listItemsViewModel;
+    private SettingsViewModel settingsViewModel;
     private String listName;
     private int listId;
 
@@ -41,13 +44,18 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
+        listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+        listItemsViewModel.setSortByCategory(false);
 
         handleArguments();
 
         setupToolbar();
+        setupSortChips();
         setupRecyclerView();
         setupFab();
+        setupTotalSum();
 
         observeViewModel();
     }
@@ -59,7 +67,7 @@ public class FragmentList extends Fragment {
             listName = args.getListName();
             listId = args.getListId();
 
-            viewModel.setCurrentListId(listId);
+            listItemsViewModel.setCurrentListId(listId);
         }
     }
 
@@ -71,11 +79,24 @@ public class FragmentList extends Fragment {
         binding.listAppBar.setTitle(listName);
     }
 
+    private void setupSortChips() {
+        binding.chipGroupSort.setOnCheckedStateChangeListener(((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) return;
+
+            int checkedId = checkedIds.get(0);
+            if (checkedId == R.id.chip_sort_default) {
+                listItemsViewModel.setSortByCategory(false);
+            } else if (checkedId == R.id.chip_sort_category) {
+                listItemsViewModel.setSortByCategory(true);
+            }
+        }));
+    }
+
     private void setupRecyclerView() {
         adapter = new ListItemAdapter(new ListItemAdapter.OnListItemActionListener() {
             @Override
             public void onCheckbox(ListItem listItem) {
-                viewModel.toggleItemStatus(listItem);
+                listItemsViewModel.toggleItemStatus(listItem);
             }
 
             @Override
@@ -83,6 +104,11 @@ public class FragmentList extends Fragment {
                 ListItemEditSheet.newInstance(listItem)
                         .show(getChildFragmentManager(),
                         "ListItemEdit");
+            }
+
+            @Override
+            public void onDelete(ListItem listItem) {
+                listItemsViewModel.deleteListItemById(listItem.getId(), listId, listItem.getProduct().getId());
             }
         });
 
@@ -104,8 +130,17 @@ public class FragmentList extends Fragment {
         });
     }
 
+    private void setupTotalSum() {
+        listItemsViewModel.totalSum.observe(getViewLifecycleOwner(), totalSum -> {
+            Currency currency = settingsViewModel.currency.getValue();
+            String totalText = currency != null ? currency.format(totalSum) : "";
+
+            binding.textListTotalSum.setText(totalText);
+        });
+    }
+
     private void observeViewModel() {
-        viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
+        listItemsViewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
             adapter.setItems(newListItems);
         });
     }

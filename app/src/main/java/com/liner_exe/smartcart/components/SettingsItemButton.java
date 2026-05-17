@@ -1,17 +1,24 @@
 package com.liner_exe.smartcart.components;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.liner_exe.smartcart.R;
+import com.liner_exe.smartcart.databinding.ComponentSettingsItemButtonBinding;
 
 public class SettingsItemButton extends LinearLayout {
+    private ComponentSettingsItemButtonBinding binding;
     private TextView title;
+    private TextView subtitle;
     private ImageView icon;
 
     public SettingsItemButton(Context context, AttributeSet attrs) {
@@ -20,10 +27,17 @@ public class SettingsItemButton extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        inflate(context, R.layout.component_settings_item_button, this);
+        binding = ComponentSettingsItemButtonBinding.inflate(
+                LayoutInflater.from(context), this, true
+        );
 
-        title = findViewById(R.id.settings_item_title);
-        icon = findViewById(R.id.settings_item_icon);
+        title = binding.settingsItemTitle;
+        icon = binding.settingsItemIcon;
+        subtitle = binding.settingsItemSubtitle;
+
+
+        this.setClickable(true);
+        this.setFocusable(true);
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingsItemButton);
@@ -31,14 +45,35 @@ public class SettingsItemButton extends LinearLayout {
             String text = a.getString(R.styleable.SettingsItemButton_itemText);
             title.setText(text);
 
+            String subtitleText = a.getString(R.styleable.SettingsItemButton_itemSubtitle);
+            subtitle.setText(subtitleText);
+
             int img = a.getResourceId(R.styleable.SettingsItemButton_itemIcon, R.drawable.info_filled);
             icon.setImageResource(img);
 
             int defaultColor = Color.parseColor("#b3e5fc");
             int color = a.getColor(R.styleable.SettingsItemButton_itemColor, defaultColor);
-            this.setBackgroundColor(color);
+
+            setRippleEffect(color);
 
             a.recycle();
         }
+    }
+
+    private void setRippleEffect(int color) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setColor(color);
+
+        RippleDrawable rippleDrawable = new RippleDrawable(
+                ColorStateList.valueOf(Color.parseColor("#33000000")),
+                shape,
+                null
+        );
+
+        binding.drawerButtonContainer.setBackground(rippleDrawable);
+    }
+
+    public void setSubtitle(String text) {
+        subtitle.setText(text);
     }
 }

@@ -1,62 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".fragments.FragmentSettings">
-
-        <LinearLayout
+        
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.liner_exe.smartcart.components.SettingsItemButton
-                android:id="@+id/products_management_button"
+            android:fillViewport="true">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:itemIcon="@drawable/product_edit"
-                app:itemText="@string/products_management"
-                app:itemColor="@color/white"
-                android:layout_marginBottom="4dp">
-            </com.liner_exe.smartcart.components.SettingsItemButton>
+                android:orientation="vertical"
 
-            <com.liner_exe.smartcart.components.SettingsItemButton
-                android:id="@+id/categories_management_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:itemIcon="@drawable/category"
-                app:itemText="@string/categories_management"
-                app:itemColor="@color/white"
-                android:layout_marginBottom="4dp">
-            </com.liner_exe.smartcart.components.SettingsItemButton>
+                android:paddingHorizontal="4dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="32dp"
+                android:clipToPadding="false">
 
-            <com.liner_exe.smartcart.components.SettingsItemButton
-                android:id="@+id/stores_management_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:itemIcon="@drawable/store"
-                app:itemText="@string/stores_management"
-                app:itemColor="@color/white"
-                android:layout_marginBottom="4dp">
-            </com.liner_exe.smartcart.components.SettingsItemButton>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-            <com.liner_exe.smartcart.components.SettingsItemButton
-                android:id="@+id/currency_change_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:itemIcon="@drawable/store"
-                app:itemText="Изменить валюту"
-                app:itemColor="@color/white"
-                android:layout_marginBottom="4dp">
-            </com.liner_exe.smartcart.components.SettingsItemButton>
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
 
-            <com.liner_exe.smartcart.components.SettingsItemButton
-                android:id="@+id/about_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:itemIcon="@drawable/info"
-                app:itemText="@string/about_app">
-            </com.liner_exe.smartcart.components.SettingsItemButton>
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_header_data"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+
+                            android:paddingStart="16dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="8dp">
+                        </TextView>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/products_management_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/package_2"
+                            app:itemText="@string/settings_products"
+                            app:itemSubtitle="@string/settings_products_sub"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#e0e0e0"
+                            android:layout_marginHorizontal="16dp">
+                        </View>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/categories_management_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/category_filled"
+                            app:itemText="@string/settings_categories"
+                            app:itemSubtitle="@string/settings_categories_sub"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#e0e0e0"
+                            android:layout_marginHorizontal="16dp">
+                        </View>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/stores_management_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/store_filled"
+                            app:itemText="@string/settings_stores"
+                            app:itemSubtitle="@string/settings_stores_sub"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_header_interface"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+
+                            android:paddingStart="16dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="8dp">
+                        </TextView>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/currency_change_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/paid"
+                            app:itemText="@string/settings_currency"
+                            tools:itemSubtitle="USD"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#e0e0e0"
+                            android:layout_marginHorizontal="16dp">
+                        </View>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/language_change_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/language"
+                            app:itemText="@string/settings_language"
+                            tools:itemSubtitle="English"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#e0e0e0"
+                            android:layout_marginHorizontal="16dp">
+                        </View>
+
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/theme_change_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/dark_mode"
+                            app:itemText="@string/settings_theme"
+                            tools:itemSubtitle="Dark"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_header_info"
+                            android:textStyle="bold"
+
+                            android:paddingStart="16dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="8dp">
+
+                        </TextView>
+                        <com.liner_exe.smartcart.components.SettingsItemButton
+                            android:id="@+id/about_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:itemIcon="@drawable/info_filled"
+                            app:itemText="@string/settings_about_app"
+                            app:itemSubtitle="@string/settings_about_app_sub"
+                            app:itemColor="@color/white">
+                        </com.liner_exe.smartcart.components.SettingsItemButton>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 </layout>

@@ -3,7 +3,8 @@ package com.liner_exe.data.repository;
 import com.liner_exe.data.local.dao.ListItemDao;
 import com.liner_exe.data.mapper.ListItemMapper;
 import com.liner_exe.domain.models.ListItem;
-import com.liner_exe.domain.models.Store;
+import com.liner_exe.domain.models.monitoring.CategoryProgress;
+import com.liner_exe.domain.models.monitoring.StoreProgress;
 import com.liner_exe.domain.repository.IListItemRepository;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class ListItemRepositoryImpl implements IListItemRepository {
     }
 
     @Override
-    public Flowable<List<ListItem>> getItemsForList(int id) {
-        return dao.getItemsForList(id).map(ListItemMapper::toModelList);
+    public Flowable<List<ListItem>> getItemsForList(int id, boolean sortByCategory) {
+        return dao.getItemsForList(id, sortByCategory).map(ListItemMapper::toModelList);
     }
 
     @Override
@@ -44,5 +45,20 @@ public class ListItemRepositoryImpl implements IListItemRepository {
     @Override
     public Completable deleteById(int itemId, int listId, int productId) {
         return dao.deleteById(itemId, listId, productId);
+    }
+
+    @Override
+    public Flowable<List<CategoryProgress>> getExpensesGroupedByCategory() {
+        return dao.getExpensesGroupedByCategory().map(ListItemMapper::toCategoryProgressList);
+    }
+
+    @Override
+    public Flowable<Double> getListTotalSum(int listId) {
+        return dao.getListTotalSum(listId);
+    }
+
+    @Override
+    public Flowable<List<StoreProgress>> getExpensesGroupedByStore() {
+        return dao.getExpensesGroupedByStore().map(ListItemMapper::toStoreProgressList);
     }
 }

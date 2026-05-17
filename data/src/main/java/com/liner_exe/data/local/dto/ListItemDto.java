@@ -32,4 +32,10 @@ public class ListItemDto {
 
     @ColumnInfo(name = "isChecked")
     public boolean isChecked;
+
+    @ColumnInfo(name = "categoryName")
+    public String categoryName;
+
+    @ColumnInfo(name = "categoryEmoji")
+    public String categoryEmoji;
 }

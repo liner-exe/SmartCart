@@ -13,8 +13,7 @@ public class ShoppingListEntity {
 
     public String name;
 
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
-    public long createdAt;
+    public long createdAt = System.currentTimeMillis();
 
     public ShoppingListEntity() {
 

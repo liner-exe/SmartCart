@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -8,7 +9,7 @@
         android:layout_marginVertical="4dp"
         android:background="@drawable/rounded_layout"
         android:orientation="vertical"
-        android:backgroundTint="#1A2A3A">
+        android:backgroundTint="?attr/colorSurfaceContainerLow">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +20,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/app_name"/>
+                android:text="@string/app_name"
+                android:textColor="?attr/colorOnSurface"/>
             <ImageButton
                 android:id="@+id/shopping_list_button_more"
                 android:layout_width="24dp"
@@ -27,10 +29,9 @@
                 android:src="@drawable/more"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/app_name"
+                app:tint="?attr/colorOnSurfaceVariant"
                 android:background="?attr/selectableItemBackgroundBorderless"/>
         </LinearLayout>
-
-
 
         <Space
             android:layout_width="match_parent"
@@ -44,15 +45,14 @@
 
             <ProgressBar
                 android:id="@+id/shopping_list_progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:progress="35"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:min="0"
-                android:max="100"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:background="@drawable/rounded_layout">
+                android:max="100">
             </ProgressBar>
 
             <TextView
@@ -61,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
-                android:text="0/0"/>
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="0/0"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

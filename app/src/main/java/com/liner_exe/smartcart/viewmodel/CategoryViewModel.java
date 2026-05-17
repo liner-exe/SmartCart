@@ -66,7 +66,8 @@ public class CategoryViewModel extends BaseViewModel {
             List<Category> filtered = new ArrayList<>();
             String pattern = query.toLowerCase().trim();
             for (Category category : list) {
-                if (category.getName().toLowerCase().contains(pattern)) {
+                String categoryName = category.getEmoji() + category.getName().toLowerCase();
+                if (categoryName.contains(pattern)) {
                     filtered.add(category);
                 }
             }

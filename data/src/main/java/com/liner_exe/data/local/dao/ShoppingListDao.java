@@ -50,6 +50,7 @@ public interface ShoppingListDao {
             "SUM(CASE WHEN li.isChecked = 1 THEN 1 ELSE 0 END) AS boughtItems " +
             "FROM shopping_lists sl " +
             "LEFT JOIN list_items li ON sl.id = li.listId " +
-            "GROUP BY sl.id, sl.name, sl.createdAt")
+            "GROUP BY sl.id, sl.name, sl.createdAt " +
+            "ORDER BY sl.createdAt, sl.id ")
     Flowable<List<ShoppingListWithProgressDto>> getAllLists();
 }

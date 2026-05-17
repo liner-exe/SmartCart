@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,14 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.liner_exe.domain.models.Category;
-import com.liner_exe.smartcart.App;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.CategoriesManagementAdapter;
 import com.liner_exe.smartcart.databinding.FragmentCategoriesManagementBinding;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

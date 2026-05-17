@@ -24,6 +24,7 @@ import com.liner_exe.domain.models.Store;
 import com.liner_exe.domain.utils.QuantityCalculator;
 import com.liner_exe.domain.utils.formatters.QuantityFormatter;
 import com.liner_exe.domain.utils.validators.PriceValidator;
+import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.BottomSheetEditListItemBinding;
 import com.liner_exe.smartcart.fragments.FragmentListDirections;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
@@ -94,11 +95,14 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         binding.liEditPriceEditText.setText(PriceValidator.format(listItem.getPrice()));
         binding.liEditMeasureUnitEditText.setText(listItem.getUnit());
 
+        binding.liEditPriceInputLayout.setHint(getString(R.string.list_item_edit_price_per_unit,
+                listItem.getUnit()));
+
         categoryViewModel.selectedCategory.observe(getViewLifecycleOwner(), category -> {
             if (category != null) {
                 binding.liEditCategoryName.setText(category.getEmoji() + " " + category.getName());
             } else {
-                binding.liEditCategoryName.setText("Не указана");
+                binding.liEditCategoryName.setText(getString(R.string.list_item_no_category));
             }
         });
 
@@ -106,7 +110,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
             if (store != null) {
                 binding.liEditStoreName.setText(store.getName());
             } else {
-                binding.liEditStoreName.setText("Не выбран");
+                binding.liEditStoreName.setText(getString(R.string.list_item_no_store));
             }
         });
 
@@ -165,7 +169,7 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
             dismiss();
         });
 
-        bindTextWatcher();
+        bindTextWatchers();
     }
 
     private void handleArguments() {
@@ -227,20 +231,37 @@ public class ListItemEditSheet extends BottomSheetDialogFragment {
         return true;
     }
 
-    private void bindTextWatcher() {
+    private void bindTextWatchers() {
+        binding.liEditMeasureUnitEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                binding.liEditPriceInputLayout.setHint(
+                        getString(R.string.list_item_edit_price_per_unit, s)
+                );
+            }
+        });
+
         TextWatcher totalPriceUpdateTextWatcher = new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {}
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
                 String priceInput = binding.liEditPriceEditText.getText().toString();
 
                 if (!priceInput.isEmpty() && !PriceValidator.isValid(priceInput)) {
-                    binding.liEditPriceInputLayout.setError("Формат 99.99 или 9.9");
+                    binding.liEditPriceInputLayout.setError(
+                            getString(R.string.list_item_edit_default_price_format_error)
+                    );
                 } else {
                     binding.liEditPriceInputLayout.setError(null);
                 }

@@ -1,6 +1,8 @@
 package com.liner_exe.smartcart.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +77,28 @@ public class CategoryEditFragment extends Fragment {
             binding.etCategoryEditName.setText(category.getName());
             binding.etCategoryEditName.setSelection(category.getName().length());
         }
+
+        binding.etCategoryEditName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                validateFields();
+            }
+        });
     }
 
     private void setupFab() {
+        validateFields();
+
         binding.fabDoneCategory.setOnClickListener(v -> {
             if (category == null || (!category.getName().isEmpty() && !category.getEmoji().isEmpty())) {
+                if (!binding.fabDoneCategory.isClickable()) return;
+
                 saveCategory();
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
@@ -119,9 +138,14 @@ public class CategoryEditFragment extends Fragment {
             @Override
             public @NonNull WindowInsetsCompat onProgress(@NonNull WindowInsetsCompat insets, @NonNull List<WindowInsetsAnimationCompat> runningAnimations) {
                 int keyboardHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+                int defaultMargin = Utils.convertDpToPx(16);
 
-                float margin = keyboardHeight - Utils.convertDpToPx(16);
-                binding.fabDoneCategory.setTranslationY(-margin);
+                if (keyboardHeight > defaultMargin) {
+                    float translationY = keyboardHeight - defaultMargin;
+                    binding.fabDoneCategory.setTranslationY(-translationY);
+                } else {
+                    binding.fabDoneCategory.setTranslationY(0);
+                }
 
                 return insets;
             }
@@ -133,9 +157,9 @@ public class CategoryEditFragment extends Fragment {
     private void setupEmojiPicker() {
         binding.emojiPickerCategoryEdit.setOnEmojiPickedListener(item -> {
             String selectedEmoji = item.getEmoji();
-
-
             binding.ilCategoryEditName.setPrefixText(selectedEmoji + " ");
+
+            validateFields();
         });
     }
 
@@ -154,6 +178,22 @@ public class CategoryEditFragment extends Fragment {
                     .withEndAction(this::setupEmojiPicker)
                     .start();
         });
+    }
+
+    private void validateFields() {
+        Editable nameInput = binding.etCategoryEditName.getText();
+        String name = nameInput != null ? nameInput.toString().trim() : "";
+
+        CharSequence prefix = binding.ilCategoryEditName.getPrefixText();
+        String emoji = prefix != null ? prefix.toString().trim() : "";
+
+        boolean isValid = !name.isEmpty() && !emoji.isEmpty();
+        binding.fabDoneCategory.setClickable(isValid);
+        binding.fabDoneCategory.setAlpha(isValid ? 1.0f : 0.5f);
+
+        if (isValid) {
+            binding.ilCategoryEditName.setError(null);
+        }
     }
 
     private void saveCategory() {

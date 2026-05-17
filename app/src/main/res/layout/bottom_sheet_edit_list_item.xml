@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:hint="Название продукта"
+            android:hint="@string/list_item_edit_product_name"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +31,12 @@
                 android:id="@+id/li_edit_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Банан"
+                tools:text="@string/list_item_edit_product_name"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:maxLines="1"
-                android:singleLine="true"></com.google.android.material.textfield.TextInputEditText>
+                android:singleLine="true">
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Количество"
+            android:hint="@string/list_item_edit_quantity"
             app:expandedHintEnabled="false"
 
             app:layout_constraintHorizontal_weight="1"
@@ -55,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="numberDecimal"
-                android:gravity="end"></com.google.android.material.textfield.TextInputEditText>
+                android:gravity="end">
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
-            android:hint="Ед. измерения"
+            android:hint="@string/list_item_edit_unit"
             app:expandedHintEnabled="false"
 
             app:layout_constraintHorizontal_weight="1"
@@ -76,7 +79,8 @@
                 android:id="@+id/li_edit_measure_unit_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"></com.google.android.material.textfield.TextInputEditText>
+                android:inputType="text">
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -91,7 +95,8 @@
             app:layout_constraintBottom_toBottomOf="@id/li_edit_measure_unit_input_layout"
             app:layout_constraintStart_toEndOf="@id/li_edit_measure_unit_input_layout"
             app:layout_constraintTop_toTopOf="@id/li_edit_measure_unit_input_layout"
-            app:layout_constraintEnd_toStartOf="@id/li_edit_button_plus"></com.google.android.material.button.MaterialButton>
+            app:layout_constraintEnd_toStartOf="@id/li_edit_button_plus">
+        </com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/li_edit_button_plus"
@@ -105,14 +110,15 @@
             app:layout_constraintBottom_toBottomOf="@id/li_edit_measure_unit_input_layout"
             app:layout_constraintStart_toEndOf="@id/li_edit_button_minus"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/li_edit_measure_unit_input_layout"></com.google.android.material.button.MaterialButton>
+            app:layout_constraintTop_toTopOf="@id/li_edit_measure_unit_input_layout">
+        </com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/li_edit_price_input_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Цена за шт."
+            android:hint="@string/list_item_edit_price_per_unit"
             app:expandedHintEnabled="false"
 
             app:layout_constraintHorizontal_weight="1"
@@ -124,7 +130,8 @@
                 android:id="@+id/li_edit_price_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="numberDecimal"></com.google.android.material.textfield.TextInputEditText>
+                android:inputType="numberDecimal">
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -144,7 +151,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Всего"
+                android:text="@string/list_item_edit_price_total"
                 android:textStyle="bold" />
 
             <TextView
@@ -185,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Категория"
+                        android:text="@string/list_item_edit_category"
                         android:textStyle="bold"
                         android:textSize="14sp">
                     </TextView>
@@ -224,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Магазин"
+                        android:text="@string/list_item_edit_store"
                         android:textStyle="bold"
                         android:textSize="14sp">
                     </TextView>
