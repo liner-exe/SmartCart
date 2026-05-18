@@ -72,7 +72,7 @@ public interface ListItemDao {
     )
     Flowable<List<CategoryProgressDto>> getExpensesGroupedByCategory();
 
-    @Query("SELECT SUM(quantity * price) FROM list_items WHERE listId = :listId")
+    @Query("SELECT SUM(quantity * price) FROM list_items WHERE listId = :listId AND isChecked = 1")
     Flowable<Double> getListTotalSum(int listId);
 
     @Query("SELECT " +
