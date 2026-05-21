@@ -81,7 +81,7 @@ public class StoreSelectionFragment extends Fragment {
         });
 
         binding.toolbar.setNavigationOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            NavHostFragment.findNavController(this).popBackStack();
         });
     }
 
@@ -92,7 +92,7 @@ public class StoreSelectionFragment extends Fragment {
 
         adapter.setOnItemClickListener((store, position) -> {
             storesViewModel.setSelectedStore(store);
-            requireActivity().getSupportFragmentManager().popBackStack();
+            NavHostFragment.findNavController(this).popBackStack();
         });
     }
 
