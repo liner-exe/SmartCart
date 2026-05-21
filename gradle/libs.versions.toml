@@ -17,6 +17,7 @@ rxandroid = "3.0.2"
 emoji2 = "1.6.0"
 safe-args = "2.9.8"
 splashscreen = "1.2.0"
+mp-android-chart = "3.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -41,6 +42,7 @@ androidx-emoji2-views = { group = "androidx.emoji2", name = "emoji2-views", vers
 androidx-emoji2-emojipicker = { group = "androidx.emoji2", name = "emoji2-emojipicker", version.ref = "emoji2" }
 androidx-emoji2-bundled = { group = "androidx.emoji2", name = "emoji2-bundled", version.ref = "emoji2" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+mp-android-chart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mp-android-chart" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

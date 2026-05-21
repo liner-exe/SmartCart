@@ -13,14 +13,16 @@ public class ShoppingListMapper {
                 dto.id,
                 dto.name,
                 dto.totalItems,
-                dto.boughtItems
+                dto.boughtItems,
+                dto.createdAt
         );
     }
 
     public static ShoppingListEntity toEntity(ShoppingList model) {
         return new ShoppingListEntity(
                 model.getId(),
-                model.getName()
+                model.getName(),
+                model.getCreatedAt()
         );
     }
 

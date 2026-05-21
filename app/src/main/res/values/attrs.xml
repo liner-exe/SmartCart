@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="SettingsItemButton">
         <attr name="itemText" format="string" />
+        <attr name="itemSubtitle" format="string" />
         <attr name="itemIcon" format="reference" />
         <attr name="itemColor" format="color" />
     </declare-styleable>

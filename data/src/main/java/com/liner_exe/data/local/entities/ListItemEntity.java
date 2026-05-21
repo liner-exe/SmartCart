@@ -2,6 +2,8 @@ package com.liner_exe.data.local.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 @Entity(
@@ -20,6 +22,13 @@ import androidx.room.PrimaryKey;
             childColumns = "productId",
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
+        ),
+        @ForeignKey(
+            entity = StoreEntity.class,
+            parentColumns = "id",
+            childColumns = "storeId",
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     }
 )
@@ -30,13 +39,33 @@ public class ListItemEntity {
     public int listId;
     public int productId;
 
-    public int quantity;
+    public Integer storeId;
+
+    public double quantity;
     public double price;
+    public String unit;
     public boolean isChecked;
 
-    public ListItemEntity(int listId, int productId) {
+    public ListItemEntity(int id, int listId, int productId) {
+        this.id = id;
         this.listId = listId;
         this.productId = productId;
         this.isChecked = false;
+        this.storeId = null;
+        this.quantity = 1.0;
+        this.unit = null;
+    }
+
+    @Ignore
+    public ListItemEntity(int id, int listId, int productId, Integer storeId,
+                          double quantity, double price, String unit, boolean isChecked) {
+        this.id = id;
+        this.listId = listId;
+        this.productId = productId;
+        this.storeId = storeId;
+        this.quantity = quantity;
+        this.price = price;
+        this.unit = unit;
+        this.isChecked = isChecked;
     }
 }

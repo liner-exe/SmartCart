@@ -66,6 +66,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_fragmentList_to_categorySelectionFragment"
+            app:destination="@id/categorySelectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragmentList_to_storeSelectionFragment"
+            app:destination="@id/storeSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsManagementFragment"
@@ -138,6 +148,13 @@
         <argument
             android:name="product"
             app:argType="com.liner_exe.domain.models.Product" />
+        <action
+            android:id="@+id/action_categorySelectionFragment_to_fragmentList"
+            app:destination="@id/fragmentList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/productAddFragment"
@@ -150,6 +167,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="listId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/storesManagementFragment"
@@ -162,5 +182,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeSelectionFragment"
+        android:name="com.liner_exe.smartcart.fragments.StoreSelectionFragment"
+        android:label="StoreSelectionFragment" >
+        <action
+            android:id="@+id/action_storeSelectionFragment_to_fragmentList"
+            app:destination="@id/fragmentList" />
+        <argument
+            android:name="listItem"
+            app:argType="com.liner_exe.domain.models.ListItem" />
     </fragment>
 </navigation>

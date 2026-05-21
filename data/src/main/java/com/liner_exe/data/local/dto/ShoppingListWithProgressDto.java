@@ -14,4 +14,7 @@ public class ShoppingListWithProgressDto {
 
     @ColumnInfo(name = "boughtItems")
     public int boughtItems;
+
+    @ColumnInfo(name = "createdAt")
+    public long createdAt;
 }

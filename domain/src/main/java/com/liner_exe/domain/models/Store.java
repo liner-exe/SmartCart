@@ -1,5 +1,6 @@
 package com.liner_exe.domain.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Store implements DiffIdentifiable {
@@ -9,6 +10,11 @@ public class Store implements DiffIdentifiable {
     public Store(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Store(String name) {
+        this.name = name;
+        this.id = 0;
     }
 
     @Override

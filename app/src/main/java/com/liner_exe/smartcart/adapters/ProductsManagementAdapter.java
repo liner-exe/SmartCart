@@ -21,9 +21,7 @@ public class ProductsManagementAdapter
         extends BaseAdapter<Product, ItemProductBinding> {
     public interface OnProductActionListener {
         void onEdit(Product product);
-
         void onRename(Product product);
-
         void onDelete(Product product);
     }
 
@@ -47,6 +45,7 @@ public class ProductsManagementAdapter
 
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             int id = menuItem.getItemId();
+
             if (id == R.id.action_edit_product) {
                 listener.onEdit(product);
                 return true;
@@ -67,8 +66,6 @@ public class ProductsManagementAdapter
     @Override
     protected void bind(ItemProductBinding binding, Product product) {
         binding.productItemTitle.setText(product.getName());
-        binding.productItemButtonMore.setOnClickListener(v -> {
-            showPopupMenu(v, product);
-        });
+        binding.productItemButtonMore.setOnClickListener(v -> showPopupMenu(v, product));
     }
 }

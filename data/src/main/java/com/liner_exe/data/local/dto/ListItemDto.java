@@ -15,15 +15,27 @@ public class ListItemDto {
     @ColumnInfo(name = "categoryId")
     public Integer categoryId;
 
+    @ColumnInfo(name = "storeId")
+    public Integer storeId;
+
     @ColumnInfo(name = "productName")
     public String productName;
 
     @ColumnInfo(name = "quantity")
-    public int quantity;
+    public double quantity;
 
     @ColumnInfo(name = "price")
-    public int price;
+    public double price;
+
+    @ColumnInfo(name = "unit")
+    public String unit;
 
     @ColumnInfo(name = "isChecked")
     public boolean isChecked;
+
+    @ColumnInfo(name = "categoryName")
+    public String categoryName;
+
+    @ColumnInfo(name = "categoryEmoji")
+    public String categoryEmoji;
 }

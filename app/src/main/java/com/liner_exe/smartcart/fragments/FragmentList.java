@@ -12,12 +12,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.liner_exe.domain.enums.Currency;
 import com.liner_exe.domain.models.ListItem;
+import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
-import com.liner_exe.smartcart.viewmodel.ShoppingListDetailsViewModel;
+import com.liner_exe.smartcart.modal.ListItemEditSheet;
+import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
+import com.liner_exe.smartcart.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -25,7 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentList extends Fragment {
     private FragmentListBinding binding;
     private ListItemAdapter adapter;
-    private ShoppingListDetailsViewModel viewModel;
+    private ListItemsViewModel listItemsViewModel;
+    private SettingsViewModel settingsViewModel;
     private String listName;
     private int listId;
 
@@ -33,7 +37,6 @@ public class FragmentList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentListBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 
@@ -41,43 +44,106 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ShoppingListDetailsViewModel.class);
+        listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
+        listItemsViewModel.setSortByCategory(false);
+
+        listItemsViewModel.resetTotalSum();
+
+        handleArguments();
+
+        setupToolbar();
+        setupSortChips();
+        setupRecyclerView();
+        setupFab();
+        setupTotalSum();
+
+        observeViewModel();
+    }
+
+    private void handleArguments() {
         if (getArguments() != null) {
             FragmentListArgs args = FragmentListArgs.fromBundle(getArguments());
 
             listName = args.getListName();
             listId = args.getListId();
 
-            viewModel.setCurrentListId(listId);
+            listItemsViewModel.setCurrentListId(listId);
         }
+    }
 
+    private void setupToolbar() {
         binding.listAppBar.setNavigationOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
-        RecyclerView recyclerView = binding.recyclerViewListItems;
+        binding.listAppBar.setTitle(listName);
+    }
+
+    private void setupSortChips() {
+        binding.chipGroupSort.setOnCheckedStateChangeListener(((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) return;
+
+            int checkedId = checkedIds.get(0);
+            if (checkedId == R.id.chip_sort_default) {
+                listItemsViewModel.setSortByCategory(false);
+            } else if (checkedId == R.id.chip_sort_category) {
+                listItemsViewModel.setSortByCategory(true);
+            }
+        }));
+    }
+
+    private void setupRecyclerView() {
         adapter = new ListItemAdapter(new ListItemAdapter.OnListItemActionListener() {
             @Override
             public void onCheckbox(ListItem listItem) {
-                viewModel.toggleItemStatus(listItem);
+                listItemsViewModel.toggleItemStatus(listItem);
+            }
+
+            @Override
+            public void onEdit(ListItem listItem) {
+                ListItemEditSheet.newInstance(listItem)
+                        .show(getChildFragmentManager(),
+                        "ListItemEdit");
+            }
+
+            @Override
+            public void onDelete(ListItem listItem) {
+                listItemsViewModel.deleteListItemById(listItem.getId(), listId, listItem.getProduct().getId());
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
 
-        viewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
-            if (newListItems != null) {
-                adapter.setItems(newListItems);
-            }
+        binding.rvListItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvListItems.setAdapter(adapter);
+
+        adapter.setOnItemClickListener((listItem, position) -> {
+            ListItemEditSheet.newInstance(listItem)
+                    .show(getChildFragmentManager(),
+                            "ListItemEdit");
         });
+    }
 
-        binding.listAppBar.setTitle(listName);
-
+    private void setupFab() {
         binding.fabAddListItem.setOnClickListener(v -> {
             NavDirections action = FragmentListDirections
-                    .actionFragmentListToProductAddFragment();
+                    .actionFragmentListToProductAddFragment(listId);
             NavHostFragment.findNavController(this).navigate(action);
+        });
+    }
+
+    private void setupTotalSum() {
+        listItemsViewModel.totalSum.observe(getViewLifecycleOwner(), totalSum -> {
+            Currency currency = settingsViewModel.currency.getValue();
+            String totalText = currency != null ? currency.format(totalSum) : "";
+
+            binding.textListTotalSum.setText(totalText);
+        });
+    }
+
+    private void observeViewModel() {
+        listItemsViewModel.listItems.observe(getViewLifecycleOwner(), newListItems -> {
+            adapter.setItems(newListItems);
         });
     }
 }

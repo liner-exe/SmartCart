@@ -5,9 +5,7 @@ import java.util.Objects;
 
 public class Category implements Serializable, DiffIdentifiable {
     private final int id;
-
     private final String name;
-
     private final String emoji;
 
     public Category(int id, String name, String emoji) {
@@ -17,11 +15,12 @@ public class Category implements Serializable, DiffIdentifiable {
     }
 
     public Category(String name, String emoji) {
+        this.id = 0;
         this.name = name;
         this.emoji = emoji;
-        this.id = 0;
     }
 
+    @Override
     public int getId() {
         return id;
     }

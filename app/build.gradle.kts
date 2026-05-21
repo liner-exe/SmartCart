@@ -12,8 +12,8 @@ android {
         applicationId = "com.liner_exe.smartcart"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 10
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.androidx.emoji2.bundled)
 
     implementation(libs.splashscreen)
+
+    implementation(libs.mp.android.chart)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
