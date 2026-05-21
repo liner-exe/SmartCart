@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentMainBinding;
+import com.liner_exe.smartcart.utils.ThemeUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -33,6 +34,12 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ThemeUtils.setSystemBarsFromAttributes(
+                requireActivity().getWindow(),
+                com.google.android.material.R.attr.colorSurfaceContainer,
+                com.google.android.material.R.attr.colorSurfaceContainer
+        );
 
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager()
                 .findFragmentById(R.id.tabs_nav_host);

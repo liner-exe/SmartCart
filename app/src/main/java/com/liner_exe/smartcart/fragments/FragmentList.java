@@ -19,6 +19,7 @@ import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.ListItemAdapter;
 import com.liner_exe.smartcart.databinding.FragmentListBinding;
 import com.liner_exe.smartcart.modal.ListItemEditSheet;
+import com.liner_exe.smartcart.utils.ThemeUtils;
 import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 import com.liner_exe.smartcart.viewmodel.SettingsViewModel;
 
@@ -34,7 +35,7 @@ public class FragmentList extends Fragment {
     private int listId;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentListBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -44,12 +45,16 @@ public class FragmentList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ThemeUtils.setSystemBarsFromAttributes(
+                requireActivity().getWindow(),
+                com.google.android.material.R.attr.colorSurfaceContainer,
+                com.google.android.material.R.attr.colorSurface
+        );
+
         listItemsViewModel = new ViewModelProvider(requireActivity()).get(ListItemsViewModel.class);
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
         listItemsViewModel.setSortByCategory(false);
-
-        listItemsViewModel.resetTotalSum();
 
         handleArguments();
 

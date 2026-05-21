@@ -12,8 +12,8 @@ android {
         applicationId = "com.liner_exe.smartcart"
         minSdk = 29
         targetSdk = 35
-        versionCode = 11
-        versionName = "1.0.1"
+        versionCode = 12
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

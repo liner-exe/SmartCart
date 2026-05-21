@@ -1,7 +1,6 @@
 package com.liner_exe.smartcart.viewmodel;
 
 import android.util.Log;
-import android.util.Pair;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -53,10 +52,6 @@ public class ListItemsViewModel extends BaseViewModel {
 
     public void setSortByCategory(boolean sortByCategory) {
         _sortByCategory.onNext(sortByCategory);
-    }
-
-    public void resetTotalSum() {
-        _totalSum.postValue(0.0);
     }
 
     public void deleteListItemById(int itemId, int listId, int productId) {
