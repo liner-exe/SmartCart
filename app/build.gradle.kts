@@ -33,6 +33,22 @@ android {
         }
     }
 
+    applicationVariants.all {
+        val variant = this
+        variant.outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            if (variant.buildType.name == "release") {
+                val apkName = "SmartCart-v${variant.versionName}.apk"
+                output.outputFileName = apkName
+            }
+
+            if (variant.buildType.name == "debug") {
+                val apkName = "SmartCart-v${variant.versionName}-debug.apk"
+                output.outputFileName = apkName
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

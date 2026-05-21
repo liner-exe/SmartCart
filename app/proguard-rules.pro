@@ -1,21 +1,20 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-keep class com.liner_exe.smartcart.** { *; }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keep class * extends androidx.fragment.app.Fragment { *; }
+-keep public class * extends androidx.activity.ComponentActivity
+-keep public class * extends androidx.lifecycle.ViewModel
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keep class androidx.navigation.** { *; }
+-keep interface androidx.navigation.** { *; }
+-keep class * extends androidx.navigation.Navigator
+-keep class * extends androidx.navigation.NavArgs
+-keep class * implements java.io.Serializable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.**
+
+-keep class com.liner_exe.data.local.entities.** { *; }
+
+-keep class * extends androidx.databinding.ViewDataBinding
+-dontwarn androidx.databinding.**
+-keep class **.databinding.** { *; }
