@@ -49,6 +49,8 @@ public class FragmentList extends Fragment {
 
         listItemsViewModel.setSortByCategory(false);
 
+        listItemsViewModel.resetTotalSum();
+
         handleArguments();
 
         setupToolbar();

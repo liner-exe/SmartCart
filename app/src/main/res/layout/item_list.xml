@@ -28,9 +28,9 @@
                 android:id="@+id/text_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Название продукта"
+                tools:text="ProductName"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
             
             <LinearLayout
@@ -45,21 +45,24 @@
                     android:layout_height="wrap_content"
                     tools:text="1 шт."
                     android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="?colorOnSurfaceVariant" />
 
                 <TextView
                     android:id="@+id/text_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     tools:text="Fruits"
+                    android:textSize="11sp"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+
                     android:layout_marginStart="8dp"
                     android:paddingHorizontal="6dp"
                     android:paddingVertical="2dp"
-                    android:textSize="11sp"
+
 
                     android:background="@drawable/rounded_layout"
-                    android:backgroundTint="@color/black">
-
+                    android:backgroundTint="?attr/colorTertiaryContainer">
                 </TextView>
             </LinearLayout>
 
@@ -74,7 +77,7 @@
             android:src="@drawable/more"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/action_delete"
-            app:tint="@color/black" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
     </LinearLayout>
 </layout>

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import static com.google.android.material.R.attr;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -24,6 +25,7 @@ import com.liner_exe.domain.models.monitoring.CategoryProgress;
 import com.liner_exe.domain.models.monitoring.StoreProgress;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.databinding.FragmentMonitoringBinding;
+import com.liner_exe.smartcart.utils.ThemeUtils;
 import com.liner_exe.smartcart.viewmodel.MonitoringViewModel;
 import com.liner_exe.smartcart.viewmodel.SettingsViewModel;
 
@@ -59,46 +61,50 @@ public class FragmentMonitoring extends Fragment {
     }
 
     private void setupPieChart() {
+        int textColor = ThemeUtils.getThemeColor(requireContext(), attr.colorOnSurface);
+
         PieChart pieChart = binding.pieChart;
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5, 10, 5, 5);
 
         pieChart.setNoDataText(getString(R.string.monitoring_pie_error_message));
-        pieChart.setNoDataTextColor(Color.WHITE);
+        pieChart.setNoDataTextColor(textColor);
 
         pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.parseColor("#1E1E1E"));
+        pieChart.setHoleColor(Color.TRANSPARENT);
         pieChart.setTransparentCircleRadius(61f);
 
         pieChart.setCenterText(getString(R.string.monitoring_pie_title));
-        pieChart.setCenterTextColor(Color.WHITE);
+        pieChart.setCenterTextColor(textColor);
         pieChart.setCenterTextSize(16f);
 
         pieChart.getLegend().setEnabled(true);
-        pieChart.getLegend().setTextColor(Color.WHITE);
+        pieChart.getLegend().setTextColor(textColor);
         pieChart.animateY(1000, Easing.EaseInOutQuad);
     }
 
     private void setupStoresPieChart() {
+        int textColor = ThemeUtils.getThemeColor(requireContext(), attr.colorOnSurface);
+
         PieChart pieChart = binding.pieChartStores;
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5, 10, 5, 5);
 
         pieChart.setNoDataText(getString(R.string.monitoring_pie_error_message));
-        pieChart.setNoDataTextColor(Color.WHITE);
+        pieChart.setNoDataTextColor(textColor);
 
         pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.parseColor("#1E1E1E"));
+        pieChart.setHoleColor(Color.TRANSPARENT);
         pieChart.setTransparentCircleRadius(61f);
 
         pieChart.setCenterText(getString(R.string.monitoring_pie_stores_title));
-        pieChart.setCenterTextColor(Color.WHITE);
+        pieChart.setCenterTextColor(textColor);
         pieChart.setCenterTextSize(16f);
 
         pieChart.getLegend().setEnabled(true);
-        pieChart.getLegend().setTextColor(Color.WHITE);
+        pieChart.getLegend().setTextColor(textColor);
         pieChart.animateY(1000, Easing.EaseInOutQuad);
     }
 
@@ -177,4 +183,6 @@ public class FragmentMonitoring extends Fragment {
             binding.pieChartStores.invalidate();
         });
     }
+
+
 }

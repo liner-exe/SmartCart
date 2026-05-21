@@ -28,7 +28,7 @@
             android:id="@+id/product_edit_name_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="?colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/drag_handle"

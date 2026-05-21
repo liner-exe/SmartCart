@@ -12,15 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
+import static com.google.android.material.R.attr;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.liner_exe.domain.models.ListItem;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.StoreSelectionAdapter;
 import com.liner_exe.smartcart.databinding.FragmentStoreSelectionBinding;
+import com.liner_exe.smartcart.utils.ThemeUtils;
 import com.liner_exe.smartcart.viewmodel.ListItemsViewModel;
 import com.liner_exe.smartcart.viewmodel.StoresViewModel;
 
@@ -62,6 +64,13 @@ public class StoreSelectionFragment extends Fragment {
 
     private void setupToolbar() {
         binding.toolbar.inflateMenu(R.menu.store_selection_menu);
+        MenuItem itemMore = binding.toolbar.getMenu().findItem(R.id.action_more);
+
+        if (itemMore != null && itemMore.getIcon() != null) {
+            itemMore.getIcon().mutate().setTint(
+                    ThemeUtils.getThemeColor(requireContext(), attr.colorOnSurface)
+            );
+        }
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_reset_store) {

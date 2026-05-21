@@ -18,7 +18,7 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/info"
             android:contentDescription="@string/app_name"
-            app:tint="@color/black" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 tools:text="@string/app_name"/>
@@ -40,8 +40,9 @@
                 android:id="@+id/settings_item_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp"
-                tools:text="Ваооаоа">
+                tools:text="Description">
             </TextView>
         </LinearLayout>
     </LinearLayout>

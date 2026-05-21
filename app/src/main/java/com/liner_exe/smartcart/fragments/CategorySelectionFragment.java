@@ -4,30 +4,28 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.liner_exe.domain.models.Product;
 import com.liner_exe.smartcart.R;
 import com.liner_exe.smartcart.adapters.CategorySelectionAdapter;
 import com.liner_exe.smartcart.databinding.FragmentCategorySelectionBinding;
+import com.liner_exe.smartcart.utils.ThemeUtils;
 import com.liner_exe.smartcart.viewmodel.CategoryViewModel;
-import com.liner_exe.smartcart.viewmodel.ProductViewModel;
 
 public class CategorySelectionFragment extends Fragment {
     private FragmentCategorySelectionBinding binding;
     private CategorySelectionAdapter adapter;
-    private ProductViewModel productViewModel;
     private CategoryViewModel categoryViewModel;
     private Product product;
 
@@ -42,7 +40,6 @@ public class CategorySelectionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
 
         handleArguments();
@@ -62,6 +59,13 @@ public class CategorySelectionFragment extends Fragment {
 
     private void setupToolbar() {
         binding.toolbar.inflateMenu(R.menu.category_selection_menu);
+        MenuItem itemMore = binding.toolbar.getMenu().findItem(R.id.action_more);
+
+        if (itemMore != null && itemMore.getIcon() != null) {
+            itemMore.getIcon().mutate().setTint(
+                    ThemeUtils.getThemeColor(requireContext(), com.google.android.material.R.attr.colorOnSurface)
+            );
+        }
 
         binding.toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_reset_category) {

@@ -5,13 +5,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/black"
+        android:background="?attr/colorSurface"
         tools:context=".fragments.CategoryEditFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorSurfaceContainer"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:title="@string/category_add"
-                app:navigationIcon="@drawable/arrow_back">
+                app:titleTextColor="?attr/colorOnSurface"
+                app:navigationIcon="@drawable/arrow_back"
+                app:navigationIconTint="?attr/colorOnSurface">
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 

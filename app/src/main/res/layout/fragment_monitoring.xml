@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
 
-            android:background="?attr/android:colorBackground">
+            android:background="?attr/colorSurface">
             <TextView
                 android:id="@+id/text_monitoring_title"
                 android:layout_width="wrap_content"

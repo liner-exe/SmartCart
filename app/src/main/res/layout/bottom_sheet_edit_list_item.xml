@@ -20,7 +20,7 @@
             android:id="@+id/li_edit_name_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="?colorOnSurface"
             android:hint="@string/list_item_edit_product_name"
 
             app:layout_constraintStart_toStartOf="parent"

@@ -55,6 +55,10 @@ public class ListItemsViewModel extends BaseViewModel {
         _sortByCategory.onNext(sortByCategory);
     }
 
+    public void resetTotalSum() {
+        _totalSum.postValue(0.0);
+    }
+
     public void deleteListItemById(int itemId, int listId, int productId) {
         executeCompletable(repository.deleteById(itemId, listId, productId),
                 "deleteListItemById");

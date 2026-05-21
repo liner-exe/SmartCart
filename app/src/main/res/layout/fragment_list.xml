@@ -6,19 +6,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/white"
+        android:background="?attr/colorSurface"
         tools:context=".fragments.FragmentList">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+            style="@style/Widget.SmartCart.AppBarLayout">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/list_app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:title="{listName}"
-                app:navigationIcon="@drawable/arrow_back">
+                app:titleTextColor="?attr/colorOnSurface"
+                app:navigationIcon="@drawable/arrow_back"
+                app:navigationIconTint="?attr/colorOnSurface">
             </com.google.android.material.appbar.MaterialToolbar>
 
             <com.google.android.material.chip.ChipGroup
@@ -32,7 +36,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_sort_default"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="По умолчанию"
@@ -40,7 +44,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_sort_category"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="По категориям" />
@@ -83,10 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
 
-                app:cardBackgroundColor="@color/black"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
                 app:cardCornerRadius="20dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#ECEFF1"
+                app:strokeWidth="0dp"
+
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_below="@id/fab_add_list_item">
@@ -103,7 +107,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/list_total_summary"
                         android:textSize="18sp"
-                        android:textStyle="bold">
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurfaceVariant">
                     </TextView>
 
                     <TextView
@@ -112,7 +117,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         tools:text="$ 100"
-                        android:textSize="20sp">
+                        android:textSize="20sp"
+                        android:textColor="?attr/colorOnSurface">
                     </TextView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:cardBackgroundColor="#1A2A3A"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
         app:strokeWidth="0dp"
         app:cardCornerRadius="16dp"
 
@@ -24,9 +25,9 @@
                 android:id="@+id/product_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
-                android:text="Product" />
+                tools:text="Product" />
 
             <Space
                 android:layout_width="0dp"
@@ -41,8 +42,7 @@
                 android:src="@drawable/more"
                 android:scaleType="fitCenter"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:backgroundTint="#00FFFFFF"
-                app:tint="@color/white" />
+                app:tint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
