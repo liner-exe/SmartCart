@@ -1,0 +1,99 @@
+name: Build and Publish SmartCart Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Extract Version from build.gradle
+      id: get_version
+      run: |
+        VERSION=$(grep "versionName" app/build.gradle | awk -F "'" '{print $2}' | xargs)
+        if [ -z "$VERSION" ]; then
+          VERSION=$(grep "versionName" app/build.gradle.kts | awk -F '"' '{print $2}' | xargs)
+        fi
+        echo "version=v$VERSION" >> $GITHUB_OUTPUT
+        echo "Found app version: v$VERSION"
+
+    - name: Create Git Tag
+      id: create_tag
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const tag = "${{ steps.get_version.outputs.version }}"
+          try {
+            await github.rest.git.getRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `tags/${tag}
+            });
+
+            console.log(`Tag ${tag} already exists. Skipping tag creation.`);
+            core.setOutput("exists", "true");
+          } catch (error) {
+            if (error.status === 404) {
+              console.log(`Creating new tag: ${tag}`);
+              
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/tags/${tag}`,
+                sha: context.sha
+              });
+
+              core.setOutput("exists", "false");
+            } else {
+              throw error;
+            }
+          }
+
+    - name: Set up JDK 17
+      if: steps.create_tag.outputs.exists == 'false'
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'gradle'
+
+    - name: Grant execute permission for gradlew
+      if: steps.create_tag.outputs.exists == 'false'
+      run: chmod +x gradlew
+
+    - name: Build Release APK
+      if: steps.create_tag.outputs.exists == 'false'
+      run: ./gradlew assembleRelease
+
+    - name: Sign Android APK
+      if: steps.create_tag.outputs.exists == 'false'
+      id: sign_app
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+        alias: release
+        singleOp: true
+        keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+    - name: Upload to GitHub Releases
+      if: steps.create_tag.outputs.exists == 'false'
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.get_version.outputs.version }}
+        files: ${{ steps.sign_app.outputs.signedReleaseFile }}
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
