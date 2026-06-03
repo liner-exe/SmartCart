@@ -21,10 +21,12 @@ jobs:
     - name: Extract Version from build.gradle
       id: get_version
       run: |
-        VERSION=$(grep "versionName" app/build.gradle | awk -F "'" '{print $2}' | xargs)
+        VERSION=$(grep -E '^\s*versionName\s+' app/build.gradle | awk -F "['\"]" '{print $2}' | xargs)
+        
         if [ -z "$VERSION" ]; then
-          VERSION=$(grep "versionName" app/build.gradle.kts | awk -F '"' '{print $2}' | xargs)
+          VERSION=$(grep -E '^\s*versionName\s*=\s*' app/build.gradle.kts | awk -F "['\"]" '{print $2}' | xargs)
         fi
+        
         echo "version=v$VERSION" >> $GITHUB_OUTPUT
         echo "Found app version: v$VERSION"
 
