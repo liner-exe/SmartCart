@@ -55,6 +55,7 @@
     <string name="pm_empty_list_title">Product list is empty</string>
     <string name="cm_empty_list_title">Caterory list is empty</string>
     <string name="home_empty_list_title">You don\'t have shopping lists</string>
+    <string name="list_sort_category">By category</string>
     <string name="list_total_summary">Total</string>
     <string name="product_edit_product_name">Product name</string>
     <string name="product_edit_change_category">Change category</string>
@@ -99,4 +100,5 @@
     <string name="list_item_no_category">Not selected</string>
     <string name="ps_empty_list_title">No products</string>
     <string name="monitoring_categories_title">Expenses by category</string>
+    <string name="list_sort_default">By default</string>
 </resources>

@@ -118,6 +118,8 @@
     <string name="dialog_add_store_error_empty">Название не может быть пустым!</string>
     
     <!-- List -->
+    <string name="list_sort_default">По умолчанию</string>
+    <string name="list_sort_category">По категориям</string>
     <string name="list_total_summary">Итого</string>
 
     <!-- Product Edit Sheet -->

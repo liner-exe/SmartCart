@@ -39,7 +39,7 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="По умолчанию"
+                    android:text="@string/list_sort_default"
                     android:checked="true" />
 
                 <com.google.android.material.chip.Chip
@@ -47,7 +47,7 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="По категориям" />
+                    android:text="@string/list_sort_category" />
 
             </com.google.android.material.chip.ChipGroup>
         </com.google.android.material.appbar.AppBarLayout>
