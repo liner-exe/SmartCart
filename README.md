@@ -1,0 +1,1 @@
+# SmartCart [![Build and Publish SmartCart Release](https://github.com/liner-exe/SmartCart/actions/workflows/release.yml/badge.svg)](https://github.com/liner-exe/SmartCart/actions/workflows/release.yml)
